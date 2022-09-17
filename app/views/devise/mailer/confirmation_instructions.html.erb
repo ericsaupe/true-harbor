@@ -1,5 +1,7 @@
-<p>Welcome <%= @email %>!</p>
+<p>Dear <%= @email %>,</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>Welcome to the community! We still need you to confirm your email by clicking the link below:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p><%= link_to "Confirm my account", confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>If you are having problems seeing the button please contact our customer support at <a href="mailto:support@paylooza.com">support@paylooza.com</a>.</p>

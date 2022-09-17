@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TrueHarbor</title>
+    <title>True Harbor</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,10 +12,11 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-      <%= yield %>
+    <main class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-md w-full">
+        <%= yield %>
+        <%= render "devise/shared/links" %>
+      </div>
     </main>
   </body>
 </html>
