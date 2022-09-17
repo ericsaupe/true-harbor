@@ -8,6 +8,7 @@ ruby "3.1.2"
 gem "bootsnap", require: false
 gem "devise"
 gem "faker"
+gem "geocoder"
 gem "image_processing", "~> 1.2"
 gem "importmap-rails"
 gem "jbuilder"

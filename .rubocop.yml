@@ -18,3 +18,5 @@ Bundler/OrderedGems:
 Lint/MissingSuper:
   Exclude:
     - 'app/components/**/*'
+Rails/I18nLocaleTexts:
+  Enabled: false

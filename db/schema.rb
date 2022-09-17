@@ -10,9 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_17_185647) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_17_221528) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "families", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "address_1", null: false
+    t.string "address_2"
+    t.string "city", null: false
+    t.string "state", null: false
+    t.string "zip", null: false
+    t.string "phone", null: false
+    t.string "email", null: false
+    t.decimal "latitude", null: false
+    t.decimal "longitude", null: false
+    t.string "region", null: false
+    t.date "license_date"
+    t.integer "status", default: 0, null: false
+    t.integer "race"
+    t.integer "religion"
+    t.integer "family_interest", default: 0, null: false
+    t.boolean "other_children_in_home", default: false
+    t.integer "spots_available", default: 0
+    t.boolean "icwa", default: false
+    t.boolean "dogs", default: false
+    t.boolean "cats", default: false
+    t.boolean "other_animals", default: false
+    t.boolean "available_visit_transportation", default: false
+    t.boolean "available_school_transportation", default: false
+    t.boolean "available_counselor_transportation", default: false
+    t.boolean "available_multiple_appointments_per_week", default: false
+    t.text "recreational_activities"
+    t.text "skills"
+    t.text "experience_with_care"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

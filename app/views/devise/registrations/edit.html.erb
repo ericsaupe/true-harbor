@@ -68,4 +68,5 @@
   <% end %>
 
   <%= button_to "Delete my account", registration_path(resource_name), method: :delete, form: { data: { turbo_confirm: "Are you sure? This will unsubscribe you from all active subscriptions and any subscribers you have to your subscription plans." } }, class: "cursor-pointer bg-red-300 hover:bg-red-500 text-sm text-white font-bold py-1 px-2 rounded mt-2" %>
+  <p>Geolocation service provided by <%= link_to "Geoapify", "https://www.geoapify.com/" %>.</p>
 </div>
