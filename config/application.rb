@@ -14,5 +14,7 @@ module TrueHarbor
     config.generators do |g|
       g.test_framework :rspec
     end
+
+    config.view_component.generate.sidecar = true
   end
 end

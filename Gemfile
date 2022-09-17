@@ -17,6 +17,7 @@ gem "sprockets-rails"
 gem "stimulus-rails"
 gem "tailwindcss-rails"
 gem "turbo-rails", "~> 1.1.1"
+gem "view_component"
 
 group :development, :test do
   gem "debug", platforms: [:mri, :mingw, :x64_mingw]
