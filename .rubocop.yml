@@ -1,6 +1,8 @@
 inherit_gem:
   rubocop-shopify: rubocop.yml
-require: rubocop-rails
+require:
+  - rubocop-rails
+  - rubocop-rspec
 
 AllCops:
   Exclude:
@@ -10,3 +12,6 @@ AllCops:
     - 'bin/{rails,rake}'
     - !ruby/regexp /old_and_unused\.rb$/
   NewCops: enable
+
+Bundler/OrderedGems:
+  Enabled: true
