@@ -8,4 +8,8 @@ class User < ApplicationRecord
 
   encrypts :first_name, :last_name, deterministic: true
   encrypts :phone
+
+  def display_name
+    first_name && last_name ? "#{first_name} #{last_name}" : email
+  end
 end

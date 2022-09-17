@@ -1,6 +1,6 @@
 <div>
   <h1 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-    <%= title "Settings" %>
+    Settings
   </h1>
 </div>
 
@@ -10,21 +10,16 @@
     <div class="shadow sm:rounded-md sm:overflow-hidden">
       <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
         <div>
-          <%= f.label :name, "Name", class: "block font-medium text-gray-700" %>
+          <%= f.label :first_name, "First name", class: "block font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.text_field :name, class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-full border-gray-300 rounded-md" %>
-            <em class="mt-2 text-gray-500">Your name, what should we call you?</em>
+            <%= f.text_field :first_name, class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-full border-gray-300 rounded-md" %>
           </div>
         </div>
-        <div data-controller="file-input">
-          <%= f.label :profile_picture, class: "block font-medium text-gray-700" %>
-          <div class="mt-1 flex items-center">
-            <%= user_profile_picture(data: { "file-input-target": "image" }, class: "inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100") %>
-            <button type="button" data-action="click->file-input#clickField" class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-              Change
-            </button>
+        <div>
+          <%= f.label :last_name, "Last name", class: "block font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= f.text_field :last_name, class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-full border-gray-300 rounded-md" %>
           </div>
-          <%= f.file_field :profile_picture, accept: "image/*", class: "hidden", data: { "file-input-target": "field", action: "change->file-input#previewImage" } %>
         </div>
       </div>
       <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
@@ -72,93 +67,5 @@
     </div>
   <% end %>
 
-  <div>
-    <h3 id="payment-settings" class="mt-6 text-center text-2xl font-extrabold text-gray-900">Payment Settings</h3>
-  </div>
-  <div class="shadow sm:rounded-md sm:overflow-hidden mt-2">
-    <% if @current_user.payment_methods.present? %>
-      <div>
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-50">
-            <tr>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Name
-              </th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Last 4 Digits
-              </th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Type
-              </th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Subscriptions
-              </th>
-              <th scope="col" class="relative px-6 py-3">
-                <span class="sr-only">Actions</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-            <% @current_user.payment_methods.each do |payment_method| %>
-              <tr>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <%= payment_method.payment_type %>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <%= payment_method.last4 %>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <%= payment_method.type.underscore.humanize %>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <% payment_method.subscriptions.each do |subscription| %>
-                    <%= link_to subscription.subscription_plan.name, edit_subscription_path(subscription), class: "text-blue-600 hover:text-blue-900" %>
-                    <br>
-                  <% end %>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <% if payment_method.subscriptions.empty? %>
-                    <%= button_to payment_method_path(payment_method), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "cursor-pointer px-4 py-2 border border-gray-300 rounded-md shadow-sm text-red-600 hover:text-red-900" do %>
-                      <i class="fas fa-trash mr-2"></i> Delete
-                    <% end %>
-                  <% else %>
-                    <button class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-red-400" disabled><i class="fas fa-trash mr-2"></i> Delete</button>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    <% end %>
-    <div>
-      <% unless current_user.stripe_onboarded? %>
-        <div class="px-4 py-5 bg-white space-y-6 sm:p-6 flex justify-items-center">
-          <div class="flex-1">
-            <%= inline_svg_tag("onboarding.svg", class: "hidden lg:block lg:w-64 lg:h-64 m-auto") %>
-          </div>
-          <div class="flex-1 text-center">
-            <h2 class='text-xl text-center'>Finish onboarding to start getting paid</h2>
-            <%= link_to "Complete Onboarding", onboarding_path, class: "mt-2 w-full flex justify-center py-2 px-4 border border-transparent shadow-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer" %>
-          </div>
-        </div>
-      <% else %>
-        <div class="px-4 py-5 bg-white space-y-6 sm:p-6 flex justify-items-center">
-          <div class="flex-1">
-            <%= inline_svg_tag("onboarding_complete.svg", class: "hidden lg:block lg:w-64 lg:h-64 m-auto") %>
-          </div>
-          <div class="flex-1">
-            <p class='text-l text-center'><%= current_user.current_usage %> of <%= current_user.usage_limit %> transactions used</p>
-            <p class='text-l text-center'>Usage resets on <%= current_user.current_billing_period.last.strftime("%B %-e, %Y %l:%M %p") %></p>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div>
-    <h3 class="mt-6 text-center text-2xl font-extrabold text-gray-900">Cancel my account</h3>
-  </div>
-  <p>Unhappy? <%= link_to "Please let us know what we can do better", support_path, class: "text-blue-600 hover:text-blue-900" %> but if you still want to cancel use the button below.</p>
-  <%= button_to "Cancel my account", registration_path(resource_name), method: :delete, form: { data: { turbo_confirm: "Are you sure? This will unsubscribe you from all active subscriptions and any subscribers you have to your subscription plans." } }, class: "cursor-pointer bg-red-300 hover:bg-red-500 text-sm text-white font-bold py-1 px-2 rounded mt-2" %>
+  <%= button_to "Delete my account", registration_path(resource_name), method: :delete, form: { data: { turbo_confirm: "Are you sure? This will unsubscribe you from all active subscriptions and any subscribers you have to your subscription plans." } }, class: "cursor-pointer bg-red-300 hover:bg-red-500 text-sm text-white font-bold py-1 px-2 rounded mt-2" %>
 </div>

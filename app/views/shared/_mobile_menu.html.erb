@@ -1,0 +1,83 @@
+<div class="relative z-40 md:hidden" role="dialog" aria-modal="true">
+  <!--
+    Off-canvas menu backdrop, show/hide based on off-canvas menu state.
+
+    Entering: "transition-opacity ease-linear duration-300"
+      From: "opacity-0"
+      To: "opacity-100"
+    Leaving: "transition-opacity ease-linear duration-300"
+      From: "opacity-100"
+      To: "opacity-0"
+  -->
+  <div data-mobile-menu-target="backdrop" class="fixed inset-0 bg-gray-600 bg-opacity-0 -translate-x-full"></div>
+
+  <div data-mobile-menu-target="container" class="fixed inset-0 z-40 flex -translate-x-full">
+    <div class="relative flex w-full max-w-xs flex-1 flex-col bg-white">
+      <div class="absolute top-0 right-0 -mr-12 pt-2">
+        <button data-action="mobile-menu#closeMenu" type="button" class="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <span class="sr-only">Close sidebar</span>
+          <!-- Heroicon name: outline/x-mark -->
+          <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
+        <div class="flex flex-shrink-0 items-center px-4">
+          <%= image_tag "logo.png", class: "h-8 w-auto", alt: "True Harbor" %>
+        </div>
+        <nav class="mt-5 space-y-1 px-2">
+          <%= link_to root_path, class: "bg-gray-100 text-gray-900 group flex items-center px-2 py-2 text-base font-medium rounded-md" do %>
+            <svg class="text-gray-500 mr-4 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+            </svg>
+            Dashboard
+          <% end %>
+          <% if current_user %>
+            <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-base font-medium rounded-md" do %>
+              <svg class="text-gray-400 group-hover:text-gray-500 mr-4 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              Sign out
+            <% end %>
+          <% end %>
+        </nav>
+      </div>
+      <div class="flex flex-shrink-0 border-t border-gray-200 p-4">
+        <% if current_user %>
+          <%= link_to edit_user_registration_path, data: { turbo: false }, class: "group block flex-shrink-0" do %>
+            <div class="flex items-center">
+              <div>
+                <svg class="inline-block h-10 w-10 rounded-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <p class="text-base font-medium text-gray-700 group-hover:text-gray-900"><%= current_user.display_name %></p>
+                <p class="text-sm font-medium text-gray-500 group-hover:text-gray-700">View profile</p>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <%= link_to new_user_session_path, data: { turbo: false }, class: "group block flex-shrink-0" do %>
+            <div class="flex items-center">
+              <div>
+                <svg class="inline-block h-10 w-10 rounded-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <p class="text-sm font-medium text-gray-700 group-hover:text-gray-900">Sign In</p>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="w-14 flex-shrink-0">
+      <!-- Force sidebar to shrink to fit close icon -->
+    </div>
+  </div>
+</div>
