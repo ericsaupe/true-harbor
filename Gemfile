@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -17,7 +19,9 @@ gem "bootsnap", require: false
 gem "image_processing", "~> 1.2"
 
 group :development, :test do
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "debug", platforms: [:mri, :mingw, :x64_mingw]
+  gem "rubocop-rails", require: false
+  gem "rubocop-shopify", require: false
 end
 
 group :development do
