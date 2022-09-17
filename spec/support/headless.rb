@@ -16,7 +16,7 @@ end
 
 RSpec.configure do |config|
   config.before(:each, type: :system) do
-    if ENV.fetch("SHOW_TEST_BROWSER", false)
+    if ActiveModel::Type::Boolean.new.cast(ENV.fetch("SHOW_TEST_BROWSER", false))
       driven_by :selenium_chrome
     else
       driven_by :selenium_chrome_headless
