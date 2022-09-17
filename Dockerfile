@@ -93,7 +93,8 @@ RUN chmod +x /app/bin/* && \
     sed -i 's/ruby.exe/ruby/' /app/bin/* && \
     sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
 
-RUN bin/rails fly:build
+RUN --mount=type=secret,id=RAILS_MASTER_KEY \
+    RAILS_MASTER_KEY="$(cat /run/secrets/RAILS_MASTER_KEY)" bin/rails fly:build
 
 ENV PORT 8080
 
