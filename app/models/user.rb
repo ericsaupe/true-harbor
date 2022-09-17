@@ -5,4 +5,7 @@ class User < ApplicationRecord
     :recoverable, :rememberable, :validatable,
     :confirmable, :lockable, :timeoutable, :trackable,
     :omniauthable
+
+  encrypts :email, :first_name, :last_name, deterministic: true
+  encrypts :phone
 end

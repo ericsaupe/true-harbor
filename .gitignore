@@ -40,3 +40,5 @@ spec/examples.txt
 .env.test.local
 .env.production.local
 .env.production
+
+/config/credentials/production.key
