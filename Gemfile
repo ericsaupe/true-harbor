@@ -21,6 +21,7 @@ gem "turbo-rails", "~> 1.1.1"
 group :development, :test do
   gem "debug", platforms: [:mri, :mingw, :x64_mingw]
   gem "dotenv-rails"
+  gem "factory_bot_rails"
   gem "rspec-rails", "~> 4.0.2"
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
