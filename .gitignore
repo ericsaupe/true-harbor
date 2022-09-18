@@ -42,3 +42,4 @@ spec/examples.txt
 .env.production
 
 /config/credentials/production.key
+.byebug_history

@@ -27,8 +27,8 @@ class FamiliesController < AuthenticatedController
   def update
     if @family.update(family_params)
       respond_to do |format|
-        format.html  { redirect_to(@family, notice: "Successfully updated family.") }
-        format.json  { render json: @family }
+        format.html  { redirect_to(families_path, notice: "Successfully updated family.", status: :see_other) }
+        format.json  { render(json: @family) }
       end
     else
       render(action: "edit")
@@ -48,7 +48,7 @@ class FamiliesController < AuthenticatedController
 
   def family_params
     params.require(:family).permit(:name, :address_1, :address_2, :city, :state, :zip, :phone, :email, :region,
-      :license_date, :status, :race, :religion, :family_interest, :other_children_in_home, :spots_avialable, :icwa,
+      :license_date, :status, :race, :religion, :family_interest, :other_children_in_home, :spots_available, :icwa,
       :dogs, :cats, :other_animals, :available_visit_transportation, :available_school_transportation,
       :available_counselor_transportation, :available_multiple_appointments_per_week, :recreational_activities,
       :skills, :experience_with_care, :last_contacted_at)

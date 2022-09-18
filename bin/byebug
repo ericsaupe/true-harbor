@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "fileutils"
+
+# path to your application root.
+APP_ROOT = File.expand_path("..", __dir__)
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+FileUtils.chdir APP_ROOT do
+  byebug_command = "byebug -R localhost:#{ENV.fetch('BYEBUG_SERVER_PORT', 8989).to_i}"
+  puts byebug_command
+  system! byebug_command
+end

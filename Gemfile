@@ -25,7 +25,7 @@ gem "turbo-rails", "~> 1.1.1"
 gem "view_component"
 
 group :development, :test do
-  gem "debug", platforms: [:mri, :mingw, :x64_mingw]
+  gem "byebug"
   gem "dotenv-rails"
   gem "factory_bot_rails"
   gem "rspec-rails", "~> 4.0.2"

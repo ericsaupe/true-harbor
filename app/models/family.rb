@@ -18,6 +18,79 @@ class Family < ApplicationRecord
 
   after_update_commit { broadcast_replace_later_to :families_table, partial: "families/family_table_row" }
 
+  class << self
+    def recreational_activities
+      [
+        "Sports",
+        "Traveling",
+        "Camping / fishing",
+        "Family game/movie night",
+        "Video games",
+        "Horseback riding",
+        "Church / youth group",
+      ].sort
+    end
+
+    def regions
+      [
+        "1",
+      ]
+    end
+
+    def skills
+      [
+        "Trauma training",
+        "Medical degree /training",
+        "Spec. Ed degree/tutor/training",
+        "Counseling degree",
+        "Law enforcement",
+        "Bi-lingual",
+        "ASL",
+      ].sort
+    end
+
+    def experience_with_care
+      [
+        "Line of sight supervision",
+        "Attachment issues",
+        "RAD",
+        "Borderline personality disorder",
+        "Bipolar",
+        "Depression",
+        "Anxiety",
+        "ODD",
+        "Developmental delays",
+        "Medical hospitalizations",
+        "Behavioral hospitalizations",
+        "Sexual abuse",
+        "LGBTQ+",
+        "Transgender",
+        "Autism spectrum disorder",
+        "ADHD",
+        "Addiction",
+        "Disability / handicap",
+        "Bedwetting",
+        "Food issues / Eating disorders",
+        "Encopresis / Enuresis",
+        "Violence",
+        "Preemies / NICU / edically fragile / failure to thrive",
+        "Infants",
+        "Toddlers",
+        "Pre-school age children",
+        "School-age children",
+        "Teenagers",
+        "Drug affected",
+        "FASD",
+        "Special education / IEP / 504",
+        "Explosive behavior",
+        "Dysregulation",
+        "Sensory processing disorder",
+        "Blind",
+        "Deaf",
+      ].sort
+    end
+  end
+
   def address
     [address_1, address_2, city, zip, state].compact.join(", ")
   end
