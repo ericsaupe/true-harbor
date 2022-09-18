@@ -1,0 +1,52 @@
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <h1 class="text-xl font-semibold text-gray-900">Families</h1>
+    </div>
+    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+      <button type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add user</button>
+    </div>
+  </div>
+  <%= render(TableComponent.new()) do %>
+    <thead class="bg-gray-50">
+      <tr>
+        <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">Name</th>
+        <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">Phone</th>
+        <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">Email</th>
+        <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">Family Interest</th>
+        <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">Spots Available</th>
+        <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">Last Contacted At</th>
+        <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pr-4 pl-3 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">
+          <span class="sr-only">Edit</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="bg-white">
+      <% @families.each do |family| %>
+        <tr>
+          <%= render(TableDataComponent.new(position: "first")) do %>
+            <%= family.name %>
+          <% end %>
+          <%= render(TableDataComponent.new()) do %>
+            <%= phone_to(family.phone&.delete('^0-9'), family.phone, class: "text-blue-600 hover:text-blue-900") if family.phone %>
+          <% end %>
+          <%= render(TableDataComponent.new()) do %>
+            <%= mail_to(family.email, class: "text-blue-600 hover:text-blue-900") if family.email %>
+          <% end %>
+          <%= render(TableDataComponent.new()) do %>
+            <%= family.family_interest.titleize %>
+          <% end %>
+          <%= render(TableDataComponent.new()) do %>
+            <%= family.spots_available %>
+          <% end %>
+          <%= render(TableDataComponent.new()) do %>
+            <%= family.last_contacted_at&.strftime("%b %-d %Y, %l:%M %P") || "Never" %>
+          <% end %>
+          <%= render(TableDataComponent.new(position: "last")) do %>
+            <%= link_to "Edit", edit_family_path(family), class: "text-blue-600 hover:text-blue-900" %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</div>

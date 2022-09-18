@@ -13,8 +13,8 @@ class Family < ApplicationRecord
   serialize :recreational_activities, JSON
   serialize :skills, JSON
 
-  # geocoded_by :address
-  # after_validation :geocode
+  geocoded_by :address
+  after_validation :geocode
 
   def address
     [address_1, address_2, city, zip, state].compact.join(", ")
