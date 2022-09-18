@@ -4,7 +4,7 @@ class FamiliesController < AuthenticatedController
   before_action :find_family, only: [:show, :edit, :update, :destroy]
 
   def index
-    @families = Family.all
+    @families = Family.all.order(:id)
   end
 
   def show; end
@@ -26,7 +26,10 @@ class FamiliesController < AuthenticatedController
 
   def update
     if @family.update(family_params)
-      redirect_to(@family, notice: "Successfully updated family.")
+      respond_to do |format|
+        format.html  { redirect_to(@family, notice: "Successfully updated family.") }
+        format.json  { render json: @family }
+      end
     else
       render(action: "edit")
     end
@@ -48,6 +51,6 @@ class FamiliesController < AuthenticatedController
       :license_date, :status, :race, :religion, :family_interest, :other_children_in_home, :spots_avialable, :icwa,
       :dogs, :cats, :other_animals, :available_visit_transportation, :available_school_transportation,
       :available_counselor_transportation, :available_multiple_appointments_per_week, :recreational_activities,
-      :skills, :experience_with_care)
+      :skills, :experience_with_care, :last_contacted_at)
   end
 end

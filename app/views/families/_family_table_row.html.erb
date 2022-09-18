@@ -1,0 +1,25 @@
+<tr data-controller="family-contact" id="<%= dom_id family %>" data-family-contact-id-value="<%= family.id %>">
+  <%= render(TableDataComponent.new(position: "first")) do %>
+    <%= family.name %>
+  <% end %>
+  <%= render(TableDataComponent.new()) do %>
+    <%= phone_to(family.phone&.delete('^0-9'), family.phone, class: "text-blue-600 hover:text-blue-900",
+                 data: { action: "click->family-contact#familyContacted" }) if family.phone %>
+  <% end %>
+  <%= render(TableDataComponent.new()) do %>
+    <%= mail_to(family.email, class: "text-blue-600 hover:text-blue-900",
+                data: { action: "click->family-contact#familyContacted" }) if family.email %>
+  <% end %>
+  <%= render(TableDataComponent.new()) do %>
+    <%= family.family_interest.titleize %>
+  <% end %>
+  <%= render(TableDataComponent.new()) do %>
+    <%= family.spots_available %>
+  <% end %>
+  <%= render(TableDataComponent.new()) do %>
+    <%= family.last_contacted_at&.strftime("%b %-d %Y, %l:%M %P") || "Never" %>
+  <% end %>
+  <%= render(TableDataComponent.new(position: "last")) do %>
+    <%= link_to "Edit", edit_family_path(family), class: "text-blue-600 hover:text-blue-900" %>
+  <% end %>
+</tr>
