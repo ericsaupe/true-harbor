@@ -4,7 +4,7 @@ task generate_data: :environment do
   raise "This task is only for development" unless Rails.env.development? || ENV["FORCE_GENERATE_DATA"]
 
   # Create users
-  10.times.do |i|
+  10.times do |i|
     FactoryBot.create(:user, email: "user#{i}@example.com")
   end
   # Create families

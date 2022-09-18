@@ -10,7 +10,7 @@ module ApplicationHelper
     when "warning"
       "bg-yellow-600"
     else
-      "bg-blue-600"
+      "bg-pink-600"
     end
   end
 end

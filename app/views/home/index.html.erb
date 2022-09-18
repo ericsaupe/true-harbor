@@ -1,7 +1,26 @@
-<div class="flex flex-col">
-  <h1 class="text-2xl">True Harbor</h1>
-  <p data-controller="hello"></p>
-  <%= render(ExampleComponent.new(title: "my title")) do %>
-    Hello, World!
-  <% end %>
+<div>
+  <div class="relative">
+    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100"></div>
+    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div class="relative shadow-xl sm:overflow-hidden sm:rounded-2xl">
+        <div class="absolute inset-0">
+          <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1609220136736-443140cffec6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="Family">
+          <div class="absolute inset-0 bg-emerald-400 mix-blend-multiply"></div>
+        </div>
+        <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
+          <h1 class="text-center text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            <span class="block text-white">Helping foster children</span>
+            <span class="block text-pink-200">find their home</span>
+          </h1>
+          <p class="mx-auto mt-6 max-w-lg text-center text-xl text-pink-200 sm:max-w-3xl">True Harbor supports foster agencies in placing children with the perfect foster families available to them. Advanced filtering and communciation tools help find families best suited for children more efficiently than ever.</p>
+          <div class="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center">
+            <div class="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0">
+              <%= link_to "Get started", new_user_registration_path, class: "flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-pink-700 shadow-sm hover:bg-pink-50 sm:px-8" %>
+              <%= link_to "Live demo", new_user_session_path(email: "user0@example.com", password: "test1234"), class: "flex items-center justify-center rounded-md border border-transparent bg-pink-200 bg-opacity-60 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-opacity-70 sm:px-8" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -8,7 +8,7 @@
         <div>
           <%= f.label :email, class: "block font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.email_field :email, autofocus: true, class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-full border-gray-300 rounded-md", required: true %>
+            <%= f.email_field :email, value: params[:email] || resource&.email, autofocus: true, class: "shadow-sm focus:ring-pink-500 focus:border-pink-500 mt-1 block w-full border-gray-300 rounded-md", required: true %>
           </div>
           <p class="mt-2 text-sm text-gray-500">Email address</p>
         </div>
@@ -16,7 +16,7 @@
         <div>
           <%= f.label :password, class: "block font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.password_field :password, autocomplete: "new-password", class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-full border-gray-300 rounded-md", required: true %>
+            <%= f.password_field :password, value: params[:password], autocomplete: "new-password", class: "shadow-sm focus:ring-pink-500 focus:border-pink-500 mt-1 block w-full border-gray-300 rounded-md", required: true %>
           </div>
         </div>
 
@@ -24,7 +24,7 @@
           <div>
             <div class="flex items-center justify-between">
               <div class="flex items-center">
-                <%= f.check_box :remember_me, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
+                <%= f.check_box :remember_me, class: "h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded" %>
                 <%= f.label :remember_me, class: "ml-2 block text-gray-900" %>
               </div>
             </div>
@@ -33,10 +33,10 @@
       </div>
 
       <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-        <%= f.button :submit, class: "group relative w-full flex justify-center py-2 px-4 border border-transparent font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" do %>
+        <%= f.button :submit, class: "group relative w-full flex justify-center py-2 px-4 border border-transparent font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500" do %>
           <span class="absolute left-0 inset-y-0 flex items-center pl-3">
             <!-- Heroicon name: solid/lock-closed -->
-            <svg class="h-5 w-5 text-blue-500 group-hover:text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <svg class="h-5 w-5 text-pink-500 group-hover:text-pink-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
             </svg>
           </span>

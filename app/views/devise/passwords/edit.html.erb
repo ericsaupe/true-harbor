@@ -10,7 +10,7 @@
         <div>
           <%= f.label :password, "New password", class: "block font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-full border-gray-300 rounded-md", required: true %>
+            <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "shadow-sm focus:ring-pink-500 focus:border-pink-500 mt-1 block w-full border-gray-300 rounded-md", required: true %>
           </div>
           <% if @minimum_password_length %>
             <p class="mt-2 text-gray-500">
@@ -22,13 +22,13 @@
         <div>
           <%= f.label :password_confirmation, "Confirm new password", class: "block font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-full border-gray-300 rounded-md", required: true %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "shadow-sm focus:ring-pink-500 focus:border-pink-500 mt-1 block w-full border-gray-300 rounded-md", required: true %>
           </div>
         </div>
       </div>
 
       <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-        <%= f.submit "Change my password", class: "w-full flex justify-center py-2 px-4 border border-transparent shadow-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer" %>
+        <%= f.submit "Change my password", class: "w-full flex justify-center py-2 px-4 border border-transparent shadow-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 cursor-pointer" %>
       </div>
     </div>
   <% end %>
