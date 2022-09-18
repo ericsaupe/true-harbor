@@ -13,7 +13,10 @@ module TrueHarbor
 
     config.generators do |g|
       g.test_framework :rspec
+      g.factory_bot suffix: "factory"
     end
+
+    config.active_job.queue_adapter = :sidekiq
 
     config.view_component.generate.sidecar = true
   end

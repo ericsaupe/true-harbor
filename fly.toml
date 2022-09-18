@@ -18,6 +18,10 @@ processes = []
   PORT = "8080"
   SERVER_COMMAND = "bin/rails fly:server"
 
+[processes]
+  web = "bin/rails fly:server"
+  worker = "bundle exec sidekiq -C config/sidekiq.yml"
+
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
@@ -25,7 +29,7 @@ processes = []
 [[services]]
   http_checks = []
   internal_port = 8080
-  processes = ["app"]
+  processes = ["web"]
   protocol = "tcp"
   script_checks = []
   [services.concurrency]
