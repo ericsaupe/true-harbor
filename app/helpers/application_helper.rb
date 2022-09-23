@@ -2,9 +2,9 @@
 
 module ApplicationHelper
   def flash_class(type)
-    case type
+    case type.to_s
     when "success"
-      "bg-green-600"
+      "bg-emerald-600"
     when "error"
       "bg-red-600"
     when "warning"
