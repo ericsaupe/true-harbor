@@ -8,7 +8,9 @@ export default class extends Controller {
   }
 
   close() {
-    this.element.classList.add("animate__fadeOut")
-    setTimeout(() => { this.element.remove() }, 1000)
+    this.element.classList.add("animate__animated", "animate__faster", "animate__fadeOut")
+    this.element.addEventListener('animationend', () => {
+      this.element.remove()
+    })
   }
 }

@@ -3,7 +3,7 @@
     <%# Devise uses this weird timedout flash that we can skip %>
     <% next if type.to_s == "timedout" %>
 
-    <div class="<%= flash_class(type) %> z-50 animate__animated animate__faster" data-controller="flash">
+    <div class="<%= flash_class(type) %> z-50" data-controller="flash">
       <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between flex-wrap">
           <div class="w-0 flex-1 flex items-center">
