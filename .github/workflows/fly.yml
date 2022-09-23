@@ -2,6 +2,7 @@ name: Fly Deploy
 on: [push]
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 jobs:
   deploy:
       name: Deploy app
@@ -9,4 +10,4 @@ jobs:
       steps:
         - uses: actions/checkout@v2
         - uses: superfly/flyctl-actions/setup-flyctl@master
-        - run: flyctl deploy --remote-only
+        - run: flyctl deploy --remote-only --build-secret RAILS_MASTER_KEY=$RAILS_MASTER_KEY
