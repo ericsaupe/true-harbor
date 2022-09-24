@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class FamiliesController < AuthenticatedController
+  include FormatSerializedFields
+
   before_action :find_family, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -55,12 +57,5 @@ class FamiliesController < AuthenticatedController
       :available_counselor_transportation, :available_multiple_appointments_per_week,
       :last_contacted_at, experience_with_care: {}, recreational_activities: {}, skills: {})
     format_serialized_fields(allowed_params)
-  end
-
-  def format_serialized_fields(parameters)
-    parameters[:experience_with_care] = parameters[:experience_with_care].keys
-    parameters[:recreational_activities] = parameters[:recreational_activities].keys
-    parameters[:skills] = parameters[:skills].keys
-    parameters
   end
 end

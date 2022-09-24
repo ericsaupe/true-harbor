@@ -1,0 +1,14 @@
+<tr id="<%= dom_id search %>">
+  <%= render(TableDataComponent.new(position: "first")) do %>
+    <%= search.name %>
+  <% end %>
+  <%= render(TableDataComponent.new()) do %>
+    <%= search.query.dig(:spots_available) %>
+  <% end %>
+  <%= render(TableDataComponent.new()) do %>
+    <%= search.created_at.strftime("%b %-d %Y, %l:%M %P") %>
+  <% end %>
+  <%= render(TableDataComponent.new(position: "last")) do %>
+    <%= link_to "Edit", edit_search_path(search), class: "text-pink-600 hover:text-pink-900" %>
+  <% end %>
+</tr>

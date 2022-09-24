@@ -62,11 +62,11 @@
       </div>
 
       <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-        <%= f.submit "Update", class: "w-full flex justify-center py-2 px-4 border border-transparent shadow-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 cursor-pointer" %>
+        <%= f.submit "Update", class: "flex justify-center py-2 px-4 border border-transparent shadow-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 cursor-pointer" %>
       </div>
     </div>
   <% end %>
 
   <%= button_to "Delete my account", registration_path(resource_name), method: :delete, form: { data: { turbo_confirm: "Are you sure? This will unsubscribe you from all active subscriptions and any subscribers you have to your subscription plans." } }, class: "cursor-pointer bg-red-300 hover:bg-red-500 text-sm text-white font-bold py-1 px-2 rounded mt-2" %>
-  <p>Geolocation service provided by <%= link_to "Geoapify", "https://www.geoapify.com/" %>.</p>
+  <p>Geolocation service provided by <%= link_to "Geoapify", "https://www.geoapify.com/", class: "text-pink-700" %>.</p>
 </div>
