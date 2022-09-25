@@ -3,12 +3,13 @@
     <%= search.name %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
-    <%= search.query.dig(:spots_available) %>
+    <%= search.results.size %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
     <%= search.created_at.strftime("%b %-d %Y, %l:%M %P") %>
   <% end %>
   <%= render(TableDataComponent.new(position: "last")) do %>
+    <%= link_to "View", search_path(search), class: "text-pink-600 hover:text-pink-900" %>
     <%= link_to "Edit", edit_search_path(search), class: "text-pink-600 hover:text-pink-900" %>
   <% end %>
 </tr>

@@ -6,31 +6,28 @@ FactoryBot.define do
     address_1 { Faker::Address.street_address }
     address_2 { Faker::Address.secondary_address }
     city { "Coeur d'Alene" }
-    state { "ID" }
+    state { "Idaho" }
     zip { "83815" }
     phone { Faker::PhoneNumber.phone_number }
     email { Faker::Internet.email }
     region { "1" }
     license_date { Faker::Date.between(from: 2.years.ago, to: Time.zone.today) }
     status { :open }
-    race { :white }
-    religion { :other_religion }
-    family_interest { :any }
-    other_children_in_home { false }
-    spots_available { 1 }
-    icwa { false }
-    dogs { false }
-    cats { false }
-    other_animals { false }
-    available_visit_transportation { false }
-    available_school_transportation { false }
-    available_counselor_transportation { false }
-    available_multiple_appointments_per_week { false }
-    # recreational_activities { ["hiking", "camping"] }
-    # skills { ["trauma training", "law enforcement"] }
-    # experience_with_care { ["bipolar", "anxiety"] }
-
-    latitude { Faker::Address.latitude }
-    longitude { Faker::Address.longitude }
+    race { Family.races.keys.sample.to_sym }
+    religion { Family.religions.keys.sample.to_sym }
+    family_interest { Family.family_interests.keys.sample.to_sym }
+    other_children_in_home { Faker::Boolean.boolean }
+    spots_available { Faker::Number.digit }
+    icwa { Faker::Boolean.boolean }
+    dogs { Faker::Boolean.boolean }
+    cats { Faker::Boolean.boolean }
+    other_animals { Faker::Boolean.boolean }
+    available_visit_transportation { Faker::Boolean.boolean }
+    available_school_transportation { Faker::Boolean.boolean }
+    available_counselor_transportation { Faker::Boolean.boolean }
+    available_multiple_appointments_per_week { Faker::Boolean.boolean }
+    recreational_activities { Family.recreational_activities.sample(3) }
+    skills { Family.skills.sample(3) }
+    experience_with_care { Family.experience_with_care.sample(3) }
   end
 end

@@ -9,7 +9,9 @@ class SearchesController < AuthenticatedController
     @searches = Search.all
   end
 
-  def show; end
+  def show
+    @results = @search.results.order(score: :desc).includes(:family)
+  end
 
   def new
     @search = Search.new

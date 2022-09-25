@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Family < ApplicationRecord
+  has_many :results, dependent: :destroy
+
   encrypts :address_1, :address_2
   encrypts :city, :state, :region, deterministic: true
 
