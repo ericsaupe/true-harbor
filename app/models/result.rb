@@ -24,6 +24,10 @@ class Result < ApplicationRecord
 
         matching += 1 if bool_value == family[key]
         total += 1
+      elsif key == "spots_available"
+        # Handle spots_available values
+        matching += 1 if value.to_i <= family[key].to_i
+        total += 1
       else
         # Handle all others
         matching += 1 if family[key] == value
