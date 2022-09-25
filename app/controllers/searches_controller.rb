@@ -32,7 +32,7 @@ class SearchesController < AuthenticatedController
     if @search.update(search_params)
       respond_to do |format|
         format.html do
-          redirect_to(edit_search_path(@search), flash: { success: "Successfully updated search." }, status: :see_other)
+          redirect_to(search_path(@search), flash: { success: "Successfully updated search." }, status: :see_other)
         end
         format.json { render(json: @search) }
       end
