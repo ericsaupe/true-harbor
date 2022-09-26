@@ -26,8 +26,12 @@ FactoryBot.define do
     available_school_transportation { Faker::Boolean.boolean }
     available_counselor_transportation { Faker::Boolean.boolean }
     available_multiple_appointments_per_week { Faker::Boolean.boolean }
-    recreational_activities { Family.recreational_activities.sample(3) }
-    skills { Family.skills.sample(3) }
-    experience_with_care { Family.experience_with_care.sample(3) }
+    recreational_activities do
+      Family.recreational_activities.sample(Faker::Number.between(from: 1, to: Family.recreational_activities.count))
+    end
+    skills { Family.skills.sample(Faker::Number.between(from: 1, to: Family.skills.count)) }
+    experience_with_care do
+      Family.experience_with_care.sample(Faker::Number.between(from: 1, to: Family.experience_with_care.count))
+    end
   end
 end

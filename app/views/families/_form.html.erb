@@ -13,6 +13,13 @@
         </div>
 
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+          <%= form.label :phone, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+          <div class="mt-1 sm:col-span-2 sm:mt-0">
+            <%= form.text_field :phone, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+          </div>
+        </div>
+
+        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
           <%= form.label :email, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
           <div class="mt-1 sm:col-span-2 sm:mt-0">
             <%= form.email_field :email, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
@@ -72,7 +79,7 @@
           <div role="group">
             <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
               <div>
-                <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Recreational Activities</div>
+                <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Recreational activities</div>
               </div>
               <div class="mt-4 sm:col-span-2 sm:mt-0">
                 <div class="max-w-lg space-y-4">
@@ -255,7 +262,7 @@
           <div role="group">
             <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
               <div>
-                <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Recreational Activities</div>
+                <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Experience with care</div>
               </div>
               <div class="mt-4 sm:col-span-2 sm:mt-0">
                 <div class="max-w-lg space-y-4">

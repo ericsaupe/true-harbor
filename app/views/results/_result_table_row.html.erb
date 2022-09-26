@@ -1,0 +1,25 @@
+<tr id="<%= dom_id result %>">
+  <%= render(TableDataComponent.new(position: "first")) do %>
+    <%= result.family.name %>
+  <% end %>
+  <%= render(TableDataComponent.new()) do %>
+    <%= phone_to(result.family.phone&.delete('^0-9'), result.family.phone, class: "text-pink-600 hover:text-pink-900") if result.family.phone %>
+  <% end %>
+  <%= render(TableDataComponent.new()) do %>
+    <%= result.family.family_interest.titleize %>
+  <% end %>
+  <%= render(TableDataComponent.new()) do %>
+    <%= result.family.spots_available %>
+  <% end %>
+  <%= render(TableDataComponent.new()) do %>
+    <%= result.family.last_contacted_at&.strftime("%b %-d %Y, %l:%M %P") || "Never" %>
+  <% end %>
+  <%= render(TableDataComponent.new()) do %>
+    <%= render(ScoreComponent.new(score: result.score)) %>
+  <% end %>
+  <%= render(TableDataComponent.new(position: "last")) do %>
+    <button type="button" class="text-pink-600 hover:text-pink-900" data-action="slide-over#slideIn" data-family-id="<%= result.family.id %>">
+      View
+    </button>
+  <% end %>
+</tr>

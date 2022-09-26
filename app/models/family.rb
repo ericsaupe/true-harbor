@@ -18,7 +18,10 @@ class Family < ApplicationRecord
   geocoded_by :address
   after_validation :geocode
 
-  after_update_commit { broadcast_replace_later_to :families_table, partial: "families/family_table_row" }
+  after_update_commit do
+    broadcast_replace_later_to :families_table, partial: "families/family_table_row"
+    broadcast_replace_later_to :results_table, partial: "results/result_table_row"
+  end
 
   class << self
     def recreational_activities
@@ -94,6 +97,6 @@ class Family < ApplicationRecord
   end
 
   def address
-    [address_1, address_2, city, zip, state].compact.join(", ")
+    [address_1, address_2, city, state, zip].compact.join(", ")
   end
 end

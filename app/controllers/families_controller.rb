@@ -9,7 +9,9 @@ class FamiliesController < AuthenticatedController
     @families = Family.all.order(:id)
   end
 
-  def show; end
+  def show
+    render(layout: false) if params[:layout] == "false"
+  end
 
   def new
     @family = Family.new

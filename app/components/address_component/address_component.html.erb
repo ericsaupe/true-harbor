@@ -1,0 +1,7 @@
+<address>
+<%= @family.address_1 %><br>
+<% if @family.address_2 %>
+  <%= @family.address_2 %><br>
+<% end %>
+<%= [@family.city, [@family.state, @family.zip].join(" ")].join(", ") %><br>
+</address>
