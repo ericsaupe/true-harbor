@@ -1,4 +1,4 @@
-<div data-controller="slide-over">
+<div data-controller="slide-over" data-slide-over-search-id-value="<%= @search.id %>">
   <%= render(TableComponent.new()) do %>
     <%= turbo_stream_from :results_table %>
     <thead class="bg-gray-50">

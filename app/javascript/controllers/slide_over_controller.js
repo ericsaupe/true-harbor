@@ -4,7 +4,8 @@ export default class extends Controller {
   static targets = [ "backdrop", "container", "panel", "panelContent" ]
 
   static values = {
-    loadingHTML: String
+    loadingHTML: String,
+    searchId: Number
   }
 
   connect() {
@@ -17,19 +18,21 @@ export default class extends Controller {
     this.panelTarget.classList.add("animate__animated", "animate__slideInRight", "animate__faster")
     this.load(event.target.dataset.familyId)
     this.element.addEventListener('animationend', () => {
+      this.backdropTarget.classList.add("backdrop-blur-sm")
       this.panelTarget.classList.remove("animate__animated", "animate__slideInRight", "animate__faster")
     }, { once: true })
   }
 
   load(familyId) {
     this.panelContentTarget.innerHTML = this.loadingHTMLValue
-    fetch(`/families/${familyId}?layout=false`)
+    fetch(`/families/${familyId}?layout=false&search_id=${this.searchIdValue}`)
       .then(response => response.text())
       .then(html => this.panelContentTarget.innerHTML = html)
   }
 
   slideOut() {
     this.panelTarget.classList.add("animate__animated", "animate__slideOutRight")
+    this.backdropTarget.classList.remove("backdrop-blur-sm")
     this.element.addEventListener('animationend', () => {
       this.backdropTarget.classList.add("-translate-x-full")
       this.containerTarget.classList.add("-translate-x-full")

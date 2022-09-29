@@ -2,6 +2,7 @@
 
 class Family < ApplicationRecord
   has_many :results, dependent: :destroy
+  has_many :searches, through: :results
 
   encrypts :address_1, :address_2
   encrypts :city, :state, :region, deterministic: true
