@@ -69,4 +69,8 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   config.require_master_key = true
+
+  # Support empty TLDs in development
+  config.action_dispatch.tld_length = 0
+  config.hosts << ".localhost"
 end

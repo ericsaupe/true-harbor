@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_26_053217) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_29_220825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_26_053217) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "last_contacted_at"
+    t.bigint "organization_id", null: false
+    t.index ["organization_id"], name: "index_families_on_organization_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "subdomain", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subdomain"], name: "index_organizations_on_subdomain"
   end
 
   create_table "results", force: :cascade do |t|
@@ -64,6 +74,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_26_053217) do
     t.text "query"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "organization_id", null: false
+    t.index ["organization_id"], name: "index_searches_on_organization_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -89,12 +101,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_26_053217) do
     t.string "phone"
     t.string "first_name"
     t.string "last_name"
+    t.bigint "organization_id", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "families", "organizations"
   add_foreign_key "results", "families"
   add_foreign_key "results", "searches"
+  add_foreign_key "searches", "organizations"
+  add_foreign_key "users", "organizations"
 end

@@ -2,11 +2,10 @@ Rails.application.routes.draw do
   require "sidekiq/web"
 
   devise_for :users
-  authenticated :user do
-    root to: "families#index", as: :authenticated_root
+  constraints subdomain: "www" do
+    get "/", to: "home#index"
   end
-
-  root "home#index"
+  get "/", to: "families#index"
 
   resources :families
   resources :searches

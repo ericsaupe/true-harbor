@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Search < ApplicationRecord
+  include Organizable
+
   has_many :results, dependent: :destroy
 
   serialize :query, JSON

@@ -6,7 +6,7 @@ class SearchesController < AuthenticatedController
   before_action :find_search, only: [:show, :edit, :update, :destroy]
 
   def index
-    @searches = Search.all
+    @searches = @organization.searches.all
   end
 
   def show
@@ -14,11 +14,11 @@ class SearchesController < AuthenticatedController
   end
 
   def new
-    @search = Search.new
+    @search = @organization.searches.new
   end
 
   def create
-    @search = Search.new(search_params)
+    @search = @organization.searches.new(search_params)
     if @search.save
       redirect_to(@search, flash: { success: "Successfully created search." }, status: :see_other)
     else
@@ -49,7 +49,7 @@ class SearchesController < AuthenticatedController
   private
 
   def find_search
-    @search ||= Search.find(params[:id])
+    @search ||= @organization.searches.find(params[:id])
   end
 
   def search_params

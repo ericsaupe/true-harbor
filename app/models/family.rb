@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Family < ApplicationRecord
+  include Organizable
+
   has_many :results, dependent: :destroy
   has_many :searches, through: :results
 

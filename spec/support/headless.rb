@@ -14,6 +14,10 @@ Capybara.register_driver(:selenium_chrome_headless) do |app|
   Capybara::Selenium::Driver.new(app, **{ browser: :chrome, options_key => browser_options })
 end
 
+Capybara.configure do |config|
+  config.app_host = "http://lvh.me"
+end
+
 RSpec.configure do |config|
   config.before(:each, type: :system) do
     if ActiveModel::Type::Boolean.new.cast(ENV.fetch("SHOW_TEST_BROWSER", false))

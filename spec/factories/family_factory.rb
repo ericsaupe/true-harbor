@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :family do
+    organization
     name { Faker::Name.name }
     address_1 { Faker::Address.street_address }
     address_2 { Faker::Address.secondary_address }

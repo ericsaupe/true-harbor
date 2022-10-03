@@ -6,7 +6,7 @@ class FamiliesController < AuthenticatedController
   before_action :find_family, only: [:show, :edit, :update, :destroy]
 
   def index
-    @families = Family.all.order(:id)
+    @families = @organization.families.all.order(:id)
   end
 
   def show
@@ -15,11 +15,11 @@ class FamiliesController < AuthenticatedController
   end
 
   def new
-    @family = Family.new
+    @family = @organization.families.new
   end
 
   def create
-    @family = Family.new(family_params)
+    @family = @organization.families.new(family_params)
     if @family.save
       redirect_to(@family, flash: { success: "Successfully created family." }, status: :see_other)
     else
@@ -50,7 +50,7 @@ class FamiliesController < AuthenticatedController
   private
 
   def find_family
-    @family ||= Family.find(params[:id])
+    @family ||= @organization.families.find(params[:id])
   end
 
   def family_params
