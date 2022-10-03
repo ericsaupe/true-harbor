@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :families
   resources :searches
+  resources :results, only: [:update]
 
   namespace :admin do
     authenticate :user do

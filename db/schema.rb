@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_29_220825) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_03_225757) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,6 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_29_220825) do
     t.integer "score", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "selected", default: false
     t.index ["family_id"], name: "index_results_on_family_id"
     t.index ["search_id"], name: "index_results_on_search_id"
   end

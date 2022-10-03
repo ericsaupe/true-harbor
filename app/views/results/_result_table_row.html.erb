@@ -1,4 +1,8 @@
-<tr id="<%= dom_id result %>">
+<tr id="<%= dom_id result %>"
+    data-controller="result"
+    data-result-id-value="<%= result.id %>"
+    data-result-selected-value="<%= result.selected %>"
+    class="<%= result.selected ? "bg-emerald-50" : "" %>">
   <%= render(TableDataComponent.new(position: "first")) do %>
     <%= result.family.name %>
   <% end %>
@@ -18,6 +22,13 @@
     <%= render(ScoreComponent.new(score: result.score)) %>
   <% end %>
   <%= render(TableDataComponent.new(position: "last")) do %>
+    <button type="button" class="text-pink-600 hover:text-pink-900" data-action="result#toggleSelected">
+      <% if !result.selected? %>
+        Select
+      <% else %>
+        Unselect
+      <% end %>
+    </button>
     <button type="button" class="text-pink-600 hover:text-pink-900" data-action="slide-over#slideIn" data-family-id="<%= result.family.id %>">
       View
     </button>
