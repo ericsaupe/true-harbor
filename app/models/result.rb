@@ -6,8 +6,12 @@ class Result < ApplicationRecord
 
   before_save :calculate_score
 
-  after_update_commit do
-    broadcast_replace_later_to search, partial: "results/result_table_row"
+  after_update_commit -> {
+    broadcast_changes
+  }
+
+  def broadcast_changes
+    broadcast_replace_later_to(search, partial: "results/result_table_row")
   end
 
   def calculate_score

@@ -23,8 +23,11 @@ class Family < ApplicationRecord
 
   after_update_commit do
     broadcast_replace_later_to :families_table, partial: "families/family_table_row"
-    broadcast_replace_later_to :results_table, partial: "results/result_table_row"
   end
+
+  after_update_commit -> {
+    results.includes(:search).where(searches: { completed_at: nil }).find_each(&:broadcast_changes)
+  }
 
   class << self
     def recreational_activities

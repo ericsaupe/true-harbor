@@ -14,7 +14,7 @@ export default class extends Controller {
 
   slideIn(event) {
     this.backdropTarget.classList.remove("-translate-x-full")
-    this.containerTarget.classList.remove("-translate-x-full")
+    this.containerTarget.classList.remove("-translate-x-full", "hidden")
     this.panelTarget.classList.add("animate__animated", "animate__slideInRight", "animate__faster")
     this.load(event.target.dataset.familyId)
     this.element.addEventListener('animationend', () => {
@@ -35,7 +35,7 @@ export default class extends Controller {
     this.backdropTarget.classList.remove("backdrop-blur-sm")
     this.element.addEventListener('animationend', () => {
       this.backdropTarget.classList.add("-translate-x-full")
-      this.containerTarget.classList.add("-translate-x-full")
+      this.containerTarget.classList.add("-translate-x-full", "hidden")
       this.panelTarget.classList.remove("animate__animated", "animate__slideOutRight")
     }, { once: true })
   }

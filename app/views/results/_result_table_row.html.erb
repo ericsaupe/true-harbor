@@ -1,13 +1,15 @@
 <tr id="<%= dom_id result %>"
-    data-controller="result"
+    data-controller="result family-contact"
     data-result-id-value="<%= result.id %>"
     data-result-selected-value="<%= result.selected %>"
+    data-family-contact-id-value="<%= result.family.id %>"
     class="<%= result.selected ? "bg-emerald-50" : "" %>">
   <%= render(TableDataComponent.new(position: "first")) do %>
     <%= result.family.name %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
-    <%= phone_to(result.family.phone&.delete('^0-9'), result.family.phone, class: "text-pink-600 hover:text-pink-900") if result.family.phone %>
+    <%= phone_to(result.family.phone&.delete('^0-9'), result.family.phone, class: "text-pink-600 hover:text-pink-900",
+                 data: { action: "click->family-contact#familyContacted" }) if result.family.phone %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
     <%= result.family.family_interest.titleize %>
