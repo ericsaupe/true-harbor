@@ -8,8 +8,13 @@
   <%= render(TableDataComponent.new()) do %>
     <%= search.created_at.strftime("%b %-d %Y, %l:%M %P") %>
   <% end %>
+  <%= render(TableDataComponent.new()) do %>
+    <%= search.completed_at&.strftime("%b %-d %Y, %l:%M %P") || "-" %>
+  <% end %>
   <%= render(TableDataComponent.new(position: "last")) do %>
     <%= link_to "View", search_path(search), class: "text-pink-600 hover:text-pink-900" %>
-    <%= link_to "Edit", edit_search_path(search), class: "text-pink-600 hover:text-pink-900" %>
+    <% unless search.completed? %>
+      <%= link_to "Edit", edit_search_path(search), class: "text-pink-600 hover:text-pink-900" %>
+    <% end %>
   <% end %>
 </tr>

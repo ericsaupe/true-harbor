@@ -22,13 +22,15 @@
     <%= render(ScoreComponent.new(score: result.score)) %>
   <% end %>
   <%= render(TableDataComponent.new(position: "last")) do %>
-    <button type="button" class="text-pink-600 hover:text-pink-900" data-action="result#toggleSelected">
-      <% if !result.selected? %>
-        Select
-      <% else %>
-        Unselect
-      <% end %>
-    </button>
+    <% unless result.search.completed? %>
+      <button type="button" class="text-pink-600 hover:text-pink-900" data-action="result#toggleSelected">
+        <% if !result.selected? %>
+          Select
+        <% else %>
+          Unselect
+        <% end %>
+      </button>
+    <% end %>
     <button type="button" class="text-pink-600 hover:text-pink-900" data-action="slide-over#slideIn" data-family-id="<%= result.family.id %>">
       View
     </button>

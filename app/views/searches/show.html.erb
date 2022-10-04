@@ -4,7 +4,16 @@
       <h1 class="text-xl font-semibold text-gray-900"><%= @search.name %></h1>
     </div>
     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-      <%= link_to "Edit search", edit_search_path(@search), class: "inline-flex items-center justify-center rounded-md border border-transparent bg-pink-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 sm:w-auto" %>
+      <% if @search.completed? %>
+        <%= button_to "Reopen search", reopen_search_path, method: :put, form: {class: "inline-flex", data: { turbo_confirm: "Are you sure?" } }, class: "inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2" %>
+      <% else %>
+        <%= button_to "Finish search", complete_search_path, method: :put, form: { class: "inline-flex", data: { turbo_confirm: "Are you sure?" } }, class: "inline-flex items-center justify-center rounded-md border border-transparent bg-pink-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 sm:w-auto" %>
+        <%= link_to "Edit search", edit_search_path(@search), class: "inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2" %>
+      <% end %>
+      <%= render(DropdownComponent.new()) do %>
+        <%= link_to "Download selected results", download_results_search_path(only_selected: true), class: "hover:bg-gray-50 hover:text-gray-900 text-gray-700 block px-4 py-2 text-sm", target: "_blank" %>
+        <%= link_to "Download all results", download_results_search_path, class: "hover:bg-gray-50 hover:text-gray-900 text-gray-700 block px-4 py-2 text-sm", target: "_blank" %>
+      <% end %>
     </div>
   </div>
   <% if @results.present? %>

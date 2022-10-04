@@ -8,8 +8,15 @@ Rails.application.routes.draw do
   get "/", to: "families#index"
 
   resources :families
-  resources :searches
-  resources :results, only: [:update]
+  resources :searches do
+    member do
+      put :complete
+      put :reopen
+      get :download_results
+    end
+  end
+  resources :results, only: [:update] do
+  end
 
   namespace :admin do
     authenticate :user do

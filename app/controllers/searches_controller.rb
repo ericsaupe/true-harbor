@@ -3,7 +3,7 @@
 class SearchesController < AuthenticatedController
   include FormatSerializedFields
 
-  before_action :find_search, only: [:show, :edit, :update, :destroy]
+  before_action :find_search, only: [:show, :edit, :update, :destroy, :complete, :reopen, :download_results]
 
   def index
     @searches = @organization.searches.all
@@ -42,8 +42,25 @@ class SearchesController < AuthenticatedController
   end
 
   def destroy
-    search.destroy
-    redirect_to(searches_url, flash: { success: "Successfully destroyed search." }, status: :see_other)
+    @search.destroy
+    redirect_to(searches_path, flash: { success: "Successfully destroyed search." }, status: :see_other)
+  end
+
+  def complete
+    @search.update(completed_at: Time.current)
+    redirect_to(search_path(@search), flash: { success: "Successfully reopened search." }, status: :see_other)
+  end
+
+  def reopen
+    @search.update(completed_at: nil)
+    redirect_to(search_path(@search), flash: { success: "Successfully reopened search." }, status: :see_other)
+  end
+
+  def download_results
+    only_selected = ActiveModel::Type::Boolean.new.cast(params[:only_selected]) || false
+    send_data(ResultsCsvGenerator.generate_csv(search: @search, only_selected: only_selected),
+      filename: "#{@search.name} results.csv",
+      type: "text/csv")
   end
 
   private
