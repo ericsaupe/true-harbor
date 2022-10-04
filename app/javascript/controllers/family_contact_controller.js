@@ -11,7 +11,7 @@ export default class extends Controller {
     }
     event.preventDefault()
     // Update family to be contacted
-    fetch(`/families/${this.idValue}`, {
+    fetch(`/families/${this.idValue}/contacted`, {
       method: "PUT",
       headers: {
         "Accept": "application/json",

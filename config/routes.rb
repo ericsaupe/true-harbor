@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   end
   get "/", to: "families#index"
 
-  resources :families
+  resources :families do
+    member do
+      put :contacted
+    end
+  end
   resources :searches do
     member do
       put :complete

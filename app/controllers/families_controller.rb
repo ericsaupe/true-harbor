@@ -3,7 +3,7 @@
 class FamiliesController < AuthenticatedController
   include FormatSerializedFields
 
-  before_action :find_family, only: [:show, :edit, :update, :destroy]
+  before_action :find_family, only: [:show, :edit, :update, :destroy, :contacted]
 
   def index
     @families = @organization.families.all.order(:id)
@@ -31,6 +31,19 @@ class FamiliesController < AuthenticatedController
 
   def update
     if @family.update(family_params)
+      respond_to do |format|
+        format.html do
+          redirect_to(edit_family_path(@family), flash: { success: "Successfully updated family." }, status: :see_other)
+        end
+        format.json { render(json: @family) }
+      end
+    else
+      render(action: "edit")
+    end
+  end
+
+  def contacted
+    if @family.update(last_contacted_at: Time.current)
       respond_to do |format|
         format.html do
           redirect_to(edit_family_path(@family), flash: { success: "Successfully updated family." }, status: :see_other)
