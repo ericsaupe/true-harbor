@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   constraints subdomain: "www" do
     get "/", to: "home#index"
   end
-  get "/", to: "families#index"
+  get "/", to: "searches#index"
 
   resources :families do
     member do
