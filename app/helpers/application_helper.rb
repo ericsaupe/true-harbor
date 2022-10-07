@@ -9,8 +9,10 @@ module ApplicationHelper
       "bg-red-600"
     when "warning"
       "bg-yellow-600"
+    when "notice" # devise uses this
+      "bg-emerald-600"
     else
-      "bg-pink-600"
+      "bg-pink-600 #{type}"
     end
   end
 end
