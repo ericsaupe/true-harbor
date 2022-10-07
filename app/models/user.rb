@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  rolify
   include Organizable
 
   devise :database_authenticatable, :registerable,

@@ -6,7 +6,8 @@ task generate_data: :environment do
   # Create an organization
   organization = FactoryBot.create(:organization, name: "Demo Organization", subdomain: "demo")
   # Create users
-  FactoryBot.create(:user, email: "admin@localhost", organization: organization)
+  admin = FactoryBot.create(:user, email: "admin@localhost", organization: organization)
+  admin.add_role(:admin)
   10.times do |i|
     FactoryBot.create(:user, email: "user#{i}@example.com", organization: organization)
   end
