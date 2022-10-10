@@ -4,24 +4,22 @@ export default class extends Controller {
   static targets = [ "backdrop", "container", "menu" ]
 
   openMenu() {
-    this.backdropTarget.classList.add("transition-opacity", "ease-linear", "duration-300", "bg-opacity-0", "-translate-x-full")
-    this.containerTarget.classList.add("transition", "ease-in-out", "duration-300", "transform", "-translate-x-full")
-    setTimeout(() => {
-      this.backdropTarget.classList.remove("transition-opacity", "ease-linear", "duration-300", "bg-opacity-0", "-translate-x-full")
-      this.backdropTarget.classList.add("bg-opacity-100", "translate-x-0")
-      this.containerTarget.classList.remove("transition", "ease-in-out", "duration-300", "transform", "-translate-x-full")
-      this.containerTarget.classList.add("translate-x-0")
-    }, 300)
+    this.backdropTarget.classList.remove("-translate-x-full")
+    this.containerTarget.classList.remove("-translate-x-full", "hidden")
+    this.containerTarget.classList.add("animate__animated", "animate__slideInLeft", "animate__faster")
+    this.backdropTarget.classList.add("backdrop-blur-sm", "bg-opacity-60", "translate-x-0")
+    this.element.addEventListener('animationend', () => {
+      this.containerTarget.classList.remove("animate__animated", "animate__slideInLeft", "animate__faster")
+    }, { once: true })
   }
 
   closeMenu() {
-    this.backdropTarget.classList.add("transition-opacity", "ease-linear", "duration-300", "bg-opacity-100", "translate-x-0")
-    this.containerTarget.classList.add("transition", "ease-in-out", "duration-300", "transform", "translate-x-0")
-    setTimeout(() => {
-      this.backdropTarget.classList.remove("transition-opacity", "ease-linear", "duration-300", "bg-opacity-100", "translate-x-0")
-      this.backdropTarget.classList.add("bg-opacity-0", "-translate-x-full")
-      this.containerTarget.classList.remove("transition", "ease-in-out", "duration-300", "transform", "translate-x-0")
-      this.containerTarget.classList.add("-translate-x-full")
-    }, 300)
+    this.containerTarget.classList.add("animate__animated", "animate__slideOutLeft", "animate__faster")
+    this.element.addEventListener('animationend', () => {
+      this.containerTarget.classList.remove("animate__animated", "animate__slideOutLeft", "animate__faster")
+      this.backdropTarget.classList.remove("backdrop-blur-sm", "bg-opacity-60", "translate-x-0")
+      this.backdropTarget.classList.add("-translate-x-full")
+      this.containerTarget.classList.add("-translate-x-full", "hidden")
+    }, { once: true })
   }
 }
