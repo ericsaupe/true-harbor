@@ -16,6 +16,19 @@ module TrueHarbor
       g.factory_bot suffix: "factory"
     end
 
+    if Rails.env.production? || ENV["SEND_EMAILS"]
+      config.action_mailer.default_options = { from: "noreply@trueharbor.io" }
+      config.action_mailer.delivery_method = :smtp
+      config.action_mailer.smtp_settings = {
+        address: "email-smtp.us-west-1.amazonaws.com",
+        authentication: :plain,
+        enable_starttls_auto: true,
+        port: 587,
+        user_name: Rails.application.credentials.dig(:aws, :ses, :smtp_username),
+        password: Rails.application.credentials.dig(:aws, :ses, :smtp_password)
+      }
+    end
+
     config.active_job.queue_adapter = :sidekiq
 
     config.view_component.generate.sidecar = true
