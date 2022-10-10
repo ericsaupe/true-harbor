@@ -14,6 +14,14 @@ class Result < ApplicationRecord
     broadcast_replace_later_to(search, partial: "results/result_table_row")
   end
 
+  def selected?
+    state == "selected"
+  end
+
+  def declined?
+    state == "declined"
+  end
+
   def calculate_score
     matching = 0
     total = 0

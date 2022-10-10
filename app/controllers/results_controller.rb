@@ -23,6 +23,6 @@ class ResultsController < AuthenticatedController
   end
 
   def result_params
-    params.require(:result).permit(:selected)
+    params.require(:result).permit(:state)
   end
 end

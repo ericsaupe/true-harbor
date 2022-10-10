@@ -3,10 +3,13 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static values = {
     id: Number,
-    selected: Boolean
+    state: String
   }
-  toggleSelected(event) {
-    event.preventDefault()
+
+  updateState(state) {
+    if (this.stateValue === state) {
+      state = "default"
+    }
     // Update family to be contacted
     fetch(`/results/${this.idValue}`, {
       method: "PUT",
@@ -17,9 +20,19 @@ export default class extends Controller {
       },
       body: JSON.stringify({
         result: {
-          selected: !this.selectedValue
+          state: state
         }
       })
-    }).then(_response => { this.selectedValue = !this.selectedValue })
+    }).then(_response => { this.stateValue = state })
+  }
+
+  toggleSelected(event) {
+    event.preventDefault()
+    this.updateState("selected")
+  }
+
+  toggleDeclined(event) {
+    event.preventDefault()
+    this.updateState("declined")
   }
 }

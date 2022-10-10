@@ -6,11 +6,11 @@ class SearchesController < AuthenticatedController
   before_action :find_search, only: [:show, :edit, :update, :destroy, :complete, :reopen, :download_results]
 
   def index
-    @searches = @organization.searches.all
+    @searches = @organization.searches.all.order(created_at: :desc)
   end
 
   def show
-    @results = @search.results.order(score: :desc).includes(:family)
+    @results = @search.results.order(score: :desc, created_at: :desc).includes(:family)
   end
 
   def new
