@@ -172,7 +172,7 @@
                   <div class="mt-4 space-y-4">
                     <% Family.statuses.each do |status, _key| %>
                       <div class="flex items-center">
-                        <%= form.radio_button :status, status.titleize, value: status, class: "h-4 w-4 border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                        <%= form.radio_button :status, status.titleize, value: status, checked: family.status == status, class: "h-4 w-4 border-gray-300 text-pink-600 focus:ring-pink-500" %>
                         <%= form.label :status, status.titleize, value: status, class: "ml-3 block text-sm font-medium text-gray-700" %>
                       </div>
                     <% end %>
@@ -194,7 +194,7 @@
                   <div class="mt-4 space-y-4">
                     <% Family.family_interests.each do |family_interest, _key| %>
                       <div class="flex items-center">
-                        <%= form.radio_button :family_interest, family_interest.titleize, value: family_interest, class: "h-4 w-4 border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                        <%= form.radio_button :family_interest, family_interest.titleize, value: family_interest, checked: family.family_interest == family_interest , class: "h-4 w-4 border-gray-300 text-pink-600 focus:ring-pink-500" %>
                         <%= form.label :family_interest, family_interest.titleize, value: family_interest, class: "ml-3 block text-sm font-medium text-gray-700" %>
                       </div>
                     <% end %>
