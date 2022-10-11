@@ -44,6 +44,10 @@ class Result < ApplicationRecord
         # Handle spots_available values
         matching += 1 if value.to_i <= family[key].to_i
         total += 1
+      elsif key == "family_interest"
+        # Handle family_interest values
+        matching += 1 if [value, family[key]].include?("any") || value == family[key]
+        total += 1
       else
         # Handle all others
         matching += 1 if family[key] == value
