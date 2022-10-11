@@ -2,6 +2,7 @@
 
 class Family < ApplicationRecord
   include Organizable
+  include Noteable
 
   has_many :results, dependent: :destroy
   has_many :searches, through: :results

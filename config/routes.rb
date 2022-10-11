@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     member do
       put :contacted
     end
+
+    resources :notes, only: [:new, :create]
   end
   resources :searches do
     member do

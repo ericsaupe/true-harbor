@@ -12,6 +12,8 @@ class User < ApplicationRecord
   encrypts :first_name, :last_name, deterministic: true
   encrypts :phone
 
+  has_many :notes, dependent: :nullify
+
   def display_name
     first_name && last_name ? "#{first_name} #{last_name}" : email
   end
