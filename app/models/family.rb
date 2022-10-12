@@ -10,6 +10,8 @@ class Family < ApplicationRecord
   encrypts :address_1, :address_2
   encrypts :city, :state, :region, deterministic: true
 
+  validate :on_break_dates_are_valid
+
   enum :family_interest, [:respite, :short_term, :long_term, :adoption, :any]
   enum :race, [:american_indian, :asian, :black, :islander, :hispanic, :white, :other_race]
   enum :religion, [:christianity, :islam, :judaism, :non_religous, :other_religion]
@@ -22,7 +24,10 @@ class Family < ApplicationRecord
   geocoded_by :address
   after_validation :geocode
 
-  scope :not_on_break, -> { where("on_break_until IS NULL OR on_break_until < ?", Time.current) }
+  scope :not_on_break, -> {
+                         where("(on_break_start_date IS NULL OR on_break_start_date > :today) AND
+                                (on_break_end_date IS NULL OR on_break_end_date < :today)", today: Date.current)
+                       }
 
   after_update_commit do
     broadcast_replace_later_to :families_table, partial: "families/family_table_row"
@@ -110,6 +115,13 @@ class Family < ApplicationRecord
   end
 
   def on_break?
-    on_break_until.present? && on_break_until >= Date.current
+    (on_break_start_date.present? && on_break_start_date <= Date.current) ||
+      (on_break_end_date.present? && on_break_end_date >= Date.current)
+  end
+
+  def on_break_dates_are_valid
+    if on_break_start_date.present? && on_break_end_date.present? && on_break_start_date > on_break_end_date
+      errors.add(:on_break_start_date, "must be before the end date")
+    end
   end
 end

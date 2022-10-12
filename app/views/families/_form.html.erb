@@ -1,179 +1,97 @@
-<%= form_with model: family, class: "space-y-8 divide-y divide-gray-200" do |form| %>
-  <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
-    <div class="space-y-6 sm:space-y-5 sm:pt-10">
-      <div>
-        <h3 class="text-lg font-medium leading-6 text-gray-900">Household Information</h3>
-      </div>
-      <div class="space-y-6 sm:space-y-5">
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :name, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-          <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.text_field :name, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
-          </div>
+<%= turbo_frame_tag "family" do %>
+  <%= form_with model: family, class: "space-y-8 divide-y divide-gray-200" do |form| %>
+    <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
+      <div class="space-y-6 sm:space-y-5 sm:pt-10">
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Household Information</h3>
         </div>
-
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :phone, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-          <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.text_field :phone, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
-          </div>
-        </div>
-
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :email, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-          <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.email_field :email, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
-          </div>
-        </div>
-
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :address_1, "Street address", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-          <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.text_field :address_1, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
-          </div>
-        </div>
-
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :address_2, "Street address 2", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-          <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.text_field :address_2, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
-          </div>
-        </div>
-
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :state, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-          <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.select :state, options_for_select([ "Idaho" ], "Idaho"), {}, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm" %>
-          </div>
-        </div>
-
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :zip, "ZIP / Postal code", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-          <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.text_field :zip, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
-          </div>
-        </div>
-
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :race, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-          <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.select :race, options_for_select(Family.races.map { |key, value| [key.titleize, Family.races.key(value)] }, family.race), { include_blank: true }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm" %>
-          </div>
-        </div>
-
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :religion, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-          <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.select :religion, options_for_select(Family.religions.map { |key, value| [key.titleize, Family.religions.key(value)] }, family.religion), { include_blank: true }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm" %>
-          </div>
-        </div>
-
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :other_children_in_home, "Number of other children in the home", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-          <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.number_field :other_children_in_home, min: 0, step: 1, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
-          </div>
-        </div>
-
-        <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
-          <div role="group">
-            <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
-              <div>
-                <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Recreational activities</div>
-              </div>
-              <div class="mt-4 sm:col-span-2 sm:mt-0">
-                <div class="max-w-lg space-y-4">
-                  <% Family.recreational_activities.sort.each do |recreational_activity| %>
-                    <div class="relative flex items-start">
-                      <div class="flex h-5 items-center">
-                        <%= check_box_tag "family[recreational_activities][#{recreational_activity}]", recreational_activity.to_sym, family.recreational_activities&.any?(recreational_activity), class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
-                      </div>
-                      <div class="ml-3 text-sm">
-                        <%= label_tag "family[recreational_activities][#{recreational_activity}]", recreational_activity.titleize, class: "font-medium text-gray-700" %>
-                      </div>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
+        <div class="space-y-6 sm:space-y-5">
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= form.label :name, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= form.text_field :name, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
             </div>
           </div>
-        </div>
 
-        <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
-          <div role="group">
-            <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
-              <div>
-                <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Pet information</div>
-              </div>
-              <div class="mt-4 sm:col-span-2 sm:mt-0">
-                <div class="max-w-lg space-y-4">
-                  <div class="relative flex items-start">
-                    <div class="flex h-5 items-center">
-                      <%= form.check_box :dogs, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
-                    </div>
-                    <div class="ml-3 text-sm">
-                      <%= form.label :dogs, class: "font-medium text-gray-700" %>
-                      <p class="text-gray-500">They have dogs in their home.</p>
-                    </div>
-                  </div>
-                  <div class="relative flex items-start">
-                    <div class="flex h-5 items-center">
-                      <%= form.check_box :cats, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
-                    </div>
-                    <div class="ml-3 text-sm">
-                      <%= form.label :cats, class: "font-medium text-gray-700" %>
-                      <p class="text-gray-500">They have cats in their home.</p>
-                    </div>
-                  </div>
-                  <div class="relative flex items-start">
-                    <div class="flex h-5 items-center">
-                      <%= form.check_box :other_animals, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
-                    </div>
-                    <div class="ml-3 text-sm">
-                      <%= form.label :other_animals, class: "font-medium text-gray-700" %>
-                      <p class="text-gray-500">They have other animals in their home.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= form.label :phone, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= form.text_field :phone, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="space-y-6 divide-y divide-gray-200 pt-8 sm:space-y-5 sm:pt-10">
-      <div>
-        <h3 class="text-lg font-medium leading-6 text-gray-900">Foster Care Information</h3>
-      </div>
-      <div class="space-y-6 sm:space-y-5">
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :region, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-          <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.select :region, options_for_select([ "1" ], "1"), {}, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm" %>
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= form.label :email, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= form.email_field :email, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+            </div>
           </div>
-        </div>
 
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :license_date, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-          <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.date_field :license_date, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= form.label :address_1, "Street address", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= form.text_field :address_1, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+            </div>
           </div>
-        </div>
 
-        <div class="pt-6 sm:pt-5 sm:gap-4 sm:border-t sm:border-gray-200">
-          <div role="group">
-            <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
-              <div>
-                <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700" id="label-notifications">License Status</div>
-              </div>
-              <div class="sm:col-span-2">
-                <div class="max-w-lg">
-                  <div class="mt-4 space-y-4">
-                    <% Family.statuses.each do |status, _key| %>
-                      <div class="flex items-center">
-                        <%= form.radio_button :status, status, checked: family.status == status, class: "h-4 w-4 border-gray-300 text-pink-600 focus:ring-pink-500" %>
-                        <%= form.label :status, status.titleize, class: "ml-3 block text-sm font-medium text-gray-700" %>
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= form.label :address_2, "Street address 2", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= form.text_field :address_2, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= form.label :state, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= form.select :state, options_for_select([ "Idaho" ], "Idaho"), {}, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm" %>
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= form.label :zip, "ZIP / Postal code", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= form.text_field :zip, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= form.label :race, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= form.select :race, options_for_select(Family.races.map { |key, value| [key.titleize, Family.races.key(value)] }, family.race), { include_blank: true }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm" %>
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= form.label :religion, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= form.select :religion, options_for_select(Family.religions.map { |key, value| [key.titleize, Family.religions.key(value)] }, family.religion), { include_blank: true }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm" %>
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= form.label :other_children_in_home, "Number of other children in the home", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= form.number_field :other_children_in_home, min: 0, step: 1, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+            </div>
+          </div>
+
+          <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
+            <div role="group">
+              <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
+                <div>
+                  <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Recreational activities</div>
+                </div>
+                <div class="mt-4 sm:col-span-2 sm:mt-0">
+                  <div class="max-w-lg space-y-4">
+                    <% Family.recreational_activities.sort.each do |recreational_activity| %>
+                      <div class="relative flex items-start">
+                        <div class="flex h-5 items-center">
+                          <%= check_box_tag "family[recreational_activities][#{recreational_activity}]", recreational_activity.to_sym, family.recreational_activities&.any?(recreational_activity), class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                        </div>
+                        <div class="ml-3 text-sm">
+                          <%= label_tag "family[recreational_activities][#{recreational_activity}]", recreational_activity.titleize, class: "font-medium text-gray-700" %>
+                        </div>
                       </div>
                     <% end %>
                   </div>
@@ -181,32 +99,180 @@
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :on_break_until, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-          %>
-          <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.date_field :on_break_until,
-                                value: family.on_break? ? family.on_break_until.to_date : "",
-                                class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm"
-            %>
+          <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
+            <div role="group">
+              <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
+                <div>
+                  <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Pet information</div>
+                </div>
+                <div class="mt-4 sm:col-span-2 sm:mt-0">
+                  <div class="max-w-lg space-y-4">
+                    <div class="relative flex items-start">
+                      <div class="flex h-5 items-center">
+                        <%= form.check_box :dogs, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                      </div>
+                      <div class="ml-3 text-sm">
+                        <%= form.label :dogs, class: "font-medium text-gray-700" %>
+                        <p class="text-gray-500">They have dogs in their home.</p>
+                      </div>
+                    </div>
+                    <div class="relative flex items-start">
+                      <div class="flex h-5 items-center">
+                        <%= form.check_box :cats, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                      </div>
+                      <div class="ml-3 text-sm">
+                        <%= form.label :cats, class: "font-medium text-gray-700" %>
+                        <p class="text-gray-500">They have cats in their home.</p>
+                      </div>
+                    </div>
+                    <div class="relative flex items-start">
+                      <div class="flex h-5 items-center">
+                        <%= form.check_box :other_animals, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                      </div>
+                      <div class="ml-3 text-sm">
+                        <%= form.label :other_animals, class: "font-medium text-gray-700" %>
+                        <p class="text-gray-500">They have other animals in their home.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="pt-6 sm:pt-5 sm:gap-4 sm:border-t sm:border-gray-200">
-          <div role="group">
-            <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
-              <div>
-                <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700" id="label-notifications">Family interest</div>
+      <div class="space-y-6 divide-y divide-gray-200 pt-8 sm:space-y-5 sm:pt-10">
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Foster Care Information</h3>
+        </div>
+        <div class="space-y-6 sm:space-y-5">
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= form.label :region, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= form.select :region, options_for_select([ "1" ], "1"), {}, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm" %>
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= form.label :license_date, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= form.date_field :license_date, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+            </div>
+          </div>
+
+          <div class="pt-6 sm:pt-5 sm:gap-4 sm:border-t sm:border-gray-200">
+            <div role="group">
+              <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
+                <div>
+                  <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700" id="label-notifications">License Status</div>
+                </div>
+                <div class="sm:col-span-2">
+                  <div class="max-w-lg">
+                    <div class="mt-4 space-y-4">
+                      <% Family.statuses.each do |status, _key| %>
+                        <div class="flex items-center">
+                          <%= form.radio_button :status, status, checked: family.status == status, class: "h-4 w-4 border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                          <%= form.label :status, status.titleize, class: "ml-3 block text-sm font-medium text-gray-700" %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="sm:col-span-2">
-                <div class="max-w-lg">
-                  <div class="mt-4 space-y-4">
-                    <% Family.family_interests.each do |family_interest, _key| %>
-                      <div class="flex items-center">
-                        <%= form.radio_button :family_interest, family_interest, checked: family.family_interest == family_interest , class: "h-4 w-4 border-gray-300 text-pink-600 focus:ring-pink-500" %>
-                        <%= form.label :family_interest, family_interest.titleize, class: "ml-3 block text-sm font-medium text-gray-700" %>
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= form.label :on_break_start_date, "On break dates", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <div class="flex">
+                <div class="flex-1 mr-4">
+                  <%= form.label :on_break_start_date, "From", class: "block text-sm font-medium text-gray-700" %>
+                  <div class="mt-1">
+                    <%= form.date_field :on_break_start_date,
+                                      class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+                  </div>
+                </div>
+                <div class="flex-1 ml-4">
+                  <%= form.label :on_break_end_date, "To", class: "block text-sm font-medium text-gray-700" %>
+                  <div class="mt-1">
+                    <%= form.date_field :on_break_end_date,
+                                      class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 sm:pt-5 sm:gap-4 sm:border-t sm:border-gray-200">
+            <div role="group">
+              <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
+                <div>
+                  <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700" id="label-notifications">Family interest</div>
+                </div>
+                <div class="sm:col-span-2">
+                  <div class="max-w-lg">
+                    <div class="mt-4 space-y-4">
+                      <% Family.family_interests.each do |family_interest, _key| %>
+                        <div class="flex items-center">
+                          <%= form.radio_button :family_interest, family_interest, checked: family.family_interest == family_interest , class: "h-4 w-4 border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                          <%= form.label :family_interest, family_interest.titleize, class: "ml-3 block text-sm font-medium text-gray-700" %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= form.label :spots_available, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= form.number_field :spots_available, min: 0, step: 1, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+            </div>
+          </div>
+
+          <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
+            <div role="group">
+              <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
+                <div>
+                  <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Indian Child Welfare Act</div>
+                </div>
+                <div class="mt-4 sm:col-span-2 sm:mt-0">
+                  <div class="max-w-lg space-y-4">
+                    <div class="relative flex items-start">
+                      <div class="flex h-5 items-center">
+                        <%= form.check_box :icwa, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                      </div>
+                      <div class="ml-3 text-sm">
+                        <%= form.label :icwa, "ICWA", class: "font-medium text-gray-700" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
+            <div role="group">
+              <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
+                <div>
+                  <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Skills</div>
+                </div>
+                <div class="mt-4 sm:col-span-2 sm:mt-0">
+                  <div class="max-w-lg space-y-4">
+                    <% Family.skills.sort.each do |skill| %>
+                      <div class="relative flex items-start">
+                        <div class="flex h-5 items-center">
+                          <%= check_box_tag "family[skills][#{skill}]", skill.to_sym, family.skills&.any?(skill), class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                        </div>
+                        <div class="ml-3 text-sm">
+                          <%= label_tag "family[skills][#{skill}]", skill, class: "font-medium text-gray-700" %>
+                        </div>
                       </div>
                     <% end %>
                   </div>
@@ -214,127 +280,74 @@
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :spots_available, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-          <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.number_field :spots_available, min: 0, step: 1, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
-          </div>
-        </div>
-
-        <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
-          <div role="group">
-            <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
-              <div>
-                <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Indian Child Welfare Act</div>
-              </div>
-              <div class="mt-4 sm:col-span-2 sm:mt-0">
-                <div class="max-w-lg space-y-4">
-                  <div class="relative flex items-start">
-                    <div class="flex h-5 items-center">
-                      <%= form.check_box :icwa, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
-                    </div>
-                    <div class="ml-3 text-sm">
-                      <%= form.label :icwa, "ICWA", class: "font-medium text-gray-700" %>
-                    </div>
+          <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
+            <div role="group">
+              <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
+                <div>
+                  <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Experience with care</div>
+                </div>
+                <div class="mt-4 sm:col-span-2 sm:mt-0">
+                  <div class="max-w-lg space-y-4">
+                    <% Family.experience_with_care.sort.each do |care| %>
+                      <div class="relative flex items-start">
+                        <div class="flex h-5 items-center">
+                          <%= check_box_tag "family[experience_with_care][#{care}]", care.to_sym, family.experience_with_care&.any?(care), class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                        </div>
+                        <div class="ml-3 text-sm">
+                          <%= label_tag "family[experience_with_care][#{care}]", care, class: "font-medium text-gray-700" %>
+                        </div>
+                      </div>
+                    <% end %>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
-          <div role="group">
-            <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
-              <div>
-                <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Skills</div>
-              </div>
-              <div class="mt-4 sm:col-span-2 sm:mt-0">
-                <div class="max-w-lg space-y-4">
-                  <% Family.skills.sort.each do |skill| %>
+          <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
+            <div role="group">
+              <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
+                <div>
+                  <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Availablity</div>
+                </div>
+                <div class="mt-4 sm:col-span-2 sm:mt-0">
+                  <div class="max-w-lg space-y-4">
                     <div class="relative flex items-start">
                       <div class="flex h-5 items-center">
-                        <%= check_box_tag "family[skills][#{skill}]", skill.to_sym, family.skills&.any?(skill), class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                        <%= form.check_box :available_visit_transportation, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
                       </div>
                       <div class="ml-3 text-sm">
-                        <%= label_tag "family[skills][#{skill}]", skill, class: "font-medium text-gray-700" %>
+                        <%= form.label :available_visit_transportation, "Transport to visits", class: "font-medium text-gray-700" %>
+                        <p class="text-gray-500">They are available to handle transports to visits.</p>
                       </div>
                     </div>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
-          <div role="group">
-            <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
-              <div>
-                <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Experience with care</div>
-              </div>
-              <div class="mt-4 sm:col-span-2 sm:mt-0">
-                <div class="max-w-lg space-y-4">
-                  <% Family.experience_with_care.sort.each do |care| %>
                     <div class="relative flex items-start">
                       <div class="flex h-5 items-center">
-                        <%= check_box_tag "family[experience_with_care][#{care}]", care.to_sym, family.experience_with_care&.any?(care), class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                        <%= form.check_box :available_school_transportation, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
                       </div>
                       <div class="ml-3 text-sm">
-                        <%= label_tag "family[experience_with_care][#{care}]", care, class: "font-medium text-gray-700" %>
+                        <%= form.label :available_school_transportation, "Transport to school", class: "font-medium text-gray-700" %>
+                        <p class="text-gray-500">They are available to handle transports to school.</p>
                       </div>
                     </div>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
-          <div role="group">
-            <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
-              <div>
-                <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Availablity</div>
-              </div>
-              <div class="mt-4 sm:col-span-2 sm:mt-0">
-                <div class="max-w-lg space-y-4">
-                  <div class="relative flex items-start">
-                    <div class="flex h-5 items-center">
-                      <%= form.check_box :available_visit_transportation, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                    <div class="relative flex items-start">
+                      <div class="flex h-5 items-center">
+                        <%= form.check_box :available_counselor_transportation, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                      </div>
+                      <div class="ml-3 text-sm">
+                        <%= form.label :available_counselor_transportation, "Transport to counseling", class: "font-medium text-gray-700" %>
+                        <p class="text-gray-500">They are available to handle transports to counseling appointments.</p>
+                      </div>
                     </div>
-                    <div class="ml-3 text-sm">
-                      <%= form.label :available_visit_transportation, "Transport to visits", class: "font-medium text-gray-700" %>
-                      <p class="text-gray-500">They are available to handle transports to visits.</p>
-                    </div>
-                  </div>
-                  <div class="relative flex items-start">
-                    <div class="flex h-5 items-center">
-                      <%= form.check_box :available_school_transportation, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
-                    </div>
-                    <div class="ml-3 text-sm">
-                      <%= form.label :available_school_transportation, "Transport to school", class: "font-medium text-gray-700" %>
-                      <p class="text-gray-500">They are available to handle transports to school.</p>
-                    </div>
-                  </div>
-                  <div class="relative flex items-start">
-                    <div class="flex h-5 items-center">
-                      <%= form.check_box :available_counselor_transportation, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
-                    </div>
-                    <div class="ml-3 text-sm">
-                      <%= form.label :available_counselor_transportation, "Transport to counseling", class: "font-medium text-gray-700" %>
-                      <p class="text-gray-500">They are available to handle transports to counseling appointments.</p>
-                    </div>
-                  </div>
-                  <div class="relative flex items-start">
-                    <div class="flex h-5 items-center">
-                      <%= form.check_box :available_multiple_appointments_per_week, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
-                    </div>
-                    <div class="ml-3 text-sm">
-                      <%= form.label :available_multiple_appointments_per_week, "Engage in multiple appointments per week", class: "font-medium text-gray-700" %>
-                      <p class="text-gray-500">They are available to handle multiple appointments per week.</p>
+                    <div class="relative flex items-start">
+                      <div class="flex h-5 items-center">
+                        <%= form.check_box :available_multiple_appointments_per_week, class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                      </div>
+                      <div class="ml-3 text-sm">
+                        <%= form.label :available_multiple_appointments_per_week, "Engage in multiple appointments per week", class: "font-medium text-gray-700" %>
+                        <p class="text-gray-500">They are available to handle multiple appointments per week.</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -344,12 +357,15 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="pt-5">
-    <div class="flex justify-end">
-      <%= link_to "Cancel", :back, class: "cursor-pointer rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2" %>
-      <%= form.submit class: "cursor-pointer ml-3 inline-flex justify-center rounded-md border border-transparent bg-pink-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2" %>
+    <div class="pt-5">
+      <% if family.errors.present? %>
+        <%= render(FormErrorsComponent.new(errors: family.errors)) %>
+      <% end %>
+      <div class="flex justify-end">
+        <%= link_to "Cancel", :back, class: "cursor-pointer rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2" %>
+        <%= form.submit class: "cursor-pointer ml-3 inline-flex justify-center rounded-md border border-transparent bg-pink-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2" %>
+      </div>
     </div>
-  </div>
+  <% end %>
 <% end %>

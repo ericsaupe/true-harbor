@@ -59,7 +59,19 @@
       <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "license_date")) %>
       <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "status", label: "License status")) %>
       <% if @family.on_break? %>
-        <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "on_break_until", label: "On break until")) %>
+        <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "on_break")) do %>
+           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+            <dt class="inline-flex items-center text-sm font-medium text-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-orange-500">
+                <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+              </svg>
+              On break
+            </dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              <%= [@family.on_break_start_date&.strftime("%b %-d %Y"), @family.on_break_end_date&.strftime("%b %-d %Y")].join(" - ") %>
+            </dd>
+          </div>
+        <% end %>
       <% end %>
       <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "family_interest")) %>
       <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "spots_available")) %>
