@@ -18,7 +18,7 @@ class Search < ApplicationRecord
   end
 
   def find_families
-    results = Family.open
+    results = Family.open.not_on_break
     query.each do |key, value|
       results = results.or(Family.where(key => value))
     end

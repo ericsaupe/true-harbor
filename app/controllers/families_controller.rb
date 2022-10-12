@@ -70,7 +70,7 @@ class FamiliesController < AuthenticatedController
     allowed_params = params.require(:family).permit(:name, :address_1, :address_2, :city, :state, :zip, :phone, :email,
       :region, :license_date, :status, :race, :religion, :family_interest, :other_children_in_home, :spots_available,
       :icwa, :dogs, :cats, :other_animals, :available_visit_transportation, :available_school_transportation,
-      :available_counselor_transportation, :available_multiple_appointments_per_week,
+      :available_counselor_transportation, :available_multiple_appointments_per_week, :on_break_until,
       :last_contacted_at, experience_with_care: {}, recreational_activities: {}, skills: {})
     format_serialized_fields(allowed_params)
   end

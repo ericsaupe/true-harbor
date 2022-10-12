@@ -172,14 +172,25 @@
                   <div class="mt-4 space-y-4">
                     <% Family.statuses.each do |status, _key| %>
                       <div class="flex items-center">
-                        <%= form.radio_button :status, status.titleize, value: status, checked: family.status == status, class: "h-4 w-4 border-gray-300 text-pink-600 focus:ring-pink-500" %>
-                        <%= form.label :status, status.titleize, value: status, class: "ml-3 block text-sm font-medium text-gray-700" %>
+                        <%= form.radio_button :status, status, checked: family.status == status, class: "h-4 w-4 border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                        <%= form.label :status, status.titleize, class: "ml-3 block text-sm font-medium text-gray-700" %>
                       </div>
                     <% end %>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+          <%= form.label :on_break_until, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+          %>
+          <div class="mt-1 sm:col-span-2 sm:mt-0">
+            <%= form.date_field :on_break_until,
+                                value: family.on_break? ? family.on_break_until.to_date : "",
+                                class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm"
+            %>
           </div>
         </div>
 
@@ -194,8 +205,8 @@
                   <div class="mt-4 space-y-4">
                     <% Family.family_interests.each do |family_interest, _key| %>
                       <div class="flex items-center">
-                        <%= form.radio_button :family_interest, family_interest.titleize, value: family_interest, checked: family.family_interest == family_interest , class: "h-4 w-4 border-gray-300 text-pink-600 focus:ring-pink-500" %>
-                        <%= form.label :family_interest, family_interest.titleize, value: family_interest, class: "ml-3 block text-sm font-medium text-gray-700" %>
+                        <%= form.radio_button :family_interest, family_interest, checked: family.family_interest == family_interest , class: "h-4 w-4 border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                        <%= form.label :family_interest, family_interest.titleize, class: "ml-3 block text-sm font-medium text-gray-700" %>
                       </div>
                     <% end %>
                   </div>

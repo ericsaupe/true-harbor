@@ -58,6 +58,9 @@
       <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "region")) %>
       <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "license_date")) %>
       <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "status", label: "License status")) %>
+      <% if @family.on_break? %>
+        <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "on_break_until", label: "On break until")) %>
+      <% end %>
       <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "family_interest")) %>
       <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "spots_available")) %>
       <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "icwa", label: "ICWA")) %>

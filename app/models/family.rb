@@ -22,6 +22,8 @@ class Family < ApplicationRecord
   geocoded_by :address
   after_validation :geocode
 
+  scope :not_on_break, -> { where("on_break_until IS NULL OR on_break_until < ?", Time.current) }
+
   after_update_commit do
     broadcast_replace_later_to :families_table, partial: "families/family_table_row"
   end
@@ -105,5 +107,9 @@ class Family < ApplicationRecord
 
   def address
     [address_1, address_2, city, state, zip].compact.join(", ")
+  end
+
+  def on_break?
+    on_break_until.present? && on_break_until >= Date.current
   end
 end
