@@ -16,7 +16,3 @@ True Harbor is a tool to help Foster Agencies place children in foster homes.
 
 - `bin/test` to run the test suite
 
-## Deployment
-
-- `bin/deploy` to deploy to Fly.io
-
