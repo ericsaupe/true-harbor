@@ -7,8 +7,8 @@
       <%= form.select :gender,
           options_for_select([
             ["No children", :any],
-            ["No boys", :boys],
-            ["No girls", :girls]
+            ["No boys", :boy],
+            ["No girls", :girl]
           ], form.object.gender), {},
           class: "flex-auto block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm"
       %>

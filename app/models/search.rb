@@ -33,4 +33,15 @@ class Search < ApplicationRecord
       Result.find_or_initialize_by(search: self, family: family).save!
     end
   end
+
+  def results_without_exclusions
+    results = self.results.includes(family: :exclusions)
+    children.find_each do |child|
+      results = results.where.not(exclusions: { gender: [:any, child.gender], comparator: :less_than,
+                                                age: child.age..18, })
+      results = results.where.not(exclusions: { gender: [:any, child.gender], comparator: :greater_than,
+                                                age: 0..child.age, })
+    end
+    results
+  end
 end

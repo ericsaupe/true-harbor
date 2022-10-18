@@ -10,7 +10,11 @@ class SearchesController < AuthenticatedController
   end
 
   def show
-    @results = @search.results.order(score: :desc, created_at: :desc).includes(:family)
+    @results = if params[:include_exclusions] == "true"
+      @search.results.includes(:family)
+    else
+      @search.results_without_exclusions
+    end.order(score: :desc, created_at: :desc)
   end
 
   def new

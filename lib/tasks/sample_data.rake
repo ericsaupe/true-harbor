@@ -12,7 +12,7 @@ task generate_data: :environment do
     FactoryBot.create(:user, email: "user#{i}@example.com", organization: organization)
   end
   # Create families
-  FactoryBot.create_list(:family, 100, organization: organization)
+  FactoryBot.create_list(:family, 100, :with_exclusions, organization: organization)
   # Create searches
-  FactoryBot.create_list(:search, 5, organization: organization)
+  FactoryBot.create_list(:search, 5, :with_children, organization: organization)
 end

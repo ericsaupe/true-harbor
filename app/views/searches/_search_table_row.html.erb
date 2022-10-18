@@ -3,7 +3,7 @@
     <%= search.name %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
-    <%= search.results.size %>
+    <%= search.results_without_exclusions.size %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
     <%= search.created_at.strftime("%b %-d %Y, %l:%M %P") %>
