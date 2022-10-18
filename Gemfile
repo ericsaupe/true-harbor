@@ -5,10 +5,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.1.2"
 
-# Using branch to avoid a bug with importmaps
-# @see https://github.com/thoughtbot/administrate/issues/2091
-gem "administrate", github: "n-studio/administrate", branch: "compile-assets"
-
 gem "bootsnap", require: false
 gem "cancancan"
 gem "devise"

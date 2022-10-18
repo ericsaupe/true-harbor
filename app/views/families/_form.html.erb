@@ -356,6 +356,19 @@
           </div>
         </div>
       </div>
+
+      <div class="space-y-6 divide-y divide-gray-200 pt-8 sm:space-y-5 sm:pt-10" data-controller="nested-fields">
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Fostering Exclusions</h3>
+          <p class="mt-1 max-w-2xl text-sm text-gray-500">These would be any "Hard No's" for this family.</p>
+        </div>
+        <div class="space-y-6 sm:space-y-5" data-nested-fields-target="container">
+          <%= form.fields_for :exclusions do |exclusion_form| %>
+            <%= render partial: "exclusion_fields", locals: { form: exclusion_form } %>
+          <% end %>
+        </div>
+        <%= link_to_add_fields "Add Exclusion", form, :exclusions %>
+      </div>
     </div>
 
     <div class="pt-5">

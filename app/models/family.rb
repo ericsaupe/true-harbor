@@ -6,6 +6,9 @@ class Family < ApplicationRecord
 
   has_many :results, dependent: :destroy
   has_many :searches, through: :results
+  has_many :exclusions, dependent: :destroy
+
+  accepts_nested_attributes_for :exclusions, allow_destroy: true, reject_if: :all_blank
 
   encrypts :address_1, :address_2
   encrypts :city, :state, :region, deterministic: true

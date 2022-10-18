@@ -71,7 +71,8 @@ class FamiliesController < AuthenticatedController
       :region, :license_date, :status, :race, :religion, :family_interest, :other_children_in_home, :spots_available,
       :icwa, :dogs, :cats, :other_animals, :available_visit_transportation, :available_school_transportation,
       :available_counselor_transportation, :available_multiple_appointments_per_week, :on_break_start_date,
-      :on_break_end_date, :last_contacted_at, experience_with_care: {}, recreational_activities: {}, skills: {})
+      :on_break_end_date, :last_contacted_at, experience_with_care: {}, recreational_activities: {}, skills: {},
+      exclusions_attributes: [:id, :gender, :comparator, :age, :_destroy])
     format_serialized_fields(allowed_params)
   end
 end

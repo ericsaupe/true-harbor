@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_12_015637) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_17_205836) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "exclusions", force: :cascade do |t|
+    t.bigint "family_id", null: false
+    t.integer "gender", default: 0, null: false
+    t.integer "comparator", default: 0, null: false
+    t.integer "age", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["family_id"], name: "index_exclusions_on_family_id"
+  end
 
   create_table "families", force: :cascade do |t|
     t.string "name", null: false
@@ -142,6 +152,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_015637) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "exclusions", "families"
   add_foreign_key "families", "organizations"
   add_foreign_key "notes", "users"
   add_foreign_key "results", "families"
