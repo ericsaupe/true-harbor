@@ -7,6 +7,23 @@
       </div>
     </div>
   </div>
+
+  <div class="space-y-6 divide-y divide-gray-200 pt-8 sm:space-y-5 sm:pt-10" data-controller="nested-fields">
+    <div>
+      <h3 class="text-lg font-medium leading-6 text-gray-900">Children</h3>
+    </div>
+    <div class="space-y-6 sm:space-y-5" data-nested-fields-target="container">
+      <%= form.fields_for :children do |child_form| %>
+        <%= render partial: "child_fields", locals: { form: child_form } %>
+      <% end %>
+
+      <%= form.fields_for :children, Child.new do |child_form| %>
+        <%= render partial: "child_fields", locals: { form: child_form } %>
+      <% end %>
+    </div>
+    <%= link_to_add_fields "Add Child", form, :children %>
+  </div>
+
   <%= form.fields_for :query, OpenStruct.new(search.query) do |query_form| %>
     <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
       <div class="space-y-6 sm:space-y-5 sm:pt-10">

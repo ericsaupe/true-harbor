@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_17_205836) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_18_221818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "children", force: :cascade do |t|
+    t.bigint "search_id", null: false
+    t.integer "gender", null: false
+    t.integer "age", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["search_id"], name: "index_children_on_search_id"
+  end
 
   create_table "exclusions", force: :cascade do |t|
     t.bigint "family_id", null: false
@@ -152,6 +161,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_17_205836) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "children", "searches"
   add_foreign_key "exclusions", "families"
   add_foreign_key "families", "organizations"
   add_foreign_key "notes", "users"

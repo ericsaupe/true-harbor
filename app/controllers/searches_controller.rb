@@ -70,7 +70,8 @@ class SearchesController < AuthenticatedController
   end
 
   def search_params
-    allowed_params = params.require(:search).permit(:name, query: {})
+    allowed_params = params.require(:search).permit(:name, query: {},
+      children_attributes: [:id, :gender, :age, :_destroy])
     allowed_params[:query] = format_serialized_fields(allowed_params[:query])
     allowed_params
   end

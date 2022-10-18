@@ -1,0 +1,37 @@
+<div data-controller="nested-fields" data-nested-fields-target="child" class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+  <%= form.hidden_field :id %>
+  <%= form.hidden_field :_destroy, data: { "nested-fields-target": "destroy" } %>
+  <%= label_tag :child, "Child", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+  <div class="mt-1 sm:col-span-2 sm:mt-0">
+    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+      <div class="sm:col-span-3">
+        <%= form.label :gender, class: "block text-sm font-medium text-gray-700" %>
+        <div class="mt-1">
+          <%= form.select :gender,
+            options_for_select([
+              ["Boy", :boy],
+              ["Girl", :girl],
+              ["Other", :other]
+            ], form.object.gender), { include_blank: true },
+            class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm"
+          %>
+        </div>
+      </div>
+
+      <div class="sm:col-span-2">
+        <%= form.label :age, class: "block text-sm font-medium text-gray-700" %>
+        <div class="mt-1">
+          <%= form.number_field :age, min: 0, max: 18, step: 1, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+        </div>
+      </div>
+
+      <div class="sm:col-span-1 pt-6">
+        <%= button_tag type: "button", data: { action: "nested-fields#remove" }, class: "flex-none rounded-md relative -ml-px inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+          </svg>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

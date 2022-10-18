@@ -5,6 +5,9 @@ class Search < ApplicationRecord
 
   has_many :results, dependent: :destroy
   has_many :families, through: :results
+  has_many :children, dependent: :destroy
+
+  accepts_nested_attributes_for :children, allow_destroy: true, reject_if: :all_blank
 
   serialize :query, JSON
 

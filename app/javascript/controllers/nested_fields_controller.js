@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = [ "container", "child" ]
 
-  addChild(event) {
+  add(event) {
     const fieldsHTML = event.target.dataset.fields
     this.containerTarget.insertAdjacentHTML("beforeend", fieldsHTML)
     const id = event.target.dataset.id
@@ -11,7 +11,7 @@ export default class extends Controller {
     event.target.dataset.fields = event.target.dataset.fields.replaceAll(id, newId)
   }
 
-  removeChild(event) {
+  remove(event) {
     const child = event.target.closest("[data-nested-fields-target='child']")
     child.classList.remove("sm:grid")
     child.classList.add("hidden")
