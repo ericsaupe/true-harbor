@@ -5,7 +5,19 @@
     data-family-contact-id-value="<%= result.family.id %>"
     class="<%= result_row_bg_class(result) %>">
   <%= render(TableDataComponent.new(position: "first")) do %>
-    <%= result.family.name %>
+    <% if result.excluded? %>
+      <div class="group flex items-center">
+        <span class="inline-flex items-center rounded-full bg-orange-100 mr-1 px-2.5 py-0.5 text-xs font-medium text-orange-800">
+          <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-orange-400" fill="currentColor" viewBox="0 0 8 8">
+            <circle cx="4" cy="4" r="3" />
+          </svg>
+          exclusions
+        </span>
+        <%= result.family.name %>
+      </div>
+    <% else %>
+      <%= result.family.name %>
+    <% end %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
     <%= phone_to(result.family.phone&.delete('^0-9'), result.family.phone, class: "text-pink-600 hover:text-pink-900",

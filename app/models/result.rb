@@ -22,6 +22,10 @@ class Result < ApplicationRecord
     state == "declined"
   end
 
+  def excluded?
+    search.excluded_family_ids.include?(id)
+  end
+
   def calculate_score
     matching = 0
     total = 0

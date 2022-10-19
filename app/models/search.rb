@@ -44,4 +44,8 @@ class Search < ApplicationRecord
     end
     results
   end
+
+  def excluded_family_ids
+    @excluded_family_ids ||= results.pluck(:id) - results_without_exclusions.pluck(:id)
+  end
 end
