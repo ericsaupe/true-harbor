@@ -31,6 +31,33 @@
           <%= render(AddressComponent.new(family: @family)) %>
         </dd>
       </div>
+      <% if @family.exclusions %>
+        <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+          <dt class="text-sm font-medium text-gray-500">Exclusions</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              <ul role="list" class="divide-y divide-gray-200 rounded-md border border-gray-200">
+                <% @family.exclusions.each do |exclusion| %>
+                  <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+                    <div class="flex w-0 flex-1 items-center">
+                      <% if ExclusionComparator.exclusion_hit?(search: @search, exclusion: exclusion) %>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-red-500">
+                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="ml-2 w-0 flex-1 truncate font-bold"><%= exclusion.display_text %></span>
+                      <% else %>
+                        <svg class="w-5 h-5 text-pink-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                        </svg>
+                        <span class="ml-2 w-0 flex-1 truncate"><%= exclusion.display_text %></span>
+                      <% end %>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+            </dd>
+          </dt>
+        </div>
+      <% end %>
       <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "race")) %>
       <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "religion")) %>
       <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "other_children_in_home", label: "Number of other children in the home")) %>

@@ -29,4 +29,15 @@ RSpec.describe(Search, type: :model) do
       expect(search.completed?).to(be(false))
     end
   end
+
+  describe "#results_without_exclusions" do
+    it "returns results without exclusions" do
+      family = create(:family)
+      create(:exclusion, family: family, gender: :any, comparator: :less_than, age: 5)
+      create(:exclusion, family: family, gender: :girl, comparator: :less_than, age: 6)
+      search = create(:search)
+      create(:child, search: search, gender: :boy, age: 4)
+      expect(search.results_without_exclusions).to(eq([]))
+    end
+  end
 end
