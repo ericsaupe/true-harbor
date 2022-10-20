@@ -3,5 +3,5 @@
 class Child < ApplicationRecord
   belongs_to :search
 
-  enum :gender, [:boy, :girl, :other]
+  enum :gender, { boy: 0, girl: 1, other: 2 }
 end

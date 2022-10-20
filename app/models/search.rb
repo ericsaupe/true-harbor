@@ -40,10 +40,10 @@ class Search < ApplicationRecord
       # TODO: Genders here seem to be pulling from the wrong place and pluralizing seems to help. The genders filtered
       # here are for the child and not the exclusion. It may have something to do with changing the enum values but
       # the tests seem to confirm this to work as is.
-      results = results.where.not(exclusions: { gender: [:other, child.gender.pluralize], comparator: :less_than,
-                                                age: child.age..18, })
-      results = results.where.not(exclusions: { gender: [:other, child.gender.pluralize], comparator: :greater_than,
-                                                age: 0..child.age, })
+      results = results.where.not(families: { id: Exclusion.where(family: families, gender: [:any, child.gender],
+        comparator: :less_than, age: child.age..18).pluck(:family_id) })
+      results = results.where.not(families: { id: Exclusion.where(family: families, gender: [:any, child.gender],
+        comparator: :greater_than, age: 0..child.age).pluck(:family_id) })
     end
     results
   end
