@@ -1,10 +1,10 @@
 <div class="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
-  <div class="flex min-h-0 flex-1 flex-col border-r border-gray-200 bg-white">
+  <div class="flex min-h-0 flex-1 flex-col border-r border-pink-200 bg-pink-50">
     <div class="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
       <div class="flex flex-shrink-0 items-center px-4">
         <%= image_tag "logo.png", class: "h-8 w-auto", alt: "True Harbor" %>
       </div>
-      <nav class="mt-5 flex-1 space-y-1 bg-white px-2">
+      <nav class="mt-5 flex-1 space-y-1 px-2">
         <% if current_user %>
           <%= link_to searches_path, class: desktop_menu_classes(controller: "searches") do %>
             <svg class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -27,7 +27,7 @@
         <% end %>
       </nav>
     </div>
-    <div class="flex flex-shrink-0 border-t border-gray-200 p-4">
+    <div class="flex flex-shrink-0 border-t border-pink-100 p-4 bg-pink-100 hover:bg-white">
       <% if current_user %>
         <%= link_to edit_user_registration_path, data: { turbo: false }, class: "group block w-full flex-shrink-0" do %>
           <div class="flex items-center">

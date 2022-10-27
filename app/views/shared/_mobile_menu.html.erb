@@ -2,7 +2,7 @@
   <div data-mobile-menu-target="backdrop" class="fixed inset-0 bg-gray-600 bg-opacity-0 -translate-x-full"></div>
 
   <div data-mobile-menu-target="container" class="fixed inset-0 z-40 flex -translate-x-full">
-    <div class="relative flex w-full max-w-xs flex-1 flex-col bg-white">
+    <div class="relative flex w-full max-w-xs flex-1 flex-col bg-pink-50">
       <div class="absolute top-0 right-0 -mr-12 pt-2">
         <button data-action="mobile-menu#closeMenu" type="button" class="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
           <span class="sr-only">Close sidebar</span>
@@ -39,7 +39,7 @@
           <% end %>
         </nav>
       </div>
-      <div class="flex flex-shrink-0 border-t border-gray-200 p-4">
+      <div class="flex flex-shrink-0 border-t border-pink-200 p-4 bg-pink-100 hover:bg-white">
         <% if current_user %>
           <%= link_to edit_user_registration_path, data: { turbo: false }, class: "group block flex-shrink-0" do %>
             <div class="flex items-center">
