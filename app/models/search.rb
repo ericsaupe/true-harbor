@@ -16,6 +16,8 @@ class Search < ApplicationRecord
 
   scope :completed, -> { where.not(completed_at: nil) }
 
+  enum :category, { emergent: 0, planned_respite: 1 }
+
   def completed?
     completed_at.present?
   end
