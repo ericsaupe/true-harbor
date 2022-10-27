@@ -14,7 +14,10 @@ class Search < ApplicationRecord
   after_save :calculate_results
   after_update_commit { broadcast_replace_later_to :searches_table, partial: "searches/search_table_row" }
 
+  scope :not_completed, -> { where(completed_at: nil) }
   scope :completed, -> { where.not(completed_at: nil) }
+
+  enum :category, { emergent: 0, planned_respite: 1 }
 
   def completed?
     completed_at.present?
