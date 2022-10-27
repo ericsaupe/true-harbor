@@ -32,7 +32,7 @@ RSpec.describe("Search", type: :system) do
       search = create(:search, organization: organization)
       visit "/"
       click_on("Searches")
-      find("[data-test='edit-button']").click
+      find("[data-test='edit-button']", match: :first).click
       expect(page).to(have_text(search.name))
       expect(page).to(have_button("Update Search"))
     end
