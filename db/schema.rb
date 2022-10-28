@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_27_211927) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_28_042144) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,7 +59,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_211927) do
     t.boolean "available_visit_transportation", default: false
     t.boolean "available_school_transportation", default: false
     t.boolean "available_counselor_transportation", default: false
-    t.boolean "available_multiple_appointments_per_week", default: false
     t.text "recreational_activities"
     t.text "skills"
     t.text "experience_with_care"
