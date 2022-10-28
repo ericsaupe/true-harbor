@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.1.2"
 
-gem "administrate"
+gem "administrate", github: "geniuskidkanyi/administrate", branch: "asset-fix"
 gem "bootsnap", require: false
 gem "cancancan"
 gem "devise"
