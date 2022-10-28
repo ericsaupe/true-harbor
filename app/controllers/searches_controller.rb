@@ -10,7 +10,7 @@ class SearchesController < AuthenticatedController
   end
 
   def show
-    @results = if params[:include_exclusions] == "true"
+    @results = if @search.completed? || params[:include_exclusions] == "true"
       @search.results.includes(:family)
     else
       @search.results_without_exclusions
@@ -52,7 +52,7 @@ class SearchesController < AuthenticatedController
 
   def complete
     @search.update(completed_at: Time.current)
-    redirect_to(search_path(@search), flash: { success: "Successfully reopened search." }, status: :see_other)
+    redirect_to(search_path(@search), flash: { success: "Successfully finished search." }, status: :see_other)
   end
 
   def reopen
