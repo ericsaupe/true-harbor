@@ -21,6 +21,8 @@ class SearchesController < AuthenticatedController
     @search = @organization.searches.new
   end
 
+  def edit; end
+
   def create
     @search = @organization.searches.new(search_params)
     if @search.save
@@ -29,8 +31,6 @@ class SearchesController < AuthenticatedController
       render(action: "new")
     end
   end
-
-  def edit; end
 
   def update
     if @search.update(search_params)

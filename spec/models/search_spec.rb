@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe(Search, type: :model) do
+RSpec.describe(Search) do
   let(:search) { create(:search) }
   let!(:family) { create(:family) }
 

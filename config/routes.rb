@@ -26,8 +26,6 @@ Rails.application.routes.draw do
 
   namespace :admin do
     authenticate :user, ->(user) { user.admin? } do
-      mount Sidekiq::Web => "/sidekiq"
-
       resources :searches
       resources :roles
       resources :results
@@ -39,6 +37,10 @@ Rails.application.routes.draw do
       resources :users
 
       root to: "searches#index"
+    end
+
+    authenticate :user, ->(user) { user.super_admin? } do
+      mount Sidekiq::Web => "/sidekiq"
     end
   end
 end

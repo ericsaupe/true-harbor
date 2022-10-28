@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe("Search", type: :system) do
+RSpec.describe("Search") do
   let(:user) { create(:user) }
   let(:organization) { user.organization }
 

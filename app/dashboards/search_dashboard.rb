@@ -42,7 +42,7 @@ class SearchDashboard < Administrate::BaseDashboard
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [:category, :children, :completed_at, :families, :name, :organization, :query, :results].freeze
+  FORM_ATTRIBUTES = [:category, :completed_at, :name].freeze
 
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search
@@ -59,7 +59,7 @@ class SearchDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how searches are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(search)
-  #   "Search ##{search.id}"
-  # end
+  def display_resource(search)
+    "Search (#{search.name})"
+  end
 end

@@ -18,6 +18,8 @@ class FamiliesController < AuthenticatedController
     @family = @organization.families.new
   end
 
+  def edit; end
+
   def create
     @family = @organization.families.new(family_params)
     if @family.save
@@ -26,8 +28,6 @@ class FamiliesController < AuthenticatedController
       render(action: "new")
     end
   end
-
-  def edit; end
 
   def update
     if @family.update(family_params)

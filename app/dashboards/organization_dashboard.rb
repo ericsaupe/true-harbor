@@ -36,7 +36,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [:families, :name, :results, :searches, :subdomain, :users].freeze
+  FORM_ATTRIBUTES = [:name].freeze
 
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search
@@ -53,7 +53,7 @@ class OrganizationDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how organizations are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(organization)
-  #   "Organization ##{organization.id}"
-  # end
+  def display_resource(organization)
+    "Organization (#{organization.name})"
+  end
 end

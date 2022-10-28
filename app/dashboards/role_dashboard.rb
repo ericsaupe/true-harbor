@@ -24,16 +24,16 @@ class RoleDashboard < Administrate::BaseDashboard
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [:id, :name, :resource, :user_roles].freeze
+  COLLECTION_ATTRIBUTES = [:id, :name, :resource].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [:id, :name, :resource, :user_roles, :users, :created_at, :updated_at].freeze
+  SHOW_PAGE_ATTRIBUTES = [:id, :name, :resource, :users, :created_at, :updated_at].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [:name, :resource, :user_roles, :users].freeze
+  FORM_ATTRIBUTES = [:name, :resource].freeze
 
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search
@@ -50,7 +50,7 @@ class RoleDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how roles are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(role)
-  #   "Role ##{role.id}"
-  # end
+  def display_resource(role)
+    "Role (#{role.name})"
+  end
 end

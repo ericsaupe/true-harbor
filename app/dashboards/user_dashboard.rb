@@ -43,24 +43,20 @@ class UserDashboard < Administrate::BaseDashboard
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [:id, :confirmation_sent_at, :confirmation_token, :confirmed_at].freeze
+  COLLECTION_ATTRIBUTES = [:email, :first_name, :last_name, :last_sign_in_at, :roles].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [:id, :confirmation_sent_at, :confirmation_token, :confirmed_at, :current_sign_in_at,
-                          :current_sign_in_ip, :email, :encrypted_password, :failed_attempts, :first_name, :last_name,
+  SHOW_PAGE_ATTRIBUTES = [:id, :confirmation_sent_at, :confirmed_at, :current_sign_in_at,
+                          :current_sign_in_ip, :email, :failed_attempts, :first_name, :last_name,
                           :last_sign_in_at, :last_sign_in_ip, :locked_at, :notes, :organization, :phone,
-                          :remember_created_at, :reset_password_sent_at, :reset_password_token, :roles, :sign_in_count,
-                          :unconfirmed_email, :unlock_token, :created_at, :updated_at,].freeze
+                          :reset_password_sent_at, :roles, :sign_in_count, :unconfirmed_email, :created_at,
+                          :updated_at,].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [:confirmation_sent_at, :confirmation_token, :confirmed_at, :current_sign_in_at,
-                     :current_sign_in_ip, :email, :encrypted_password, :failed_attempts, :first_name, :last_name,
-                     :last_sign_in_at, :last_sign_in_ip, :locked_at, :notes, :organization, :phone,
-                     :remember_created_at, :reset_password_sent_at, :reset_password_token, :roles, :sign_in_count,
-                     :unconfirmed_email, :unlock_token,].freeze
+  FORM_ATTRIBUTES = [:email, :first_name, :last_name, :organization, :phone, :roles].freeze
 
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search

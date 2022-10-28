@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe("Families", type: :system) do
+RSpec.describe("Families") do
   let(:user) { create(:user) }
   let(:organization) { user.organization }
 
