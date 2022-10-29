@@ -17,6 +17,8 @@ class Ability
     can(:manage, Organization, id: user.organization_id)
     cannot(:destroy, Organization)
     can(:manage, User, organization_id: user.organization_id)
+    can(:create, Region)
+    can(:manage, Region, organization_id: user.organization_id)
     return unless user.super_admin?
 
     can(:manage, :all)

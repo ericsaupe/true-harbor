@@ -17,6 +17,8 @@ task generate_data: :environment do
 
     FactoryBot.create(:user, email: email, organization: organization)
   end
+  # Create regions
+  FactoryBot.create_list(:region, 5, organization: organization)
   # Create families
   FactoryBot.create_list(:family, 100, :with_exclusions, organization: organization)
   # Create searches

@@ -23,13 +23,13 @@ module Admin
     # Override this if you have certain roles that require a subset
     # this will be used to set the records shown on the `index` action.
     #
-    def scoped_resource
-      if current_user.super_admin?
-        resource_class
-      else
-        resource_class.accessible_by(current_ability)
-      end
-    end
+    # def scoped_resource
+    #   if current_user.super_admin?
+    #     resource_class
+    #   else
+    #     resource_class.accessible_by(current_ability)
+    #   end
+    # end
 
     # Override `resource_params` if you want to transform the submitted
     # data before it's persisted. For example, the following would turn all

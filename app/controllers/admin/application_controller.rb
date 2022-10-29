@@ -35,5 +35,13 @@ module Admin
     # def records_per_page
     #   params[:per_page] || 20
     # end
+
+    def scoped_resource
+      if current_user.super_admin?
+        resource_class
+      else
+        resource_class.accessible_by(current_ability)
+      end
+    end
   end
 end
