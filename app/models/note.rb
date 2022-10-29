@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Note < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :noteable, polymorphic: true
 
   after_create_commit do
