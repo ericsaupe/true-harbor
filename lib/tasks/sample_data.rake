@@ -4,12 +4,18 @@ task generate_data: :environment do
   raise "This task is only for development" unless Rails.env.development? || ENV["FORCE_GENERATE_DATA"]
 
   # Create an organization
-  organization = FactoryBot.create(:organization, name: "Demo Organization", subdomain: "demo")
+  organization = Organization.find_by(subdomain: "demo") ||
+    FactoryBot.create(:organization, name: "Demo Organization", subdomain: "demo")
   # Create users
-  admin = FactoryBot.create(:user, email: "admin@localhost", organization: organization)
-  admin.add_role(:admin)
+  if organization.users.find_by(email: "admin@example.com").nil?
+    admin = FactoryBot.create(:user, email: "admin@example.com", organization: organization)
+    admin.add_role(:admin)
+  end
   10.times do |i|
-    FactoryBot.create(:user, email: "user#{i}@example.com", organization: organization)
+    email = "user#{i}@example.com"
+    next if organization.users.find_by(email: email)
+
+    FactoryBot.create(:user, email: email, organization: organization)
   end
   # Create families
   FactoryBot.create_list(:family, 100, :with_exclusions, organization: organization)
