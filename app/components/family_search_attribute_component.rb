@@ -49,6 +49,8 @@ class FamilySearchAttributeComponent < ViewComponent::Base
       @family.send(@attribute) ? "Yes" : "No"
     elsif @family.send(@attribute).is_a?(Date)
       @family.send(@attribute).strftime("%b %-d %Y")
+    elsif @family.send(@attribute).is_a?(Region)
+      @family.send(@attribute).name
     else
       @family.send(@attribute)
     end
