@@ -77,6 +77,8 @@ class SearchesController < AuthenticatedController
     allowed_params = params.require(:search).permit(:name, :category, query: {},
       children_attributes: [:id, :gender, :age, :_destroy])
     allowed_params[:query] = format_serialized_fields(allowed_params[:query])
+    allowed_params[:query][:region_id] =
+      @organization.regions.where(id: allowed_params[:query][:region_id]&.keys).pluck(:id)
     allowed_params
   end
 end

@@ -35,7 +35,8 @@
     <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
       <div class="space-y-6 sm:space-y-5 sm:pt-10">
         <div>
-          <h3 class="text-lg font-medium leading-6 text-gray-900">Search Information</h3>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Search Filters</h3>
+          <p class="mt-2 max-w-4xl text-sm text-gray-500">These parameters will filter out results that do not meet these requirements. You can always edit a search and change these parameter to include more results if you need to later.</p>
         </div>
         <div class="space-y-6 sm:space-y-5">
           <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
@@ -70,6 +71,45 @@
             <%= query_form.label :zip, "ZIP / Postal code", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
             <div class="mt-1 sm:col-span-2 sm:mt-0">
               <%= query_form.text_field :zip, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+            </div>
+          </div>
+
+          <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
+            <div role="group">
+              <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
+                <div>
+                  <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Region</div>
+                </div>
+                <div class="mt-4 sm:col-span-2 sm:mt-0">
+                  <div class="max-w-lg space-y-4">
+                    <% @organization.regions.order(:name).each do |region| %>
+                      <div class="relative flex items-start">
+                        <div class="flex h-5 items-center">
+                          <%= check_box_tag "search[query][region_id][#{region.id}]", region.name.to_sym, search.query&.dig("region_id")&.any?(region.id), class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                        </div>
+                        <div class="ml-3 text-sm">
+                          <%= label_tag "search[query][region_id][#{region.id}]", region.name, class: "font-medium text-gray-700" %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-6 divide-y divide-gray-200 pt-8 sm:space-y-5 sm:pt-10">
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Foster Care Information</h3>
+          <p class="mt-2 max-w-4xl text-sm text-gray-500">These parameters will be usded to determine the best families that are a fit for this search. Families are given points only for the parameters you select.</p>
+        </div>
+        <div class="space-y-6 sm:space-y-5">
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <%= query_form.label :spots_available, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= query_form.number_field :spots_available, min: 0, step: 1, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
             </div>
           </div>
 
@@ -149,27 +189,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="space-y-6 divide-y divide-gray-200 pt-8 sm:space-y-5 sm:pt-10">
-        <div>
-          <h3 class="text-lg font-medium leading-6 text-gray-900">Foster Care Information</h3>
-        </div>
-        <div class="space-y-6 sm:space-y-5">
-          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-            <%= query_form.label :region, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-            <div class="mt-1 sm:col-span-2 sm:mt-0">
-              <%= query_form.select :region, options_for_select([ "1" ], "1"), {}, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm" %>
-            </div>
-          </div>
-
-          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-            <%= query_form.label :spots_available, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-            <div class="mt-1 sm:col-span-2 sm:mt-0">
-              <%= query_form.number_field :spots_available, min: 0, step: 1, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
             </div>
           </div>
 

@@ -12,6 +12,7 @@ class Search < ApplicationRecord
   serialize :query, JSON
 
   after_save :calculate_results
+  after_save :remove_filtered_results
   after_update_commit { broadcast_replace_later_to :searches_table, partial: "searches/search_table_row" }
 
   scope :not_completed, -> { where(completed_at: nil) }
@@ -19,22 +20,37 @@ class Search < ApplicationRecord
 
   enum :category, { imminent: 0, disruption: 1, step_down: 2, planned_move: 3, respite: 4 }
 
+  HARD_FILTERS = ["region_id"].freeze
+
   def completed?
     completed_at.present?
   end
 
   def find_families
-    results = Family.open.not_on_break
+    results = organization.families.open.not_on_break
+    # Soft filters to find a good range of families
     query.each do |key, value|
-      results = results.or(Family.where(key => value))
+      next if HARD_FILTERS.include?(key) || value.blank?
+
+      results = results.or(organization.families.where(key => value))
+    end
+    # Hard filters to reduce the number of records
+    HARD_FILTERS.each do |filter|
+      next if query[filter].blank?
+
+      results = results.where(filter => query[filter])
     end
     results
   end
 
   def calculate_results
     find_families.find_each do |family|
-      Result.find_or_initialize_by(search: self, family: family).save!
+      Result.find_or_create_by!(search: self, family: family)
     end
+  end
+
+  def remove_filtered_results
+    results.where.not(family_id: find_families.pluck(:id)).destroy_all
   end
 
   def results_without_exclusions
@@ -43,10 +59,14 @@ class Search < ApplicationRecord
       # TODO: Genders here seem to be pulling from the wrong place and pluralizing seems to help. The genders filtered
       # here are for the child and not the exclusion. It may have something to do with changing the enum values but
       # the tests seem to confirm this to work as is.
-      results = results.where.not(families: { id: Exclusion.where(family: families, gender: [:any, child.gender],
-        comparator: :less_than, age: child.age..18).pluck(:family_id) })
-      results = results.where.not(families: { id: Exclusion.where(family: families, gender: [:any, child.gender],
-        comparator: :greater_than, age: 0..child.age).pluck(:family_id) })
+      results = results.where.not(families: { id: organization.exclusions.where(
+        family: families, gender: [:any, child.gender], comparator: :less_than,
+        age: child.age..18
+      ).pluck(:family_id) })
+      results = results.where.not(families: { id: organization.exclusions.where(
+        family: families, gender: [:any, child.gender], comparator: :greater_than,
+        age: 0..child.age
+      ).pluck(:family_id) })
     end
     results
   end
