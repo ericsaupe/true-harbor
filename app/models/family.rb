@@ -7,6 +7,7 @@ class Family < ApplicationRecord
   has_many :results, dependent: :destroy
   has_many :searches, through: :results
   has_many :exclusions, dependent: :destroy
+  belongs_to :region, optional: true
 
   accepts_nested_attributes_for :exclusions, allow_destroy: true, reject_if: :all_blank
 

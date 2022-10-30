@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_29_234345) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_29_235347) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,7 +68,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_29_234345) do
     t.bigint "organization_id", null: false
     t.date "on_break_start_date"
     t.date "on_break_end_date"
+    t.bigint "region_id"
     t.index ["organization_id"], name: "index_families_on_organization_id"
+    t.index ["region_id"], name: "index_families_on_region_id"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -172,6 +174,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_29_234345) do
   add_foreign_key "children", "searches"
   add_foreign_key "exclusions", "families"
   add_foreign_key "families", "organizations"
+  add_foreign_key "families", "regions"
   add_foreign_key "notes", "users"
   add_foreign_key "regions", "organizations"
   add_foreign_key "results", "families"
