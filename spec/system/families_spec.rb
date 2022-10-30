@@ -35,13 +35,16 @@ RSpec.describe("Families") do
   describe "update" do
     it "allows updating a family" do
       family = create(:family, organization: organization)
+      region = create(:region, organization: organization)
       visit edit_family_path(family)
       fill_in("Name", with: "New Name")
+      select(region.name, from: "Region")
       check("Transport to visits")
       click_on("Update Family")
       expect(page).to(have_text("Successfully updated family."))
       expect(page).to(have_text("New Name"))
       expect(family.reload.available_visit_transportation).to(be(true))
+      expect(family.reload.region).to(eq(region))
     end
   end
 end
