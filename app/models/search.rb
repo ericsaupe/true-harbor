@@ -11,6 +11,7 @@ class Search < ApplicationRecord
 
   serialize :query, JSON
 
+  after_validation :geocode
   after_save :calculate_results
   after_save :remove_filtered_results
   after_update_commit { broadcast_replace_later_to :searches_table, partial: "searches/search_table_row" }
@@ -19,6 +20,8 @@ class Search < ApplicationRecord
   scope :completed, -> { where.not(completed_at: nil) }
 
   enum :category, { imminent: 0, disruption: 1, step_down: 2, planned_move: 3, respite: 4 }
+
+  geocoded_by :address
 
   HARD_FILTERS = ["region_id"].freeze
 
@@ -73,5 +76,15 @@ class Search < ApplicationRecord
 
   def excluded_family_ids
     @excluded_family_ids ||= results.pluck(:id) - results_without_exclusions.pluck(:id)
+  end
+
+  def address
+    [
+      query.dig("address_1"),
+      query.dig("address_2"),
+      query.dig("city"),
+      query.dig("state"),
+      query.dig("zip"),
+    ].compact.join(", ")
   end
 end

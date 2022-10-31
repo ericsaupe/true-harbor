@@ -36,7 +36,7 @@
       <div class="space-y-6 sm:space-y-5 sm:pt-10">
         <div>
           <h3 class="text-lg font-medium leading-6 text-gray-900">Search Filters</h3>
-          <p class="mt-2 max-w-4xl text-sm text-gray-500">These parameters will filter out results that do not meet these requirements. You can always edit a search and change these parameter to include more results if you need to later.</p>
+          <p class="mt-2 max-w-4xl text-sm text-gray-500">These parameters will filter out results that do not meet these requirements. You can always edit a search and change these parameters to include more results if you need to later.</p>
         </div>
         <div class="space-y-6 sm:space-y-5">
           <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
@@ -72,6 +72,17 @@
             <div class="mt-1 sm:col-span-2 sm:mt-0">
               <%= query_form.text_field :zip, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
             </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+            <div>
+              <%= query_form.label :distance, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+              <p class="mt-2 text-sm text-gray-500">Filter results to only families that live within this distance of the address above.</p>
+            </div>
+            <div class="mt-1 sm:col-span-2 sm:mt-0">
+              <%= query_form.select :distance, options_for_select([["10 miles", 10], ["25 miles", 25], ["50 miles", 50], ["100 miles", 100]], search.query&.dig("distance")), { include_blank: true }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm" %>
+            </div>
+
           </div>
 
           <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
