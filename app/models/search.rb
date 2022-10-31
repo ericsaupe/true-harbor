@@ -43,6 +43,8 @@ class Search < ApplicationRecord
 
       results = results.where(filter => query[filter])
     end
+    # Geospatial filter
+    results = results.near([latitude, longitude], query.dig("distance")) if query.dig("distance").present?
     results
   end
 
