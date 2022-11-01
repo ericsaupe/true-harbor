@@ -15,7 +15,7 @@ RSpec.describe(Search) do
   describe "#calculate_results" do
     it "creates results for each family" do
       search.calculate_results
-      expect(search.results).to(eq([Result.find_by(search: search, family: family)]))
+      expect(search.results).to(eq(Result.where(search: search, family: family)))
     end
   end
 
