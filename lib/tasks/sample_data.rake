@@ -22,6 +22,10 @@ task generate_data: :environment do
   # Create families
   FactoryBot.create_list(:family, 100, :with_exclusions,
     region: organization.regions.sample, organization: organization)
+  # Randomize regions
+  organization.families.find_each do |family|
+    family.update!(region: organization.regions.sample)
+  end
   # Create searches
   FactoryBot.create_list(:search, 5, :with_children, organization: organization)
 end
