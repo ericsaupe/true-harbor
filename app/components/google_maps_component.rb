@@ -6,8 +6,4 @@ class GoogleMapsComponent < ViewComponent::Base
     @lng = lng
     @points = points
   end
-
-  def google_maps_api_key
-    ENV.fetch("GOOGLE_MAPS_API_KEY", Rails.application.credentials.dig(:google_maps, :api_key))
-  end
 end

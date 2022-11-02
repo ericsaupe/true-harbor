@@ -32,4 +32,8 @@ module ApplicationHelper
         focus:ring-offset-2",
       data: { id: id, fields: fields.gsub("\n", ""), action: "nested-fields#add" })
   end
+
+  def google_maps_api_key
+    ENV.fetch("GOOGLE_MAPS_API_KEY", Rails.application.credentials.dig(:google_maps, :api_key))
+  end
 end

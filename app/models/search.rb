@@ -31,12 +31,6 @@ class Search < ApplicationRecord
 
   def find_families
     results = organization.families.open.not_on_break
-    # Soft filters to find a good range of families
-    query.each do |key, value|
-      next if HARD_FILTERS.include?(key) || value.blank?
-
-      results = results.or(organization.families.where(key => value))
-    end
     # Hard filters to reduce the number of records
     HARD_FILTERS.each do |filter|
       next if query[filter].blank?
