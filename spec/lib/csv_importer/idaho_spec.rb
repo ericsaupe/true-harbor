@@ -18,7 +18,7 @@ RSpec.describe(CsvImporter::Idaho) do
       expect(family.city).to(eq("CDA"))
       expect(family.state).to(eq("ID"))
       expect(family.zip).to(eq("83815"))
-      expect(family.phone).to(eq("555-123-4567"))
+      expect(family.phone).to(eq("C:555-123-4567"))
       expect(family.spots_available).to(eq(2))
       expect(family.license_date).to(eq(Date.parse("2022-02-01")))
       expect(family.family_interest).to(eq("any"))

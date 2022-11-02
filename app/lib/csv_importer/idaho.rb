@@ -43,8 +43,12 @@ module CsvImporter
       create_notes(family, row["notes/preferences"])
     end
 
-    def name(name)
-      name.split("\n").first.split("  ").map(&:strip).first.split(",").map(&:strip).reverse.join(" ")
+    def name(name_value)
+      remove_new_lines = name_value.split("\n").first
+      split_on_space = remove_new_lines.split("  ").map(&:strip).first
+      split_on_comma = split_on_space.split(",").map(&:strip)
+      full_name = split_on_comma.reverse.join(" ")
+      full_name
     end
 
     def license_date(date)
@@ -72,7 +76,9 @@ module CsvImporter
     def create_exclusions(family, age_ranges)
       age_ranges.split("\n").each do |ages|
         age, gender = ages.split(" ")
-        gender = if gender.downcase.include?("m")
+        gender = if gender.nil?
+          :any
+        elsif gender.downcase.include?("m")
           :boy
         elsif gender.downcase.include?("f")
           :girl
