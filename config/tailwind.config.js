@@ -20,7 +20,6 @@ module.exports = {
       red: colors.rose,
       yellow: colors.amber,
       emerald: colors.emerald,
-      pink: colors.pink,
       orange: colors.orange,
       pink: {
         '50': '#fef2f3',
