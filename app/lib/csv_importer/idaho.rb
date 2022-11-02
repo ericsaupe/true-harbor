@@ -21,7 +21,7 @@ module CsvImporter
       family_params = {
         name: name(row["name"]),
         email: row["email"],
-        phone: phone(row["phone"]),
+        phone: row["phone"],
         address_1: row["address"],
         city: row["city"],
         state: "ID",
@@ -45,13 +45,6 @@ module CsvImporter
 
     def name(name)
       name.split("\n").first.split("  ").map(&:strip).first.split(",").map(&:strip).reverse.join(" ")
-    end
-
-    def phone(phone)
-      return if phone.nil?
-
-      phone&.gsub!(/[^0-9-]/, "")
-      phone
     end
 
     def license_date(date)
@@ -79,12 +72,12 @@ module CsvImporter
     def create_exclusions(family, age_ranges)
       age_ranges.split("\n").each do |ages|
         age, gender = ages.split(" ")
-        gender = if gender.nil?
-          :any
-        elsif gender.downcase.include?("m")
+        gender = if gender.downcase.include?("m")
           :boy
         elsif gender.downcase.include?("f")
           :girl
+        else
+          :any
         end
         min_age, max_age = age.split("-").map(&:to_i)
         if min_age.positive?
