@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "fileutils"
+
+# path to your application root.
+APP_ROOT = File.expand_path("..", __dir__)
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+FileUtils.chdir APP_ROOT do
+  puts "💻 Opening production console on Fly.io 💻"
+  console_command = "fly ssh console -C \"app/bin/rails console -- --noautocomplete\""
+  puts console_command
+  system! console_command
+end
