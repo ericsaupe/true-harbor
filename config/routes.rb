@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       resources :notes
       resources :organizations
       resources :roles
+      resources :regions
       resources :results
       resources :searches
       resources :users

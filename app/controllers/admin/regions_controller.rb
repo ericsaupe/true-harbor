@@ -34,7 +34,7 @@ module Admin
     def resource_params
       params.require(resource_class.model_name.param_key)
         .permit(dashboard.permitted_attributes)
-        .with_defaults(organization: current_user.organization)
+        .with_defaults(organization_id: organization.id)
     end
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions

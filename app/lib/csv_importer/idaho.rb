@@ -29,6 +29,7 @@ module CsvImporter
         family_interest: family_interest(row["type"]),
         spots_available: row["lic"],
         license_date: license_date(row["orig.lic.date"]),
+        region: region(row["region"]),
       }
       family = organization.families.find_by(name: name(row["name"]))
       if family.nil?
@@ -102,6 +103,10 @@ module CsvImporter
       notes.split("\n").each do |note|
         family.notes.find_or_create_by!(content: note)
       end
+    end
+
+    def region(region_name)
+      organization.regions.find_or_create_by!(name: region_name) if region_name
     end
   end
 end
