@@ -30,6 +30,7 @@ module CsvImporter
         spots_available: row["lic"],
         license_date: license_date(row["orig.lic.date"]),
         region: region(row["region"]),
+        status: row["status"]&.downcase || :open,
       }
       family = organization.families.find_by(name: name(row["name"]))
       if family.nil?
@@ -59,7 +60,7 @@ module CsvImporter
 
     def family_interest(type)
       types_array = type.split(" ").map(&:strip).map(&:downcase)
-      possible_types = ["gen", "f/c", "adopt"]
+      possible_types = ["gen", "f/c", "adopt", "respite"]
       if (types_array & possible_types).size > 1
         :any
       elsif types_array.include?("gen")
@@ -68,6 +69,8 @@ module CsvImporter
         :short_term
       elsif types_array.include?("adopt")
         :adoption
+      elsif types_array.include?("respite")
+        :respite
       else
         raise "Unknown type: #{type}"
       end
