@@ -26,14 +26,15 @@ Rails.application.routes.draw do
 
   namespace :admin do
     authenticate :user, ->(user) { user.admin? } do
-      resources :searches
+      resources :children
+      resources :exclusions
+      resources :families
+      resources :imports, only: [:index, :new, :create]
+      resources :notes
+      resources :organizations
       resources :roles
       resources :results
-      resources :organizations
-      resources :notes
-      resources :families
-      resources :exclusions
-      resources :children
+      resources :searches
       resources :users
 
       root to: "searches#index"

@@ -1,0 +1,27 @@
+<div style="padding: 20px">
+  <h1>Import Families</h1>
+  <p>Upload a CSV file to import families into your account.</p>
+  <%= form_with url: admin_imports_path, method: :post do |form| %>
+    <div class="field-unit">
+      <div class="field-unit__label">
+        <%= form.label :file %>
+      </div>
+      <div class="field-unit__field">
+        <%= form.file_field :file, accept: ".csv" %>
+      </div>
+    </div>
+    <% if current_user.super_admin? %>
+      <div class="field-unit field-unit--required">
+        <div class="field-unit__label">
+          <%= form.label :organization_id %>
+        </div>
+        <div class="field-unit__field">
+          <%= form.select :organization_id, options_for_select(Organization.all.collect { |org| [org.name, org.id] }) %>
+        </div>
+      </div>
+    <% end %>
+    <div class="field-unit__field">
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>
