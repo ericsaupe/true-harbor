@@ -25,8 +25,9 @@ class Family < ApplicationRecord
   serialize :recreational_activities, JSON
   serialize :skills, JSON
 
+  # Don't geocode if we are manually setting their location
+  after_validation :geocode, unless: :will_save_change_to_latitude?
   geocoded_by :address
-  after_validation :geocode
 
   scope :not_on_break, -> {
                          where("(on_break_start_date IS NULL OR on_break_start_date > :today) AND

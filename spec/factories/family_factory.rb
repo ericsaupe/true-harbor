@@ -26,6 +26,8 @@ FactoryBot.define do
     available_visit_transportation { Faker::Boolean.boolean }
     available_school_transportation { Faker::Boolean.boolean }
     available_counselor_transportation { Faker::Boolean.boolean }
+    latitude { rand(47.677..47.777) }
+    longitude { rand(-116.999..-116.777) }
     recreational_activities do
       Family.recreational_activities.sample(Faker::Number.between(from: 1, to: Family.recreational_activities.count))
     end
