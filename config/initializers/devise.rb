@@ -318,3 +318,5 @@ Rails.application.config.to_prepare do
   Devise::PasswordsController.layout "devise"
   Devise::Mailer.layout "mailer"
 end
+
+Rails.application.config.session_store :cookie_store, key: "_true_harbor_session", domain: :all, tld_length: 2

@@ -7,7 +7,7 @@ class AuthenticatedController < ApplicationController
   def set_organization_and_redirect_if_needed
     @organization = current_user.organization
 
-    if request.subdomain != @organization.subdomain
+    if request.subdomain != @organization.subdomain && !current_user.super_admin?
       url = if request.subdomain.present?
         request.url.sub(request.subdomain, @organization.subdomain)
       else
