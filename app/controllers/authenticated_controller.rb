@@ -5,7 +5,11 @@ class AuthenticatedController < ApplicationController
   before_action :set_organization_and_redirect_if_needed
 
   def set_organization_and_redirect_if_needed
-    @organization = current_user.organization
+    @organization = if current_user.super_admin?
+      Organization.find_by(subdomain: request.subdomain)
+    else
+      current_user.organization
+    end
 
     if request.subdomain != @organization.subdomain && !current_user.super_admin?
       url = if request.subdomain.present?

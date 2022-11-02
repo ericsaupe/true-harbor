@@ -1,0 +1,15 @@
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= display_meta_tags site: @organization.try(:name) || "True Harbor" %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <%= javascript_importmap_tags %>
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{google_maps_api_key}&v=weekly", async: true %>
+  <%= yield :head %>
+</head>
