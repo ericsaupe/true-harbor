@@ -4,6 +4,6 @@
 
 <p>Click the link below to unlock your account:</p>
 
-<p><%= link_to "Unlock my account", unlock_url(@resource, unlock_token: @token) %></p>
+<p><%= link_to "Unlock my account", unlock_url(@resource, unlock_token: @token, subdomain: @resource.organization.subdomain) %></p>
 
-<p>If this was not you or you think you have received this in error then please contact our customer service department at <a href="mailto:support@paylooza.com">support@paylooza.com</a>.</p>
+<p>If this was not you or you think you have received this in error then please contact our customer service department at <a href="mailto:support@trueharbor.io">support@trueharbor.io</a>.</p>

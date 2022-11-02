@@ -9,4 +9,6 @@ class Role < ApplicationRecord
   validates :resource_type, inclusion: { in: Rolify.resource_types }, allow_nil: true
 
   scopify
+
+  scope :without_super_admin, -> { where.not(name: "super_admin") }
 end

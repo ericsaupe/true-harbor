@@ -30,7 +30,7 @@ class UserDashboard < Administrate::BaseDashboard
     remember_created_at: Field::DateTime,
     reset_password_sent_at: Field::DateTime,
     reset_password_token: Field::String,
-    roles: Field::HasMany,
+    roles: HasManyScopedField.with_options(model_scope: "without_super_admin"),
     sign_in_count: Field::Number,
     unconfirmed_email: Field::String,
     unlock_token: Field::String,
@@ -56,7 +56,7 @@ class UserDashboard < Administrate::BaseDashboard
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [:email, :first_name, :last_name, :organization, :phone, :roles].freeze
+  FORM_ATTRIBUTES = [:email, :first_name, :last_name, :phone, :roles].freeze
 
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search

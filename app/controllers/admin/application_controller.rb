@@ -37,10 +37,14 @@ module Admin
     # end
 
     def scoped_resource
-      if current_user.super_admin?
-        resource_class
+      resource_class.accessible_by(current_ability)
+    end
+
+    def organization
+      @organization ||= if current_user.super_admin?
+        Organization.find_by!(subdomain: request.subdomain)
       else
-        resource_class.accessible_by(current_ability)
+        current_user.organization
       end
     end
   end

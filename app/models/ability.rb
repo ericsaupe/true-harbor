@@ -17,6 +17,7 @@ class Ability
     can(:manage, :imports) # custom administrate action
     can(:manage, Organization, id: user.organization_id)
     cannot(:destroy, Organization)
+    can(:manage, User, id: nil)
     can(:manage, User, organization_id: user.organization_id)
     can(:create, Region)
     can(:manage, Region, organization_id: user.organization_id)
