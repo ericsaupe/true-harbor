@@ -7,7 +7,10 @@ RSpec.describe(CsvImporter::Idaho) do
     it "imports a CSV file" do
       organization = create(:organization)
       file = file_fixture("idaho.csv")
-      described_class.import(organization, file)
+      expect do
+        described_class.import(organization, file)
+      end.to(change(ParseRowJob.jobs, :size).by(1))
+      Sidekiq::Worker.drain_all
       expect(organization.families.count).to(eq(1))
       family = organization.families.first
       expect(family.name).to(eq("First Last"))

@@ -18,7 +18,7 @@ module CsvImporter
     ].freeze
 
     def parse_row(row)
-      family = organization.families.create!(
+      family_params = {
         name: name(row["name"]),
         email: row["email"],
         phone: phone(row["phone"]),
@@ -29,7 +29,13 @@ module CsvImporter
         family_interest: family_interest(row["type"]),
         spots_available: row["lic"],
         license_date: license_date(row["orig.lic.date"]),
-      )
+      }
+      family = organization.families.find_by(name: name(row["name"]))
+      if family.nil?
+        family = organization.families.create!(family_params)
+      else
+        family.update!(family_params)
+      end
 
       create_exclusions(family, row["m/f"] || row["age"])
       create_notes(family, row["notes/preferences"])
@@ -78,13 +84,13 @@ module CsvImporter
         end
         min_age, max_age = age.split("-").map(&:to_i)
         if min_age.positive?
-          family.exclusions.create!(
+          family.exclusions.find_or_create_by!(
             gender: gender,
             comparator: :less_than,
             age: min_age,
           )
         end
-        family.exclusions.create!(
+        family.exclusions.find_or_create_by!(
           gender: gender,
           comparator: :greater_than,
           age: max_age,
@@ -94,7 +100,7 @@ module CsvImporter
 
     def create_notes(family, notes)
       notes.split("\n").each do |note|
-        family.notes.create!(content: note)
+        family.notes.find_or_create_by!(content: note)
       end
     end
   end

@@ -14,6 +14,7 @@ class Ability
     can(:manage, Search, organization_id: user.organization_id)
     return unless user.admin?
 
+    can(:manage, :imports) # custom administrate action
     can(:manage, Organization, id: user.organization_id)
     cannot(:destroy, Organization)
     can(:manage, User, organization_id: user.organization_id)
