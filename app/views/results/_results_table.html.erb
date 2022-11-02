@@ -20,6 +20,7 @@
       <% end %>
     </tbody>
   <% end %>
+  <%= render(PaginationComponent.new(records: results)) %>
 
   <%= render(SlideOverComponent.new()) %>
 </div>

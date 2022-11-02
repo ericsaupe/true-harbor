@@ -80,10 +80,6 @@
     </div>
   </div>
 
-
-
-
-
   <%= render GoogleMapsComponent.new(lat: @search.latitude, lng: @search.longitude, points: @results.to_json(include: :family)) %>
   <% if @results.present? %>
     <%= render(partial: "results/results_table", locals: { results: @results }) %>
