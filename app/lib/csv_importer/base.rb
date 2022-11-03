@@ -18,7 +18,12 @@ module CsvImporter
     end
 
     def import
-      converter = lambda { |header| header.downcase.delete(" ").gsub(/#/, "") }
+      converter = lambda do |header|
+        header.downcase.delete(" ")
+          .gsub(/#/, "") # hashtags
+          .gsub(/[\u200B-\u200D\uFEFF]/, "") # weird blank characters
+          .gsub(/[^[:print:]]/, "") # any non-print character
+      end
       CSV.foreach(file, headers: true, header_converters: converter) do |row|
         parse_row_async(row.to_h.compact)
       end

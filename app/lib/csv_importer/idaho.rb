@@ -52,7 +52,14 @@ module CsvImporter
     end
 
     def license_date(date)
-      Date.strptime(date, "%m/%d/%y")
+      return unless date
+
+      year = date.split("/").last
+      if year.length == 2
+        Date.strptime(date, "%m/%d/%y")
+      else
+        Date.strptime(date, "%m/%d/%Y")
+      end
     end
 
     def family_interest(type)
