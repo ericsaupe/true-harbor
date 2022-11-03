@@ -21,7 +21,7 @@ module CsvImporter
       family_params = {
         name: name(row["name"]),
         email: row["email"],
-        phone: row["phone"],
+        phone: row["phone"].split(" "),
         address_1: row["address"],
         city: row["city"],
         state: "ID",

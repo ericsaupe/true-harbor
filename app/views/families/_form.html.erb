@@ -13,9 +13,16 @@
         </div>
 
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :phone, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+          <%= form.label :phone, "Phone 1", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
           <div class="mt-1 sm:col-span-2 sm:mt-0">
-            <%= form.text_field :phone, required: true, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+            <%= form.text_field :phone, multiple: true, required: true, value: family.phone.is_a?(Array) ? family.phone.first : family.phone, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+          </div>
+        </div>
+
+        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+          <%= form.label :phone, "Phone 2", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+          <div class="mt-1 sm:col-span-2 sm:mt-0">
+            <%= form.text_field :phone, multiple: true, value: family.phone.is_a?(Array) ? family.phone.second : nil, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
           </div>
         </div>
 

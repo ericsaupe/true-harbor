@@ -24,6 +24,7 @@ class Family < ApplicationRecord
   serialize :experience_with_care, JSON
   serialize :recreational_activities, JSON
   serialize :skills, JSON
+  serialize :phone
 
   # Don't geocode if we are manually setting their location
   after_validation :geocode, unless: :will_save_change_to_latitude?
@@ -128,5 +129,9 @@ class Family < ApplicationRecord
     if on_break_start_date.present? && on_break_end_date.present? && on_break_start_date > on_break_end_date
       errors.add(:on_break_start_date, "must be before the end date")
     end
+  end
+
+  def remove_whitespace_from_phone
+    self.phone = phone.gsub(/\s+/, "") if phone.present?
   end
 end
