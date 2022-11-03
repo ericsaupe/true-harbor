@@ -13,6 +13,7 @@ class RegionDashboard < Administrate::BaseDashboard
     id: Field::Number,
     name: Field::String,
     organization: Field::BelongsTo,
+    families: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -22,7 +23,7 @@ class RegionDashboard < Administrate::BaseDashboard
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [:id, :name, :organization, :created_at].freeze
+  COLLECTION_ATTRIBUTES = [:id, :name, :families, :organization, :created_at].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
