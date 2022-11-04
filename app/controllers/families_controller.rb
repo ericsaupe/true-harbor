@@ -75,6 +75,7 @@ class FamiliesController < AuthenticatedController
       exclusions_attributes: [:id, :gender, :comparator, :age, :_destroy])
     format_serialized_fields(allowed_params)
     allowed_params[:region_id] = nil if @organization.regions.find_by(id: allowed_params[:region_id]).nil?
+    allowed_params[:phone] = allowed_params[:phone].compact_blank
     allowed_params
   end
 end
