@@ -86,6 +86,7 @@
           <% end %>
         </tbody>
       <% end %>
+      <%= render(PaginationComponent.new(records: @searches, page: params[:page])) %>
     </div>
   <% else %>
     <%= render(EmptyStateComponent.new(klass: Search)) %>

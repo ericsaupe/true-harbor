@@ -6,5 +6,5 @@
     total_pages:   total number of pages
     per_page:      number of items to fetch per page
     remote:        data-remote -%>
-<% classes = page.current? ? "border-indigo-500 text-indigo-600 border-t-2 py-4 px-4 inline-flex items-center text-sm font-medium" : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-t-2 py-4 px-4 inline-flex items-center text-sm font-medium" %>
+<% classes = page.current? ? "border-pink-500 text-pink-600 border-t-2 py-4 px-4 inline-flex items-center text-sm font-medium" : "border-transparent text-pink-500 hover:text-pink-700 hover:border-pink-300 border-t-2 py-4 px-4 inline-flex items-center text-sm font-medium" %>
 <%= link_to page, url, { remote: remote, rel: page.rel, class: classes } %>

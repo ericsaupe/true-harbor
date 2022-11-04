@@ -6,7 +6,7 @@ class FamiliesController < AuthenticatedController
   before_action :find_family, only: [:show, :edit, :update, :destroy, :contacted]
 
   def index
-    @families = @organization.families.all.order(:id)
+    @families = @organization.families.all.order(:id).page(params[:page])
   end
 
   def show

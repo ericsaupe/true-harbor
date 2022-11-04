@@ -28,8 +28,8 @@
         <% end %>
       </div>
     <% else %>
-        <%= phone_to(family.phone&.delete('^0-9'), result.family.phone, class: "text-pink-600 hover:text-pink-900",
-                 data: { action: "click->family-contact#familyContacted" }) if family.phone %>
+        <%= phone_to(result.family.phone&.delete('^0-9'), result.family.phone, class: "text-pink-600 hover:text-pink-900",
+                 data: { action: "click->family-contact#familyContacted" }) if result.family.phone %>
     <% end %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
