@@ -6,7 +6,9 @@ class SearchesController < AuthenticatedController
   before_action :find_search, only: [:show, :edit, :update, :destroy, :complete, :reopen, :download_results]
 
   def index
-    @searches = @organization.searches.all.order(created_at: :desc)
+    all_searches = @organization.searches.all.order(created_at: :desc)
+    @searches_not_completed = all_searches.not_completed
+    @searches = all_searches.page(params[:page])
   end
 
   def show
@@ -15,6 +17,7 @@ class SearchesController < AuthenticatedController
     else
       @search.results_without_exclusions
     end.order(score: :desc, created_at: :desc)
+    @paginated_results = @results.page(params[:page])
   end
 
   def new

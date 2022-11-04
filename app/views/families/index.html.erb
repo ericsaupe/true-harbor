@@ -28,4 +28,5 @@
       <% end %>
     </tbody>
   <% end %>
+  <%= render(PaginationComponent.new(records: @families, page: params[:page])) %>
 </div>
