@@ -1,0 +1,28 @@
+<%= search_form_for q do |f| %>
+  <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+    <div class="sm:col-span-2">
+      <%= f.label :name_or_email_cont, class: "block text-sm font-medium text-gray-700" %>
+      <div class="mt-1">
+        <%= f.search_field :name_or_email_cont, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+      </div>
+    </div>
+    <div class="sm:col-span-2">
+      <%= f.label :region_id_eq, class: "block text-sm font-medium text-gray-700" %>
+      <div class="mt-1">
+        <%= f.select :region_id_eq, options_from_collection_for_select(@organization.regions.all.order(:name), "id", "name", q.region_id_eq), { include_blank: true }, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+      </div>
+    </div>
+
+    <div class="sm:col-span-2">
+      <%= f.label :family_interest_eq, class: "block text-sm font-medium text-gray-700" %>
+      <div class="mt-1">
+        <%= f.select :family_interest_eq, options_for_select(Family.family_interests.map {|key, value| [key.titleize, value]}, q.family_interest_eq), { include_blank: true }, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+      </div>
+    </div>
+  </div>
+  <div class="pt-2">
+    <div class="flex justify-end">
+      <%= f.submit class: "cursor-pointer ml-3 inline-flex justify-center rounded-md border border-transparent bg-pink-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2" %>
+    </div>
+  </div>
+<% end %>
