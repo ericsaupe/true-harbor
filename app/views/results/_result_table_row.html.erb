@@ -36,6 +36,9 @@
     <%= result.family.family_interest.titleize %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
+    <%= result.family.region&.name %>
+  <% end %>
+  <%= render(TableDataComponent.new()) do %>
     <%= result.family.spots_available %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
