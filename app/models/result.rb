@@ -10,6 +10,8 @@ class Result < ApplicationRecord
     broadcast_changes
   }
 
+  EXCLUDED_CALCULATION_FIELDS = ["address_1", "address_2", "city", "state", "zip", "distance", "region_id"].freeze
+
   def broadcast_changes
     broadcast_replace_later_to(search, partial: "results/result_table_row")
   end
@@ -31,6 +33,7 @@ class Result < ApplicationRecord
     total = 0
     search.query.each do |key, value|
       next if value.blank?
+      next if EXCLUDED_CALCULATION_FIELDS.include?(key)
 
       if family[key].is_a?(Array)
         # Handle array values
