@@ -17,7 +17,7 @@ export default class extends Controller {
     this.containerTarget.classList.remove("-translate-x-full", "hidden")
     this.panelTarget.classList.add("animate__animated", "animate__slideInRight", "animate__faster")
 
-    const familyId = event.target.dataset.familyId || event.target.parentElement.dataset.familyId
+    const familyId = event.target.dataset.familyId || event.target.closest("[data-family-id]").dataset.familyId
     this.load(familyId)
     this.element.addEventListener('animationend', () => {
       this.backdropTarget.classList.add("backdrop-blur-sm")
