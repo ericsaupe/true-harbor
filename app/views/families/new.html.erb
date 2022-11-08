@@ -1,7 +1,2 @@
-<div>
-  <h1 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-    <%= title "New Family" %>
-  </h1>
-</div>
-
+<%= render PageHeaderComponent.new(page_title: "New Family") %>
 <%= render partial: "form", locals: { family: @family } %>

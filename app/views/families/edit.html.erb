@@ -1,7 +1,2 @@
-<div class="lg:flex lg:items-center lg:justify-between rounded-md p-4 bg-gradient-to-r from-pink-700 to-pink-300">
-  <div class="min-w-0 flex-1">
-    <h1 class="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight"><%= title "Edit #{@family.name}" %></h1>
-  </div>
-</div>
-
+<%= render PageHeaderComponent.new(page_title: "Edit #{@family.name}") %>
 <%= render partial: "form", locals: { family: @family } %>

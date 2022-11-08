@@ -1,7 +1,2 @@
-<div>
-  <h1 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-    <%= title "Edit #{@search.name}" %>
-  </h1>
-</div>
-
+<%= render PageHeaderComponent.new(page_title: "Edit #{@search.name}") %>
 <%= render partial: "form", locals: { search: @search } %>
