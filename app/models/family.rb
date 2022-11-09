@@ -22,6 +22,10 @@ class Family < ApplicationRecord
   enum :status, [:open, :hold, :closed]
 
   serialize :availability, Array
+  ransacker :availabilities_raw, type: :string do
+    Arel.sql("families.availability")
+  end
+
   serialize :experience_with_care, JSON
   serialize :recreational_activities, JSON
   serialize :skills, JSON

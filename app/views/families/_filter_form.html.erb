@@ -1,22 +1,22 @@
 <%= search_form_for q do |f| %>
   <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
     <div class="sm:col-span-2">
-      <%= f.label :name_or_email_cont, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :name_or_email_cont, "Name or Email contains", class: "block text-sm font-medium text-gray-700" %>
       <div class="mt-1">
         <%= f.search_field :name_or_email_cont, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
       </div>
     </div>
     <div class="sm:col-span-2">
-      <%= f.label :region_id_eq, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :region_id_eq, "Region", class: "block text-sm font-medium text-gray-700" %>
       <div class="mt-1">
         <%= f.select :region_id_eq, options_from_collection_for_select(@organization.regions.all.order(:name), "id", "name", q.region_id_eq), { include_blank: true }, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
       </div>
     </div>
 
     <div class="sm:col-span-2">
-      <%= f.label :family_interest_eq, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :availabilities_raw_yaml_array_cont, "Availability", class: "block text-sm font-medium text-gray-700" %>
       <div class="mt-1">
-        <%= f.select :family_interest_eq, options_for_select(Family.family_interests.map {|key, value| [key.titleize, value]}, q.family_interest_eq), { include_blank: true }, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
+        <%= f.select :availabilities_raw_yaml_array_cont, options_for_select(Family.availabilities.map {|availability| [availability, availability]}, q.availabilities_raw_yaml_array_cont), { include_blank: true }, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm" %>
       </div>
     </div>
   </div>

@@ -7,7 +7,7 @@ class FamiliesController < AuthenticatedController
 
   def index
     @q = @organization.families.ransack(params[:q])
-    @families = @q.result.includes(:region).order(:name).page(params[:page])
+    @families = @q.result(distinct: true).includes(:region).order(:name).page(params[:page])
   end
 
   def show

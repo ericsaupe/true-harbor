@@ -82,7 +82,6 @@
             <div class="mt-1 sm:col-span-2 sm:mt-0">
               <%= query_form.select :distance, options_for_select([["10 miles", 10], ["25 miles", 25], ["50 miles", 50], ["100 miles", 100]], search.query&.dig("distance")), { include_blank: true }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm" %>
             </div>
-
           </div>
 
           <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
@@ -100,6 +99,29 @@
                         </div>
                         <div class="ml-3 text-sm">
                           <%= label_tag "search[query][region_id][#{region.id}]", region.name, class: "font-medium text-gray-700" %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
+            <div role="group">
+              <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
+                <div>
+                  <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Availability</div>
+                </div>
+                <div class="mt-4 sm:col-span-2 sm:mt-0">
+                  <div class="max-w-lg space-y-4">
+                    <% Family.availabilities.sort.each do |availability| %>
+                      <div class="relative flex items-start">
+                        <div class="flex h-5 items-center">
+                          <%= check_box_tag "search[query][availability][#{availability}]", availability, search.query&.dig("availability")&.any?(availability), name: "search[query][availability][]", class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                        </div>
+                        <div class="ml-3 text-sm">
+                          <%= label_tag "search[query][availability][#{availability}]", availability, class: "font-medium text-gray-700" %>
                         </div>
                       </div>
                     <% end %>

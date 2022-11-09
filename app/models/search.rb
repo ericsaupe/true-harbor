@@ -23,7 +23,7 @@ class Search < ApplicationRecord
 
   geocoded_by :address
 
-  HARD_FILTERS = ["region_id"].freeze
+  HARD_FILTERS = ["availability", "region_id"].freeze
 
   def completed?
     completed_at.present?
