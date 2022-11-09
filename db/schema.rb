@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_31_030005) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_08_235246) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_31_030005) do
     t.date "on_break_start_date"
     t.date "on_break_end_date"
     t.bigint "region_id"
+    t.text "availability"
     t.index ["organization_id"], name: "index_families_on_organization_id"
     t.index ["region_id"], name: "index_families_on_region_id"
   end

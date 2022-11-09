@@ -223,22 +223,24 @@
           </div>
         </div>
 
-        <div class="pt-6 sm:pt-5 sm:gap-4 sm:border-t sm:border-gray-200">
+        <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
           <div role="group">
             <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
               <div>
-                <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700" id="label-notifications">Family interest</div>
+                <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Availability</div>
               </div>
-              <div class="sm:col-span-2">
-                <div class="max-w-lg">
-                  <div class="mt-4 space-y-4">
-                    <% Family.family_interests.each do |family_interest, _key| %>
-                      <div class="flex items-center">
-                        <%= form.radio_button :family_interest, family_interest, checked: family.family_interest == family_interest , class: "h-4 w-4 border-gray-300 text-pink-600 focus:ring-pink-500" %>
-                        <%= form.label :family_interest, family_interest.titleize, class: "ml-3 block text-sm font-medium text-gray-700" %>
+              <div class="mt-4 sm:col-span-2 sm:mt-0">
+                <div class="max-w-lg space-y-4">
+                  <% Family.availabilities.sort.each do |availability| %>
+                    <div class="relative flex items-start">
+                      <div class="flex h-5 items-center">
+                        <%= check_box_tag "family[availability][#{availability}]", availability.to_sym, family.availability&.any?(availability), name: "family[availability][]", class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
                       </div>
-                    <% end %>
-                  </div>
+                      <div class="ml-3 text-sm">
+                        <%= label_tag "family[availability][#{availability}]", availability, class: "font-medium text-gray-700" %>
+                      </div>
+                    </div>
+                  <% end %>
                 </div>
               </div>
             </div>

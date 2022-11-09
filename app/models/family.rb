@@ -21,6 +21,7 @@ class Family < ApplicationRecord
   enum :religion, [:christianity, :islam, :judaism, :non_religous, :other_religion]
   enum :status, [:open, :hold, :closed]
 
+  serialize :availability, Array
   serialize :experience_with_care, JSON
   serialize :recreational_activities, JSON
   serialize :skills, JSON
@@ -44,6 +45,15 @@ class Family < ApplicationRecord
   }
 
   class << self
+    def availabilities
+      [
+        "Respite",
+        "Short term",
+        "Long term",
+        "Adoption",
+      ].freeze
+    end
+
     def recreational_activities
       [
         "Sports",
@@ -54,12 +64,6 @@ class Family < ApplicationRecord
         "Horseback riding",
         "Church / youth group",
       ].sort
-    end
-
-    def regions
-      [
-        "1",
-      ]
     end
 
     def skills

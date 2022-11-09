@@ -35,6 +35,7 @@ FactoryBot.define do
     experience_with_care do
       Family.experience_with_care.sample(Faker::Number.between(from: 1, to: Family.experience_with_care.count))
     end
+    availability { Family.availabilities.sample(Faker::Number.between(from: 1, to: Family.availabilities.count)) }
 
     trait :with_exclusions do
       transient do
