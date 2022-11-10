@@ -20,7 +20,7 @@
                 data: { action: "click->family-contact#familyContacted" }) if family.email %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
-    <%= family.family_interest.titleize %>
+    <%= family.availability.map(&:titleize).join(", ") %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
     <%= family.region&.name %>

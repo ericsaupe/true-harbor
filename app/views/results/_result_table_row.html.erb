@@ -33,7 +33,7 @@
     <% end %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
-    <%= result.family.family_interest.titleize %>
+    <%= result.family.availability.map(&:titleize).join(", ") %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
     <%= result.family.region&.name %>

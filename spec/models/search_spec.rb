@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe(Search) do
   let(:search) { create(:search) }
-  let!(:family) { create(:family, organization: search.organization) }
+  let!(:family) { create(:family, organization: search.organization, availability: search.query["availability"]) }
 
   describe "#find_families" do
     it "finds families with exact matches" do

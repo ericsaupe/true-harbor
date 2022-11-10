@@ -26,7 +26,7 @@ module CsvImporter
         city: row["city"],
         state: "ID",
         zip: row["zip"] || row["zipcode"],
-        family_interest: family_interest(row["type"]),
+        availability: availability(row["type"]),
         spots_available: row["lic"],
         license_date: license_date(row["orig.lic.date"]),
         region: region(row["region"]),
@@ -62,22 +62,22 @@ module CsvImporter
       end
     end
 
-    def family_interest(type)
+    def availability(type)
       types_array = type.split(" ").map(&:strip).map(&:downcase)
-      possible_types = ["gen", "f/c", "adopt", "respite"]
-      if (types_array & possible_types).size > 1
-        :any
-      elsif types_array.include?("gen")
-        :long_term
-      elsif types_array.include?("f/c")
-        :short_term
-      elsif types_array.include?("adopt")
-        :adoption
-      elsif types_array.include?("respite")
-        :respite
-      else
-        raise "Unknown type: #{type}"
+      availabilities = []
+      if types_array.include?("gen")
+        availabilities << "Long term"
       end
+      if types_array.include?("f/c")
+        availabilities << "Short term"
+      end
+      if types_array.include?("adopt")
+        availabilities << "Adoption"
+      end
+      if types_array.include?("respite")
+        availabilities << "Respite"
+      end
+      availabilities
     end
 
     def create_exclusions(family, age_ranges)

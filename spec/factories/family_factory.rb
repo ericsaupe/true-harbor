@@ -16,7 +16,6 @@ FactoryBot.define do
     status { :open }
     race { Family.races.keys.sample.to_sym }
     religion { Family.religions.keys.sample.to_sym }
-    family_interest { Family.family_interests.keys.sample.to_sym }
     other_children_in_home { Faker::Boolean.boolean }
     spots_available { Faker::Number.digit }
     icwa { Faker::Boolean.boolean }

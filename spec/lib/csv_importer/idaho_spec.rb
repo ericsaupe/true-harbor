@@ -21,7 +21,7 @@ RSpec.describe(CsvImporter::Idaho) do
       expect(family.phone).to(eq(["C:555-123-4567", "E:555-123-4567"]))
       expect(family.spots_available).to(eq(2))
       expect(family.license_date).to(eq(Date.parse("2022-02-01")))
-      expect(family.family_interest).to(eq("any"))
+      expect(family.availability).to(eq(["Long term", "Short term", "Adoption"]))
       # Verify exclusions were imported correctly
       expect(family.exclusions.count).to(eq(1))
       exclusion = family.exclusions.first
@@ -51,7 +51,7 @@ RSpec.describe(CsvImporter::Idaho) do
       expect(family.phone).to(eq(["C:123-456-7890"]))
       expect(family.spots_available).to(eq(2))
       expect(family.license_date).to(eq(Date.parse("2022-02-01")))
-      expect(family.family_interest).to(eq("any"))
+      expect(family.availability).to(eq(["Long term", "Short term", "Adoption"]))
       # Verify exclusions were imported correctly
       expect(family.exclusions.count).to(eq(1))
       exclusion = family.exclusions.first

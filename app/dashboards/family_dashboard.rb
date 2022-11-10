@@ -78,7 +78,7 @@ class FamilyDashboard < Administrate::BaseDashboard
                           :latitude, :license_date, :longitude, :name, :notes, :on_break_end_date,
                           :on_break_start_date, :organization, :other_animals, :other_children_in_home, :phone, :race,
                           :recreational_activities, :region, :religion, :results, :searches, :skills, :spots_available,
-                          :state, :status, :zip, :created_at, :updated_at].freeze
+                          :state, :status, :zip, :created_at, :updated_at,].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed

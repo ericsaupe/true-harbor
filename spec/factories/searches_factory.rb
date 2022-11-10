@@ -12,7 +12,7 @@ FactoryBot.define do
         "zip" => "83815",
         "race" => Family.races.keys.sample.to_sym,
         "religion" => Family.religions.keys.sample.to_sym,
-        "family_interest" => Family.family_interests.keys.sample.to_sym,
+        "availability" => Family.availabilities.sample(Faker::Number.between(from: 1, to: Family.availabilities.count)),
         "other_children_in_home" => Faker::Boolean.boolean,
         "spots_available" => Faker::Number.digit,
         "icwa" => Faker::Boolean.boolean,

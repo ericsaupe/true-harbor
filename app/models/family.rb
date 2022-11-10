@@ -16,7 +16,6 @@ class Family < ApplicationRecord
 
   validate :on_break_dates_are_valid
 
-  enum :family_interest, [:respite, :short_term, :long_term, :adoption, :any]
   enum :race, [:american_indian, :asian, :black, :islander, :hispanic, :white, :other_race]
   enum :religion, [:christianity, :islam, :judaism, :non_religous, :other_religion]
   enum :status, [:open, :hold, :closed]
