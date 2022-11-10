@@ -27,6 +27,22 @@ RSpec.describe("Search") do
     end
   end
 
+  describe "create" do
+    it "hard filters by availability" do
+      respite_family = create(:family, organization: organization, availability: ["Respite"])
+      respite_and_short_term_family = create(:family, organization: organization,
+        availability: ["Respite", "Short Term"])
+      adoption_family = create(:family, organization: organization, availability: ["Adoption"])
+      visit "/searches/new"
+      fill_in("Search name", with: "Test")
+      check("Respite")
+      click_on("Create Search")
+      expect(page).to(have_text(respite_family.name))
+      expect(page).to(have_text(respite_and_short_term_family.name))
+      expect(page).not_to(have_text(adoption_family.name))
+    end
+  end
+
   describe "edit" do
     it "renders the edit form" do
       search = create(:search, organization: organization)

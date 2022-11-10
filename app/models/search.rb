@@ -23,8 +23,6 @@ class Search < ApplicationRecord
 
   geocoded_by :address
 
-  HARD_FILTERS = ["availability", "region_id"].freeze
-
   def completed?
     completed_at.present?
   end
@@ -32,11 +30,9 @@ class Search < ApplicationRecord
   def find_families
     results = organization.families.open.not_on_break
     # Hard filters to reduce the number of records
-    HARD_FILTERS.each do |filter|
-      next if query[filter].blank?
-
-      results = results.where(filter => query[filter])
-    end
+    results = results.where(region_id: query["region_id"]) if query["region_id"].present?
+    results = results.where("availability LIKE ?",
+      "%#{query["availability"].to_yaml}%") if query["availability"].present?
     # Geospatial filter
     results = results.near([latitude, longitude], query.dig("distance")) if query.dig("distance").present?
     results
