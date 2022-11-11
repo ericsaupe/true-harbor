@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       resources :roles
       resources :regions
       resources :results
+      resources :school_districts
       resources :searches
       resources :users
 

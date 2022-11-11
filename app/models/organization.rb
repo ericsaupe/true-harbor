@@ -6,5 +6,6 @@ class Organization < ApplicationRecord
   has_many :regions, dependent: :destroy
   has_many :searches, dependent: :destroy
   has_many :results, through: :searches
+  has_many :school_districts, dependent: :destroy
   has_many :users, dependent: :destroy
 end

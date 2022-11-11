@@ -21,6 +21,8 @@ class Ability
     can(:manage, User, organization_id: user.organization_id)
     can(:manage, Region, id: nil)
     can(:manage, Region, organization_id: user.organization_id)
+    can(:manage, SchoolDistrict, id: nil)
+    can(:manage, SchoolDistrict, organization_id: user.organization_id)
     return unless user.super_admin?
 
     can(:manage, :all)
