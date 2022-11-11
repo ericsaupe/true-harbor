@@ -31,6 +31,7 @@ class Search < ApplicationRecord
     results = organization.families.open.not_on_break
     # Hard filters to reduce the number of records
     results = results.where(region_id: query["region_id"]) if query["region_id"].present?
+    results = results.where(school_district_id: query["school_district_id"]) if query["school_district_id"].present?
     results = results.where("availability LIKE ?",
       "%#{query["availability"].to_yaml}%") if query["availability"].present?
     # Geospatial filter

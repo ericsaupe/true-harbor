@@ -48,6 +48,7 @@
           <%= render(AddressComponent.new(family: @family)) %>
         </dd>
       </div>
+      <%= render(FamilySearchAttributeComponent.new(family: @family, search: @search, attribute: "school_district")) %>
       <% if @family.exclusions %>
         <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
           <dt class="text-sm font-medium text-gray-500">Exclusions</dt>

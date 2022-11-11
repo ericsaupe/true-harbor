@@ -80,6 +80,13 @@
         </div>
 
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+          <%= form.label :school_district_id, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+          <div class="mt-1 sm:col-span-2 sm:mt-0">
+            <%= form.select :school_district_id, options_from_collection_for_select(@organization.school_districts.all, :id, :name, family.school_district_id), { include_blank: true }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm" %>
+          </div>
+        </div>
+
+        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
           <%= form.label :race, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
           <div class="mt-1 sm:col-span-2 sm:mt-0">
             <%= form.select :race, options_for_select(Family.races.map { |key, value| [key.titleize, Family.races.key(value)] }, family.race), { include_blank: true }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm" %>

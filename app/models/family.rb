@@ -8,6 +8,7 @@ class Family < ApplicationRecord
   has_many :searches, through: :results
   has_many :exclusions, dependent: :destroy
   belongs_to :region, optional: true
+  belongs_to :school_district, optional: true
 
   accepts_nested_attributes_for :exclusions, allow_destroy: true, reject_if: :all_blank
 

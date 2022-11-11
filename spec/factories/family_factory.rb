@@ -11,7 +11,8 @@ FactoryBot.define do
     zip { "83815" }
     phone { Faker::PhoneNumber.phone_number }
     email { Faker::Internet.email }
-    region
+    region { association :region, organization: organization }
+    school_district { association :school_district, organization: organization }
     license_date { Faker::Date.between(from: 2.years.ago, to: Time.zone.today) }
     status { :open }
     race { Family.races.keys.sample.to_sym }

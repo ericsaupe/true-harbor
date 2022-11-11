@@ -84,29 +84,56 @@
             </div>
           </div>
 
-          <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
-            <div role="group">
-              <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
-                <div>
-                  <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Region</div>
-                </div>
-                <div class="mt-4 sm:col-span-2 sm:mt-0">
-                  <div class="max-w-lg space-y-4">
-                    <% @organization.regions.order(:name).each do |region| %>
-                      <div class="relative flex items-start">
-                        <div class="flex h-5 items-center">
-                          <%= check_box_tag "search[query][region_id][#{region.id}]", region.name.to_sym, search.query&.dig("region_id")&.any?(region.id), class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+          <% if @organization.regions.present? %>
+            <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
+              <div role="group">
+                <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
+                  <div>
+                    <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">Region</div>
+                  </div>
+                  <div class="mt-4 sm:col-span-2 sm:mt-0">
+                    <div class="max-w-lg space-y-4">
+                      <% @organization.regions.order(:name).each do |region| %>
+                        <div class="relative flex items-start">
+                          <div class="flex h-5 items-center">
+                            <%= check_box_tag "search[query][region_id][#{region.id}]", region.name.to_sym, search.query&.dig("region_id")&.any?(region.id), class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                          </div>
+                          <div class="ml-3 text-sm">
+                            <%= label_tag "search[query][region_id][#{region.id}]", region.name, class: "font-medium text-gray-700" %>
+                          </div>
                         </div>
-                        <div class="ml-3 text-sm">
-                          <%= label_tag "search[query][region_id][#{region.id}]", region.name, class: "font-medium text-gray-700" %>
-                        </div>
-                      </div>
-                    <% end %>
+                      <% end %>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          <% end %>
+          <% if @organization.school_districts.present? %>
+            <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
+              <div role="group">
+                <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
+                  <div>
+                    <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">School District</div>
+                  </div>
+                  <div class="mt-4 sm:col-span-2 sm:mt-0">
+                    <div class="max-w-lg space-y-4">
+                      <% @organization.school_districts.order(:name).each do |school_district| %>
+                        <div class="relative flex items-start">
+                          <div class="flex h-5 items-center">
+                            <%= check_box_tag "search[query][school_district_id][#{school_district.id}]", school_district.name.to_sym, search.query&.dig("school_district_id")&.any?(school_district.id), class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                          </div>
+                          <div class="ml-3 text-sm">
+                            <%= label_tag "search[query][school_district_id][#{school_district.id}]", school_district.name, class: "font-medium text-gray-700" %>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
           <div class="pt-6 sm:pt-5 sm:border-t sm:border-gray-200">
             <div role="group">
               <div class="sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4">
