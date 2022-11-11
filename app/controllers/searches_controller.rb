@@ -83,7 +83,7 @@ class SearchesController < AuthenticatedController
     allowed_params[:query][:region_id] =
       @organization.regions.where(id: allowed_params[:query][:region_id]&.keys).pluck(:id)
     allowed_params[:query][:school_district_id] =
-      @organization.regions.where(id: allowed_params[:query][:school_district_id]&.keys).pluck(:id)
+      @organization.school_districts.where(id: allowed_params[:query][:school_district_id]&.keys).pluck(:id)
     allowed_params
   end
 end

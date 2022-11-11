@@ -58,6 +58,10 @@ class Result < ApplicationRecord
       end
     end
 
-    self.score = ((matching / total.to_f) * 100).round
+    self.score = if total.zero?
+      100 # If no criteria, then 100% match
+    else
+      ((matching / total.to_f) * 100).round
+    end
   end
 end

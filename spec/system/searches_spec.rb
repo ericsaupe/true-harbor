@@ -43,12 +43,12 @@ RSpec.describe("Search") do
     end
 
     it "hard filters by school district" do
-      school_district = create(:school_district, organization: organization)
+      school_district = create(:school_district, name: "Test District", organization: organization)
       school_district_family = create(:family, organization: organization, school_district: school_district)
       other_school_district_family = create(:family, organization: organization)
       visit "/searches/new"
       fill_in("Search name", with: "Test")
-      check(school_district.name)
+      check("Test District")
       click_on("Create Search")
       expect(page).to(have_text(school_district_family.name))
       expect(page).not_to(have_text(other_school_district_family.name))
