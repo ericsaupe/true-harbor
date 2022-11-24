@@ -35,7 +35,7 @@ class Search < ApplicationRecord
     results = results.where("availability LIKE ?",
       "%#{query["availability"].to_yaml}%") if query["availability"].present?
     # Geospatial filter
-    results = results.near([latitude, longitude], query.dig("distance")) if query.dig("distance").present?
+    results = results.geocoded.near([latitude, longitude], query.dig("distance")) if query.dig("distance").present?
     results
   end
 
@@ -46,7 +46,9 @@ class Search < ApplicationRecord
   end
 
   def remove_filtered_results
-    results.where.not(family_id: find_families.pluck(:id)).destroy_all
+    # The unscope here is to fix an issue with distance and geocoding
+    # @see https://github.com/alexreisner/geocoder/issues/1205
+    results.where.not(family_id: find_families.unscope(:order).pluck(:id)).destroy_all
   end
 
   def results_without_exclusions
