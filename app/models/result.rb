@@ -24,6 +24,10 @@ class Result < ApplicationRecord
     state == "declined"
   end
 
+  def waiting?
+    state == "waiting"
+  end
+
   def excluded?
     search.excluded_family_ids.include?(id)
   end

@@ -7,6 +7,8 @@ module ResultHelper
       "bg-emerald-50"
     when "declined"
       "bg-red-50"
+    when "waiting"
+      "bg-yellow-50"
     else
       "bg-white"
     end
