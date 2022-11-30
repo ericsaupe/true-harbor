@@ -30,6 +30,15 @@ RSpec.describe("Families") do
       expect(page).to(have_text(family.name))
       expect(page).to(have_button("Update Family"))
     end
+
+    it "renders the notes form" do
+      create(:family, organization: organization)
+      visit "/"
+      click_on("Families")
+      find("[data-test='edit-button']").click
+      expect(page).to(have_text("Notes and History"))
+      expect(page).to(have_button("Create Note"))
+    end
   end
 
   describe "update" do
