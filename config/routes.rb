@@ -22,6 +22,9 @@ Rails.application.routes.draw do
     end
   end
   resources :results, only: [:update] do
+    member do
+      put :contacted
+    end
   end
 
   namespace :admin do

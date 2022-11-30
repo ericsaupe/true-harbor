@@ -68,4 +68,8 @@ class Result < ApplicationRecord
       ((matching / total.to_f) * 100).round
     end
   end
+
+  def contacted
+    family.update(last_contacted_at: Time.zone.now) && update(updated_at: Time.zone.now)
+  end
 end

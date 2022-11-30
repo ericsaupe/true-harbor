@@ -43,4 +43,19 @@ RSpec.describe("Results") do
       expect(result).to(be_waiting)
     end
   end
+
+  describe "contacted" do
+    it "marks a result as contacted" do
+      time = Time.zone.local(2022, 1, 1, 12, 0, 0)
+      Timecop.freeze(time) do
+        visit search_path(result.search)
+        contact_button = find("[data-action='result#updateContacted']", match: :first)
+        contact_button.click
+        expect(contact_button).to(be_disabled)
+        expect(page).to(have_content("Just now"))
+        result.family.reload
+        expect(result.family.last_contacted_at).to(eq(time))
+      end
+    end
+  end
 end

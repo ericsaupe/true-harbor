@@ -42,7 +42,18 @@
     <%= result.family.spots_available %>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
-    <%= result.family.last_contacted_at&.strftime("%b %-d %Y, %l:%M %P") || "Never" %>
+    <div class="flex items-center gap-4">
+      <button
+        type="button"
+        class="inline-flex items-center rounded-full border border-transparent bg-pink-600 disabled:bg-pink-200 hover:bg-pink-900 p-1 text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+        data-action="result#updateContacted"
+        data-result-target="contactButton">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.348 14.651a3.75 3.75 0 010-5.303m5.304 0a3.75 3.75 0 010 5.303m-7.425 2.122a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.808-3.808-9.98 0-13.789m13.788 0c3.808 3.808 3.808 9.981 0 13.79M12 12h.008v.007H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+        </svg>
+      </button>
+      <span class="align-middle m-auto" data-result-target="contactTime"><%= result.family.last_contacted_at&.strftime("%b %-d %Y, %l:%M %P") || "Never" %></span>
+    </div>
   <% end %>
   <%= render(TableDataComponent.new()) do %>
     <%= render(ScoreComponent.new(score: result.score)) %>
@@ -65,7 +76,7 @@
           </svg>
         </button>
         <button type="button"
-                class="relative -ml-px inline-flex items-center border border-pink-300 <%= result.waiting? ? "bg-yellow-500 hover:bg-yellow-700 text-black" : "bg-white hover:bg-pink-50 text-gray-700" %> px-4 py-2 text-sm font-medium focus:z-10 focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500"
+                class="relative -ml-px inline-flex items-center border border-pink-300 <%= result.waiting? ? "bg-yellow-500 hover:bg-yellow-700 text-white" : "bg-white hover:bg-pink-50 text-gray-700" %> px-4 py-2 text-sm font-medium focus:z-10 focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500"
                 data-action="result#toggleWaiting">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />

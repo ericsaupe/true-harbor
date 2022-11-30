@@ -6,6 +6,8 @@ export default class extends Controller {
     state: String
   }
 
+  static targets = [ "contactButton", "contactTime" ]
+
   updateState(state) {
     if (this.stateValue === state) {
       state = "default"
@@ -41,5 +43,25 @@ export default class extends Controller {
   toggleWaiting(event) {
     event.preventDefault()
     this.updateState("waiting")
+  }
+
+  updateContacted() {
+    this.contactButtonTarget.disabled = true
+    this.contactButtonTarget.classList.add("animate__animated", "animate__pulse", "animate__infinite")
+    // Grab the CSRF token from the meta tag if it exists. It doesn't exist in test.
+    const csrfToken = document.querySelector("meta[name='csrf-token']") && document.querySelector("meta[name='csrf-token']").content
+    // Update family to be contacted
+    fetch(`/results/${this.idValue}/contacted`, {
+      method: "PUT",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "X-CSRF-Token": csrfToken
+      },
+    }).then(_response => {
+      this.contactButtonTarget.disabled = false
+      this.contactButtonTarget.classList.remove("animate__animated", "animate__pulse", "animate__infinite")
+      this.contactTimeTarget.innerHTML = "Just now"
+    })
   }
 }
