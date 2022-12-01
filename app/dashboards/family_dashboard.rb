@@ -84,7 +84,7 @@ class FamilyDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [:address_1, :address_2, :available_counselor_transportation, :available_school_transportation,
-                     :availability, :available_visit_transportation, :cats, :city, :dogs, :email, :exclusions,
+                     :available_visit_transportation, :cats, :city, :dogs, :email, :exclusions,
                      :experience_with_care, :icwa, :last_contacted_at, :latitude, :license_date,
                      :longitude, :name, :notes, :on_break_end_date, :on_break_start_date, :other_animals,
                      :other_children_in_home, :phone, :race, :recreational_activities, :region, :religion, :results,

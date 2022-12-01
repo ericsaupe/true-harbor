@@ -19,4 +19,15 @@ RSpec.describe("Admin") do
     expect(ParseRowJob.jobs.size).to(eq(1))
     Sidekiq::Worker.drain_all
   end
+
+  context "when families" do
+    it "updates a family" do
+      family = create(:family, organization: organization)
+      visit "/admin/families/#{family.id}/edit"
+      fill_in("Name", with: "New")
+      click_on("Update Family")
+      expect(page).to(have_text("Family was successfully updated."))
+      expect(page).to(have_text("New"))
+    end
+  end
 end
