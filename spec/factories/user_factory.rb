@@ -9,5 +9,11 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     phone { Faker::PhoneNumber.phone_number }
     confirmed_at { Time.zone.now }
+
+    factory :admin do
+      after(:create) do |user, _evaluator|
+        user.add_role(:admin)
+      end
+    end
   end
 end

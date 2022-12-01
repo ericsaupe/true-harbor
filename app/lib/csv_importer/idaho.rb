@@ -63,6 +63,8 @@ module CsvImporter
     end
 
     def availability(type)
+      return if type.blank?
+
       types_array = type.split(" ").map(&:strip).map(&:downcase)
       availabilities = []
       if types_array.include?("gen")
