@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe("Families") do
+RSpec.describe("Admin") do
   let(:admin) { create(:admin) }
   let(:organization) { admin.organization }
 

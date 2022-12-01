@@ -21,7 +21,7 @@ module CsvImporter
       family_params = {
         name: name(row["name"]),
         email: row["email"],
-        phone: row["phone"].split(" "),
+        phone: row["phone"]&.split(" "),
         address_1: row["address"],
         city: row["city"],
         state: "ID",
@@ -83,6 +83,8 @@ module CsvImporter
     end
 
     def create_exclusions(family, age_ranges)
+      return if age_ranges.blank?
+
       age_ranges.split("\n").each do |ages|
         age, gender = ages.split(" ")
         gender = if gender.nil?
@@ -111,6 +113,8 @@ module CsvImporter
     end
 
     def create_notes(family, notes)
+      return if notes.blank?
+
       notes.split("\n").each do |note|
         family.notes.find_or_create_by!(content: note)
       end
