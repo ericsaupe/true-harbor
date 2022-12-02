@@ -32,7 +32,7 @@ class Family < ApplicationRecord
   serialize :phone
 
   # Don't geocode if we are manually setting their location
-  after_validation :geocode, unless: :will_save_change_to_latitude?
+  after_validation :geocode, if: :should_geocode?
   geocoded_by :address
 
   scope :not_on_break, -> {
@@ -146,5 +146,17 @@ class Family < ApplicationRecord
 
   def remove_whitespace_from_phone
     self.phone = phone.gsub(/\s+/, "") if phone.present?
+  end
+
+  private
+
+  def should_geocode?
+    # Don't geocode if we are manually setting their location
+    !(will_save_change_to_latitude? || will_save_change_to_longitude?) &&
+      (will_save_change_to_address_1? ||
+      will_save_change_to_address_2? ||
+      will_save_change_to_city? ||
+      will_save_change_to_state? ||
+      will_save_change_to_zip?)
   end
 end
