@@ -3,6 +3,13 @@
 class ApplicationController < ActionController::Base
   before_action :validate_subdomain, if: :devise_controller?
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_sentry_context
+
+  def set_sentry_context
+    context = { account: request.subdomain }
+    context.merge!({ id: current_user.id, email: current_user.email }) if current_user.present?
+    Sentry.set_user(context)
+  end
 
   protected
 
