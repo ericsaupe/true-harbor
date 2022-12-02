@@ -39,6 +39,7 @@ class Family < ApplicationRecord
                          where("(on_break_start_date IS NULL OR on_break_start_date > :today) AND
                                 (on_break_end_date IS NULL OR on_break_end_date < :today)", today: Date.current)
                        }
+  scope :including_any_availabilities, ->(availabilities) { where(matching_availability_query(availabilities, "OR")) }
 
   after_update_commit do
     broadcast_replace_later_to :families_table, partial: "families/family_table_row"
@@ -121,6 +122,10 @@ class Family < ApplicationRecord
         "Blind",
         "Deaf",
       ].sort
+    end
+
+    def matching_availability_query(availabilities, condition_separator = "OR")
+      availabilities.map { |availability| "(availability LIKE '%#{availability}%')" }.join(" #{condition_separator} ")
     end
   end
 

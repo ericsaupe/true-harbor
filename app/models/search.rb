@@ -30,10 +30,11 @@ class Search < ApplicationRecord
   def find_families
     results = organization.families.open.not_on_break
     # Hard filters to reduce the number of records
-    results = results.where(region_id: query["region_id"]) if query["region_id"].present?
-    results = results.where(school_district_id: query["school_district_id"]) if query["school_district_id"].present?
-    results = results.where("availability LIKE ?",
-      "%#{query["availability"].to_yaml}%") if query["availability"].present?
+    results = results.where(region_id: query.dig("region_id")) if query.dig("region_id").present?
+    if query.dig("school_district_id").present?
+      results = results.where(school_district_id: query.dig("school_district_id"))
+    end
+    results = results.including_any_availabilities(query.dig("availability")) if query.dig("availability").present?
     # Geospatial filter
     results = results.geocoded.near([latitude, longitude], query.dig("distance")) if query.dig("distance").present?
     results

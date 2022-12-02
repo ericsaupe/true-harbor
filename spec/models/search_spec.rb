@@ -10,6 +10,17 @@ RSpec.describe(Search) do
     it "finds families with exact matches" do
       expect(search.find_families).to(eq([family]))
     end
+
+    it "supports multiple availabilities in one result" do
+      family.update(availability: Family.availabilities) # all availabilities
+      # create one of each family
+      Family.availabilities.each do |availability|
+        create(:family, organization: search.organization, availability: [availability])
+      end
+      search.update(query: { "availability" => Family.availabilities.sample(2) }) # Choose two availabilites
+      # Should find three families, one for each availability and the one with all the availabilites
+      expect(search.find_families.count).to(eq(3))
+    end
   end
 
   describe "#calculate_results" do
