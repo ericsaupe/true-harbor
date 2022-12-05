@@ -10,6 +10,8 @@ class Result < ApplicationRecord
     broadcast_changes
   }
 
+  scope :default, -> { where(state: "default") }
+
   EXCLUDED_CALCULATION_FIELDS = ["address_1", "address_2", "city", "state", "zip", "distance", "region_id"].freeze
 
   def broadcast_changes

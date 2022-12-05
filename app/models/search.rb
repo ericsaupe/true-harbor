@@ -49,7 +49,7 @@ class Search < ApplicationRecord
   def remove_filtered_results
     # The unscope here is to fix an issue with distance and geocoding
     # @see https://github.com/alexreisner/geocoder/issues/1205
-    results.where.not(family_id: find_families.unscope(:order).pluck(:id)).destroy_all
+    results.default.where.not(family_id: find_families.unscope(:order).pluck(:id)).destroy_all
   end
 
   def results_without_exclusions

@@ -59,4 +59,21 @@ RSpec.describe(Search) do
       expect(search.results_without_exclusions).to(eq([]))
     end
   end
+
+  describe "#remove_filtered_results" do
+    it "removes results that are no longer in the search" do
+      search.calculate_results
+      search.update(query: { "distance" => 1 })
+      search.remove_filtered_results
+      expect(search.results).to(eq([]))
+    end
+
+    it "does not remove results that have a state other than default" do
+      search.calculate_results
+      search.results.first.update(state: "selected")
+      search.update(query: { "distance" => 1 })
+      search.remove_filtered_results
+      expect(search.results.count).to(eq(1))
+    end
+  end
 end
