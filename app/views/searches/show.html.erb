@@ -84,7 +84,9 @@
   </div>
 
   <%= render GoogleMapsComponent.new(lat: @search.latitude, lng: @search.longitude, points: @results.to_json(include: :family)) %>
-  <%= render(partial: "family_search") %>
+  <% unless @search.completed? %>
+    <%= render(partial: "family_search") %>
+  <% end %>
   <% if @paginated_results.present? %>
     <%= render(partial: "results/results_table", locals: { results: @paginated_results }) %>
   <% else %>
