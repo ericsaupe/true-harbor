@@ -77,12 +77,6 @@ class SearchesController < AuthenticatedController
     render(partial: "family_search_result", collection: @families, as: :family, locals: { search: @search })
   end
 
-  def add_family
-  end
-
-  def remove_family
-  end
-
   private
 
   def find_search
