@@ -58,4 +58,31 @@ RSpec.describe("Results") do
       end
     end
   end
+
+  describe "add additional families" do
+    it "displays families in the search that aren't in the original results" do
+      family = create(:family, organization: organization)
+      visit search_path(result.search)
+      find_by_id("combobox").send_keys(family.name)
+      expect(page).to(have_css("#family_#{family.id}"))
+    end
+
+    it "adds additional families when clicked" do
+      family = create(:family, organization: organization)
+      visit search_path(result.search)
+      expect(page).not_to(have_content(family.phone))
+      find_by_id("combobox").send_keys(family.name)
+      find("#family_#{family.id}").click
+      expect(page).to(have_content(family.phone))
+    end
+
+    it "removes families when clicked" do
+      family = result.family
+      visit search_path(result.search)
+      expect(page).to(have_content(family.phone))
+      find_by_id("combobox").send_keys(family.name)
+      find("#family_#{family.id}").click
+      expect(page).not_to(have_content(family.phone))
+    end
+  end
 end

@@ -3,7 +3,8 @@
 class SearchesController < AuthenticatedController
   include FormatSerializedFields
 
-  before_action :find_search, only: [:show, :edit, :update, :destroy, :complete, :reopen, :download_results]
+  before_action :find_search,
+    only: [:show, :edit, :update, :destroy, :complete, :reopen, :download_results, :search_families]
 
   def index
     all_searches = @organization.searches.all.order(created_at: :desc)
@@ -68,6 +69,12 @@ class SearchesController < AuthenticatedController
     send_data(ResultsCsvGenerator.generate_csv(search: @search, only_selected: only_selected),
       filename: "#{@search.name} results.csv",
       type: "text/csv")
+  end
+
+  def search_families
+    @q = @organization.families.ransack(params[:q])
+    @families = @q.result(distinct: true).includes(:searches).order(:name)
+    render(partial: "family_search_result", collection: @families, as: :family, locals: { search: @search })
   end
 
   private

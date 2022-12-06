@@ -15,7 +15,7 @@
         </th>
       </tr>
     </thead>
-    <tbody class="bg-white">
+    <tbody class="bg-white" id="results">
       <% results.each do |result| %>
         <%= render partial: "results/result_table_row", locals: { result: result } %>
       <% end %>
