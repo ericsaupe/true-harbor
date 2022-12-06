@@ -1,3 +1,5 @@
+<%= turbo_stream_from @search %>
+
 <div class="px-4 sm:px-6 lg:px-8">
   <%# Page header %>
   <div class="lg:flex lg:items-center lg:justify-between rounded-md p-4 bg-gradient-to-r from-pink-700 to-pink-300">
@@ -82,6 +84,7 @@
   </div>
 
   <%= render GoogleMapsComponent.new(lat: @search.latitude, lng: @search.longitude, points: @results.to_json(include: :family)) %>
+  <%= render(partial: "family_search") %>
   <% if @paginated_results.present? %>
     <%= render(partial: "results/results_table", locals: { results: @paginated_results }) %>
   <% else %>

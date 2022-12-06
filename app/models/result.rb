@@ -9,6 +9,20 @@ class Result < ApplicationRecord
   after_update_commit -> {
     broadcast_changes
   }
+  after_create_commit -> {
+    broadcast_prepend_later_to(search, partial: "results/result_table_row", target: "results")
+    broadcast_replace_later_to(search,
+      partial: "searches/family_search_result",
+      target: family,
+      locals: { search: search, family: family })
+  }
+  after_destroy_commit -> {
+    broadcast_remove_to(search)
+    broadcast_replace_later_to(search,
+      partial: "searches/family_search_result",
+      target: family,
+      locals: { search: search, family: family, selected: false })
+  }
 
   scope :default, -> { where(state: "default") }
 

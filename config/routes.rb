@@ -19,6 +19,13 @@ Rails.application.routes.draw do
       put :complete
       put :reopen
       get :download_results
+      get :search_families
+    end
+
+    resources :results, only: [:create] do
+      collection do
+        delete "/destroy_by_family/:family_id", to: "results#destroy_by_family"
+      end
     end
   end
   resources :results, only: [:update] do

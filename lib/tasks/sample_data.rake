@@ -8,7 +8,8 @@ task generate_data: :environment do
     FactoryBot.create(:organization, name: "Demo Organization", subdomain: "demo")
   # Create users
   if organization.users.find_by(email: "admin@example.com").nil?
-    admin = FactoryBot.create(:user, email: "admin@example.com", organization: organization)
+    admin = FactoryBot.create(:user, email: "superadmin@example.com", organization: organization,
+      confirmed_at: Time.current)
     admin.add_role(:admin)
   end
   10.times do |i|
