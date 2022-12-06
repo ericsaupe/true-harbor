@@ -1,8 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "options", "result" ]
-  static values = { id: Number }
+  static targets = [ "input", "options", "result", "toggle" ]
+  static values = { id: Number, open: Boolean }
 
   toggleOptions() {
     this.openValue = !this.openValue
@@ -19,6 +19,12 @@ export default class extends Controller {
 
   closeOptions() {
     this.optionsTarget.classList.add("hidden")
+  }
+
+  windowCloseOptions() {
+    if (document.activeElement !== this.inputTarget && document.activeElement !== this.toggleTarget) {
+      this.closeOptions()
+    }
   }
 
   search(event) {
