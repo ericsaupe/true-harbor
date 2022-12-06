@@ -32,8 +32,7 @@ module.exports = {
         '700': '#b31d3f',
         '800': '#961b3c',
         '900': '#811a39',
-    },
-
+      },
     },
     extend: {
       screens: {
