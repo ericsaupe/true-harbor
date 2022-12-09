@@ -22,4 +22,10 @@ namespace :data_fix do
       family.save!
     end
   end
+
+  task seed_child_needs_to_organizations: :environment do
+    Organization.find_each do |organization|
+      OrganizationSeeder.new(organization).seed_child_needs
+    end
+  end
 end
