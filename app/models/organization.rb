@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Organization < ApplicationRecord
+  has_many :child_needs, dependent: :destroy
   has_many :families, dependent: :destroy
   has_many :exclusions, through: :families
   has_many :regions, dependent: :destroy
