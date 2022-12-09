@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "chevronDown", "chevronUp", "menu" ]
+  static targets = [ "button", "chevronDown", "chevronUp", "menu" ]
   static values = { open: Boolean }
 
   toggleMenu() {
@@ -31,5 +31,12 @@ export default class extends Controller {
       this.menuTarget.classList.add("hidden")
       this.menuTarget.classList.remove("animate__animated", "animate__fadeOut", "animate__faster", "absolute")
     }, { once: true })
+  }
+
+  windowCloseMenu() {
+    if (this.openValue && document.activeElement !== this.menuTarget && document.activeElement !== this.buttonTarget ) {
+      this.openValue = false
+      this.closeMenu()
+    }
   }
 }
