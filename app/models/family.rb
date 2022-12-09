@@ -32,7 +32,7 @@ class Family < ApplicationRecord
   serialize :phone
 
   # Don't geocode if we are manually setting their location
-  after_validation :geocode, if: :should_geocode?
+  after_commit :geocode_later, if: :should_geocode?
   geocoded_by :address
 
   scope :not_on_break, -> {
@@ -148,15 +148,19 @@ class Family < ApplicationRecord
     self.phone = phone.gsub(/\s+/, "") if phone.present?
   end
 
+  def geocode_later
+    GeocoderJob.perform_async(id)
+  end
+
   private
 
   def should_geocode?
     # Don't geocode if we are manually setting their location
-    !(will_save_change_to_latitude? || will_save_change_to_longitude?) &&
-      (will_save_change_to_address_1? ||
-      will_save_change_to_address_2? ||
-      will_save_change_to_city? ||
-      will_save_change_to_state? ||
-      will_save_change_to_zip?)
+    !(saved_change_to_latitude? || saved_change_to_longitude?) &&
+      (saved_change_to_address_1? ||
+      saved_change_to_address_2? ||
+      saved_change_to_city? ||
+      saved_change_to_state? ||
+      saved_change_to_zip?)
   end
 end

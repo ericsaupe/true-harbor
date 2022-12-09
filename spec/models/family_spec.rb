@@ -12,6 +12,7 @@ RSpec.describe(Family) do
       expect(family.latitude).not_to(be_present)
       expect(family.longitude).not_to(be_present)
       family.update(address_1: "123 Main St", city: "San Francisco", state: "CA", zip: "94105")
+      Sidekiq::Worker.drain_all
       family.reload
       expect(family.latitude).to(be_present)
       expect(family.longitude).to(be_present)
