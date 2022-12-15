@@ -322,7 +322,7 @@
               </div>
               <div class="mt-4 sm:col-span-2 sm:mt-0">
                 <div class="max-w-lg space-y-4">
-                  <% @organization.child_needs.order(:name).each_with_index do |child_need, i| %>
+                  <% @organization.child_needs.order(:name).each do |child_need| %>
                     <div class="relative flex items-start">
                       <div class="flex h-5 items-center">
                         <%= check_box_tag "family[experiences_attributes][][child_need_id]",

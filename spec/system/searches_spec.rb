@@ -69,6 +69,17 @@ RSpec.describe("Search") do
       click_on("Create Search")
       expect(page).to(have_text("Children gender can't be blank"))
     end
+
+    it "saves experiences" do
+      child_needs = create_list(:child_need, 3, organization: organization)
+      visit new_search_path
+      fill_in("Search name", with: "Test")
+      check(child_needs.first.name)
+      click_on("Create Search")
+      expect(page).to(have_text("Successfully created search."))
+      search = Search.last
+      expect(search.reload.experiences.pluck(:child_need_id)).to(eq([child_needs.first.id]))
+    end
   end
 
   describe "edit" do
