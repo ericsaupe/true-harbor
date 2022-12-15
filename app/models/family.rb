@@ -7,9 +7,12 @@ class Family < ApplicationRecord
   has_many :results, dependent: :destroy
   has_many :searches, through: :results
   has_many :exclusions, dependent: :destroy
+  has_many :experiences, as: :experienceable, dependent: :destroy
+  has_many :child_needs, through: :experiences
   belongs_to :region, optional: true
   belongs_to :school_district, optional: true
 
+  accepts_nested_attributes_for :experiences, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :exclusions, allow_destroy: true, reject_if: :all_blank
 
   encrypts :address_1, :address_2

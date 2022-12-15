@@ -24,6 +24,7 @@ class FamiliesController < AuthenticatedController
   def create
     @family = @organization.families.new(family_params)
     if @family.save
+      save_experiences
       redirect_to(@family, flash: { success: "Successfully created family." }, status: :see_other)
     else
       render(action: "new")
@@ -32,6 +33,7 @@ class FamiliesController < AuthenticatedController
 
   def update
     if @family.update(family_params)
+      save_experiences
       respond_to do |format|
         format.html do
           redirect_to(edit_family_path(@family), flash: { success: "Successfully updated family." }, status: :see_other)
@@ -64,7 +66,7 @@ class FamiliesController < AuthenticatedController
   private
 
   def find_family
-    @family ||= @organization.families.find(params[:id])
+    @family ||= @organization.families.includes(:child_needs).find(params[:id])
   end
 
   def family_params
@@ -72,8 +74,8 @@ class FamiliesController < AuthenticatedController
       :region_id, :school_district_id, :license_date, :status, :race, :religion, :other_children_in_home,
       :spots_available, :icwa, :dogs, :cats, :other_animals, :available_visit_transportation,
       :available_school_transportation, :available_counselor_transportation, :on_break_start_date, :on_break_end_date,
-      :last_contacted_at, phone: [], availability: [], experience_with_care: {}, recreational_activities: {},
-      skills: {}, exclusions_attributes: [:id, :gender, :comparator, :age, :_destroy])
+      :last_contacted_at, phone: [], availability: [], recreational_activities: {}, skills: {},
+      exclusions_attributes: [:id, :gender, :comparator, :age, :_destroy])
     format_serialized_fields(allowed_params)
     allowed_params[:region_id] = nil if @organization.regions.find_by(id: allowed_params[:region_id]).nil?
     allowed_params[:school_district_id] = nil if @organization.school_districts.find_by(
@@ -81,5 +83,15 @@ class FamiliesController < AuthenticatedController
     ).nil?
     allowed_params[:phone] = allowed_params[:phone].compact_blank
     allowed_params
+  end
+
+  def save_experiences
+    experiences_params = params.require(:family).permit(experiences_attributes: [:child_need_id])
+    child_need_ids = (experiences_params[:experiences_attributes] || []).pluck(:child_need_id).compact_blank
+    child_need_ids.each do |child_need_id|
+      @family.experiences.find_or_create_by(child_need_id: child_need_id)
+    end
+    # Remove any old experiences that are no longer in the list
+    @family.experiences.where.not(child_need_id: child_need_ids).destroy_all
   end
 end

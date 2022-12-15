@@ -46,5 +46,15 @@ FactoryBot.define do
         create_list(:exclusion, evaluator.exclusion_count, family: family)
       end
     end
+
+    trait :with_experiences do
+      transient do
+        experience_count { 2 }
+      end
+
+      after(:create) do |family, evaluator|
+        create_list(:experience, evaluator.experience_count, experienceable: family)
+      end
+    end
   end
 end
