@@ -26,7 +26,8 @@ class Result < ApplicationRecord
 
   scope :default, -> { where(state: "default") }
 
-  EXCLUDED_CALCULATION_FIELDS = ["address_1", "address_2", "city", "state", "zip", "distance", "region_id"].freeze
+  EXCLUDED_CALCULATION_FIELDS = ["address_1", "address_2", "city", "state", "zip", "distance", "region_id",
+                                 "experience_with_care",].freeze
 
   def broadcast_changes
     broadcast_replace_later_to(search, partial: "results/result_table_row")
@@ -79,8 +80,8 @@ class Result < ApplicationRecord
     end
 
     # Calculate child needs
-    total += search.child_needs.count
-    matching += family.child_needs.where(id: search.child_needs).count
+    total += search.child_needs.distinct.count
+    matching += family.child_needs.distinct.where(id: search.child_needs).count
 
     self.score = if total.zero?
       100 # If no criteria, then 100% match
