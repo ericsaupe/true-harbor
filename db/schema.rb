@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_230640) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_09_233828) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,6 +39,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_230640) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["family_id"], name: "index_exclusions_on_family_id"
+  end
+
+  create_table "experiences", force: :cascade do |t|
+    t.string "experienceable_type"
+    t.bigint "experienceable_id"
+    t.bigint "child_need_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_need_id"], name: "index_experiences_on_child_need_id"
+    t.index ["experienceable_type", "experienceable_id"], name: "index_experiences_on_experienceable"
   end
 
   create_table "families", force: :cascade do |t|
@@ -194,6 +204,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_230640) do
   add_foreign_key "child_needs", "organizations"
   add_foreign_key "children", "searches"
   add_foreign_key "exclusions", "families"
+  add_foreign_key "experiences", "child_needs"
   add_foreign_key "families", "organizations"
   add_foreign_key "families", "regions"
   add_foreign_key "families", "school_districts"
