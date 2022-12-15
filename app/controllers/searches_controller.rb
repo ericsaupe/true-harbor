@@ -2,6 +2,7 @@
 
 class SearchesController < AuthenticatedController
   include FormatSerializedFields
+  include SaveExperiences
 
   before_action :find_search,
     only: [:show, :edit, :update, :destroy, :complete, :reopen, :download_results, :search_families]
@@ -30,6 +31,7 @@ class SearchesController < AuthenticatedController
   def create
     @search = @organization.searches.new(search_params)
     if @search.save
+      save_experiences
       redirect_to(@search, flash: { success: "Successfully created search." }, status: :see_other)
     else
       flash[:error] = @search.errors.full_messages.to_sentence
@@ -39,6 +41,7 @@ class SearchesController < AuthenticatedController
 
   def update
     if @search.update(search_params)
+      save_experiences
       respond_to do |format|
         format.html do
           redirect_to(search_path(@search), flash: { success: "Successfully updated search." }, status: :see_other)
@@ -82,7 +85,7 @@ class SearchesController < AuthenticatedController
   private
 
   def find_search
-    @search ||= @organization.searches.find(params[:id])
+    @search ||= @organization.searches.includes(:child_needs).find(params[:id])
   end
 
   def search_params

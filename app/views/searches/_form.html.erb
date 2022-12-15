@@ -306,13 +306,18 @@
                 </div>
                 <div class="mt-4 sm:col-span-2 sm:mt-0">
                   <div class="max-w-lg space-y-4">
-                    <% Family.experience_with_care.sort.each do |care| %>
+                    <% @organization.child_needs.order(:name).each do |child_need| %>
                       <div class="relative flex items-start">
                         <div class="flex h-5 items-center">
-                          <%= check_box_tag "search[query][experience_with_care][#{care}]", care.to_sym, search.query&.dig("experience_with_care")&.any?(care), class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" %>
+                          <%= check_box_tag "search[experiences_attributes][][child_need_id]",
+                                child_need.id,
+                                search.child_needs.find_by(id: child_need.id).present?,
+                                id: dom_id(child_need),
+                                class: "h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500"
+                          %>
                         </div>
                         <div class="ml-3 text-sm">
-                          <%= label_tag "search[query][experience_with_care][#{care}]", care, class: "font-medium text-gray-700" %>
+                          <%= label_tag dom_id(child_need), child_need.name, for: dom_id(child_need), class: "font-medium text-gray-700" %>
                         </div>
                       </div>
                     <% end %>

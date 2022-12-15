@@ -2,6 +2,7 @@
 
 class FamiliesController < AuthenticatedController
   include FormatSerializedFields
+  include SaveExperiences
 
   before_action :find_family, only: [:show, :edit, :update, :destroy, :contacted]
 
@@ -83,15 +84,5 @@ class FamiliesController < AuthenticatedController
     ).nil?
     allowed_params[:phone] = allowed_params[:phone].compact_blank
     allowed_params
-  end
-
-  def save_experiences
-    experiences_params = params.require(:family).permit(experiences_attributes: [:child_need_id])
-    child_need_ids = (experiences_params[:experiences_attributes] || []).pluck(:child_need_id).compact_blank
-    child_need_ids.each do |child_need_id|
-      @family.experiences.find_or_create_by(child_need_id: child_need_id)
-    end
-    # Remove any old experiences that are no longer in the list
-    @family.experiences.where.not(child_need_id: child_need_ids).destroy_all
   end
 end
