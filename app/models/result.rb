@@ -78,6 +78,10 @@ class Result < ApplicationRecord
       end
     end
 
+    # Calculate child needs
+    total += search.child_needs.count
+    matching += family.child_needs.where(id: search.child_needs).count
+
     self.score = if total.zero?
       100 # If no criteria, then 100% match
     else
