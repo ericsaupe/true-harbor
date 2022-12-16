@@ -43,3 +43,4 @@ spec/examples.txt
 
 /config/credentials/production.key
 .byebug_history
+*.sql

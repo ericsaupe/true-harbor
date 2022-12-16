@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: true_harbor_development
+  database: <%= ENV.fetch("TRUE_HARBOR_DATABASE") { "true_harbor_development" } %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
