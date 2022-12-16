@@ -9,11 +9,19 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     before_action :authenticate_admin
+    around_action :display_errors, if: Rails.env.production?
 
     def authenticate_admin
       return true if current_user.admin?
 
       redirect_to(root_path, alert: "You are not authorized to access this page.")
+    end
+
+    def display_errors
+      yield
+    rescue => e
+      flash[:error] = e.message
+      redirect_back(fallback_location: admin_root_path)
     end
 
     # Whether the current user is authorized to perform the named action on the

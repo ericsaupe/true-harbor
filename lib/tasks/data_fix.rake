@@ -69,6 +69,12 @@ namespace :data_fix do
       "Deaf",
     ]
 
+    Organization.all.find_each do |organization|
+      legacy_experience_with_care.each do |legacy_child_need|
+        ChildNeed.find_or_create_by(name: legacy_child_need, organization: organization)
+      end
+    end
+
     Family.all.find_each do |family|
       legacy_experience_with_care.each do |legacy_child_need|
         if family.experience_with_care&.include?(legacy_child_need)
