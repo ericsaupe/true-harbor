@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     authenticate :user, ->(user) { user.admin? } do
+      resources :child_needs
       resources :children
       resources :exclusions
       resources :families
