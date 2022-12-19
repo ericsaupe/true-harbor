@@ -12,7 +12,7 @@ class FamiliesController < AuthenticatedController
   end
 
   def show
-    @search = @family.searches.find_by(id: params[:search_id])
+    @search = @family.searches.includes(:child_needs).find_by(id: params[:search_id])
     render(layout: false) if params[:layout] == "false"
   end
 

@@ -32,10 +32,11 @@ FactoryBot.define do
       Family.recreational_activities.sample(Faker::Number.between(from: 1, to: Family.recreational_activities.count))
     end
     skills { Family.skills.sample(Faker::Number.between(from: 1, to: Family.skills.count)) }
-    experience_with_care do
-      Family.experience_with_care.sample(Faker::Number.between(from: 1, to: Family.experience_with_care.count))
-    end
     availability { Family.availabilities.sample(Faker::Number.between(from: 1, to: Family.availabilities.count)) }
+
+    after(:create) do |family|
+      create_list(:experience, Faker::Number.between(from: 1, to: 10), experienceable: family)
+    end
 
     trait :with_exclusions do
       transient do

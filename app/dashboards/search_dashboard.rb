@@ -23,6 +23,7 @@ class SearchDashboard < Administrate::BaseDashboard
     organization: Field::BelongsTo,
     query: Field::Text,
     results: Field::HasMany,
+    child_needs: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -37,7 +38,7 @@ class SearchDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [:id, :category, :children, :completed_at, :families, :name, :organization, :query, :results,
-                          :created_at, :updated_at,].freeze
+                          :child_needs, :created_at, :updated_at,].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
