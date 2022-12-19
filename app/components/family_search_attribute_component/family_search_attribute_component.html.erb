@@ -39,7 +39,7 @@
     <% if array_of_values? %>
       <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
         <ul role="list" class="divide-y divide-gray-200 rounded-md border border-gray-200">
-          <% @family.send(@attribute).sort.each do |item| %>
+          <% @family.send(@attribute).sort_by { |i| i.respond_to?(:name) ? i.name : i }.each do |item| %>
             <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
               <div class="flex w-0 flex-1 items-center">
                 <% if item_in_array?(item) %>

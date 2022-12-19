@@ -9,7 +9,7 @@ class FamilySearchAttributeComponent < ViewComponent::Base
   end
 
   def array_of_values?
-    @family.send(@attribute).is_a?(Array)
+    @family.send(@attribute).is_a?(Array) || @family.send(@attribute).is_a?(ActiveRecord::Relation)
   end
 
   def same_attribute?(attribute = nil)
@@ -31,11 +31,23 @@ class FamilySearchAttributeComponent < ViewComponent::Base
   end
 
   def item_in_array?(item)
-    @search&.query&.dig(@attribute)&.include?(item)
+    return false unless @search
+
+    if @attribute == "child_needs"
+      @search.child_needs.find_by(id: item.id).present?
+    else
+      @search.query&.dig(@attribute)&.include?(item)
+    end
   end
 
   def search_items_missing_from_family
-    @search&.query&.dig(@attribute)&.reject { |item| @family.send(@attribute).include?(item) } || []
+    return [] unless @search
+
+    if @attribute == "child_needs"
+      @search.child_needs.where.not(id: @family.child_needs.pluck(:id))
+    else
+      @search.query&.dig(@attribute)&.reject { |item| @family.send(@attribute).include?(item) } || []
+    end
   end
 
   def display_attribute

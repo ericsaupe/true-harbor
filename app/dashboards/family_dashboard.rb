@@ -22,7 +22,6 @@ class FamilyDashboard < Administrate::BaseDashboard
     dogs: Field::Boolean,
     email: Field::String,
     exclusions: Field::HasMany,
-    experience_with_care: Field::Text,
     icwa: Field::Boolean,
     last_contacted_at: Field::DateTime,
     latitude: Field::String.with_options(searchable: false),
@@ -59,6 +58,7 @@ class FamilyDashboard < Administrate::BaseDashboard
                                                                         ).keys
                                                                       }),
     zip: Field::String,
+    child_needs: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -74,7 +74,7 @@ class FamilyDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [:id, :address_1, :address_2, :available_counselor_transportation, :availability,
                           :available_school_transportation, :available_visit_transportation, :cats, :city, :dogs,
-                          :email, :exclusions, :experience_with_care, :icwa, :last_contacted_at,
+                          :email, :exclusions, :icwa, :last_contacted_at, :child_needs,
                           :latitude, :license_date, :longitude, :name, :notes, :on_break_end_date,
                           :on_break_start_date, :organization, :other_animals, :other_children_in_home, :phone, :race,
                           :recreational_activities, :region, :religion, :results, :searches, :skills, :spots_available,
@@ -84,11 +84,11 @@ class FamilyDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [:address_1, :address_2, :available_counselor_transportation, :available_school_transportation,
-                     :available_visit_transportation, :cats, :city, :dogs, :email, :exclusions,
-                     :experience_with_care, :icwa, :last_contacted_at, :latitude, :license_date,
-                     :longitude, :name, :notes, :on_break_end_date, :on_break_start_date, :other_animals,
-                     :other_children_in_home, :phone, :race, :recreational_activities, :region, :religion, :results,
-                     :searches, :skills, :spots_available, :state, :status, :zip,].freeze
+                     :available_visit_transportation, :cats, :city, :dogs, :email, :exclusions, :icwa,
+                     :last_contacted_at, :latitude, :license_date, :longitude, :name, :notes, :on_break_end_date,
+                     :on_break_start_date, :other_animals, :other_children_in_home, :phone, :race,
+                     :recreational_activities, :region, :religion, :results, :searches, :skills, :spots_available,
+                     :state, :status, :zip,].freeze
 
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search
