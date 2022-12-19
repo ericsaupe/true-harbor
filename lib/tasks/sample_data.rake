@@ -27,12 +27,19 @@ task generate_data: :environment do
   end
   # Create regions
   FactoryBot.create_list(:region, 5, organization: organization)
+  # Create school districts
+  FactoryBot.create_list(:school_district, 10, organization: organization)
   # Create families
   FactoryBot.create_list(:family, 100, :with_exclusions,
-    region: organization.regions.sample, organization: organization)
+    region: organization.regions.order("RANDOM()").first,
+    school_district: organization.school_districts.order("RANDOM()").first,
+    organization: organization)
   # Randomize regions
   organization.families.find_each do |family|
-    family.update!(region: organization.regions.sample)
+    family.update!(
+      region: organization.regions.order("RANDOM()").first,
+      school_district: organization.school_districts.order("RANDOM()").first
+    )
   end
   # Create searches
   FactoryBot.create_list(:search, 5, :with_children, organization: organization)

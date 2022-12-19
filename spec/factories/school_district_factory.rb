@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :school_district do
     organization
-    name { Faker::Address.community }
+    name { Faker::Address.unique.street_name }
   end
 end
