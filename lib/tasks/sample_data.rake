@@ -6,11 +6,18 @@ task generate_data: :environment do
   # Create an organization
   organization = Organization.find_by(subdomain: "demo") ||
     FactoryBot.create(:organization, name: "Demo Organization", subdomain: "demo")
+  organization_seeder = OrganizationSeeder.new(organization)
+  organization_seeder.seed
   # Create users
   if organization.users.find_by(email: "admin@example.com").nil?
-    admin = FactoryBot.create(:user, email: "superadmin@example.com", organization: organization,
+    admin = FactoryBot.create(:user, email: "admin@example.com", organization: organization,
       confirmed_at: Time.current)
     admin.add_role(:admin)
+  end
+  if organization.users.find_by(email: "superadmin@example.com").nil? && !Rails.env.production?
+    admin = FactoryBot.create(:user, email: "superadmin@example.com", organization: organization,
+      confirmed_at: Time.current)
+    admin.add_role(:super_admin)
   end
   10.times do |i|
     email = "user#{i}@example.com"

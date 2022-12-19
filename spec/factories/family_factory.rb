@@ -35,7 +35,11 @@ FactoryBot.define do
     availability { Family.availabilities.sample(Faker::Number.between(from: 1, to: Family.availabilities.count)) }
 
     after(:create) do |family|
-      create_list(:experience, Faker::Number.between(from: 1, to: 10), experienceable: family)
+      organization = family.organization
+      limit = Faker::Number.between(from: 1, to: organization.child_needs.count)
+      organization.child_needs.order("RANDOM()").limit(limit).find_each do |child_need|
+        create(:experience, experienceable: family, child_need: child_need)
+      end
     end
 
     trait :with_exclusions do
