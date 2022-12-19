@@ -32,6 +32,7 @@ class SearchesController < AuthenticatedController
     if @search.save
       redirect_to(@search, flash: { success: "Successfully created search." }, status: :see_other)
     else
+      flash[:error] = @search.errors.full_messages.to_sentence
       render(action: "new")
     end
   end
@@ -45,6 +46,7 @@ class SearchesController < AuthenticatedController
         format.json { render(json: @search) }
       end
     else
+      flash[:error] = @search.errors.full_messages.to_sentence
       render(action: "edit")
     end
   end

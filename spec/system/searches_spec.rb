@@ -53,6 +53,22 @@ RSpec.describe("Search") do
       expect(page).to(have_text(school_district_family.name))
       expect(page).not_to(have_text(other_school_district_family.name))
     end
+
+    it "shows an error if children have gender but no age" do
+      visit "/searches/new"
+      fill_in("Search name", with: "Test")
+      select("Girl", from: "Gender")
+      click_on("Create Search")
+      expect(page).to(have_text("Children age can't be blank"))
+    end
+
+    it "shows an error if children have age but no gender" do
+      visit "/searches/new"
+      fill_in("Search name", with: "Test")
+      fill_in("Age", with: 3)
+      click_on("Create Search")
+      expect(page).to(have_text("Children gender can't be blank"))
+    end
   end
 
   describe "edit" do
@@ -67,8 +83,9 @@ RSpec.describe("Search") do
   end
 
   describe "update" do
+    let(:search) { create(:search, organization: organization) }
+
     it "allows updating a search" do
-      search = create(:search, organization: organization)
       visit edit_search_path(search)
       fill_in("Search name", with: "New Name")
       check("Transport to visits")
@@ -80,6 +97,20 @@ RSpec.describe("Search") do
           search.reload.query.dig("available_visit_transportation"),
         ),
       ).to(be(true))
+    end
+
+    it "shows an error if children have gender but no age" do
+      visit edit_search_path(search)
+      select("Girl", from: "Gender")
+      click_on("Update Search")
+      expect(page).to(have_text("Children age can't be blank"))
+    end
+
+    it "shows an error if children have age but no gender" do
+      visit edit_search_path(search)
+      fill_in("Age", with: 3)
+      click_on("Update Search")
+      expect(page).to(have_text("Children gender can't be blank"))
     end
   end
 end
