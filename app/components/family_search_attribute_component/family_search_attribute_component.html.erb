@@ -57,7 +57,7 @@
             </li>
           <% end %>
 
-          <% search_items_missing_from_family.sort.each do |item| %>
+          <% search_items_missing_from_family.sort_by { |i| i.respond_to?(:name) ? i.name : i }.each do |item| %>
             <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
               <div class="flex w-0 flex-1 items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-red-500">
