@@ -26,9 +26,15 @@ FactoryBot.define do
           Family.recreational_activities.sample(Faker::Number.between(from: 1,
             to: Family.recreational_activities.count)),
         "skills" => Family.skills.sample(Faker::Number.between(from: 1, to: Family.skills.count)),
-        "experience_with_care" =>
-          Family.experience_with_care.sample(Faker::Number.between(from: 1, to: Family.experience_with_care.count)),
       }
+    end
+
+    after(:create) do |search|
+      organization = search.organization
+      limit = Faker::Number.between(from: 1, to: organization.child_needs.count)
+      organization.child_needs.order("RANDOM()").limit(limit).find_each do |child_need|
+        create(:experience, experienceable: search, child_need: child_need)
+      end
     end
 
     trait :with_children do
