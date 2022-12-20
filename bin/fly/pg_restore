@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "fileutils"
+require "dotenv"
+
+# path to your application root.
+APP_ROOT = File.expand_path("../..", __dir__)
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+FileUtils.chdir(APP_ROOT) do
+  env = Dotenv.load(".env.production.local")
+  puts APP_ROOT
+  puts "🌪️ Restoring database to Fly.io 🌪️"
+  restore_command = "gunzip -c #{env.fetch("FLY_DATABASE_BACKUP_FILE")} | psql -U " \
+    "#{env.fetch("FLY_DATABASE_USERNAME")} -h localhost -p 15432 -W -d #{env.fetch("FLY_DATABASE")}"
+  puts restore_command
+  system! restore_command
+end
