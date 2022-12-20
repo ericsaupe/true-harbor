@@ -8,6 +8,12 @@ RSpec.describe(Result) do
   let(:family) { result.family }
 
   describe "#calculate_score" do
+    before do
+      # We need to remove the defaults to ensure we are testing the calculation correctly
+      family.experiences.destroy_all
+      search.experiences.destroy_all
+    end
+
     it "calculates child needs" do
       search.update(query: {})
       child_need = create(:child_need, organization: search.organization)

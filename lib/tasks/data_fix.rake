@@ -69,10 +69,15 @@ namespace :data_fix do
       "Deaf",
     ]
 
+    progress_bar = ProgressBar.create(
+      total: Organization.all.count + Family.all.count + Search.all.count + Result.all.count,
+    )
+
     Organization.all.find_each do |organization|
       legacy_experience_with_care.each do |legacy_child_need|
         ChildNeed.find_or_create_by(name: legacy_child_need, organization: organization)
       end
+      progress_bar.increment
     end
 
     Family.all.find_each do |family|
@@ -82,6 +87,7 @@ namespace :data_fix do
           Experience.find_or_create_by(experienceable: family, child_need: child_need)
         end
       end
+      progress_bar.increment
     end
 
     Search.all.find_each do |search|
@@ -91,8 +97,13 @@ namespace :data_fix do
           Experience.find_or_create_by(experienceable: search, child_need: child_need)
         end
       end
+      search.save unless search.completed? # trigger callbacks
+      progress_bar.increment
     end
 
-    Result.all.find_each(&:save)
+    Result.all.find_each do |result|
+      result.save
+      progress_bar.increment
+    end
   end
 end

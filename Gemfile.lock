@@ -373,6 +373,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   rubocop-shopify
+  ruby-progressbar
   selenium-webdriver
   sentry-rails
   sentry-ruby
