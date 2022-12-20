@@ -38,7 +38,7 @@ task generate_data: :environment do
   organization.families.find_each do |family|
     family.update!(
       region: organization.regions.order("RANDOM()").first,
-      school_district: organization.school_districts.order("RANDOM()").first
+      school_district: organization.school_districts.order("RANDOM()").first,
     )
   end
   # Create searches

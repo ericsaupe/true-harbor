@@ -14,8 +14,8 @@ class Search < ApplicationRecord
   serialize :query, JSON
 
   after_validation :geocode
-  after_save :calculate_results
-  after_save :remove_filtered_results
+  after_save :calculate_results, unless: :completed?
+  after_save :remove_filtered_results, unless: :completed?
   after_update_commit { broadcast_replace_later_to :searches_table, partial: "searches/search_table_row" }
 
   scope :not_completed, -> { where(completed_at: nil) }
