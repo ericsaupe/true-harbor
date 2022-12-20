@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "fileutils"
+require "dotenv"
+
+# path to your application root.
+APP_ROOT = File.expand_path("../..", __dir__)
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+FileUtils.chdir(APP_ROOT) do
+  env = Dotenv.load(".env.production.local")
+  puts APP_ROOT
+  puts "💾 Dumping database from Fly.io 💾"
+  dump_command = "pg_dump -U #{env.fetch("FLY_READONLY_DATABASE_USERNAME")} -h localhost -p 15432 -W -c -d " \
+    "#{env.fetch("FLY_READONLY_DATABASE")} | gzip > #{env.fetch("FLY_DATABASE_BACKUP_FILE")}"
+  puts dump_command
+  system! dump_command
+end

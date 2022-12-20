@@ -4,13 +4,13 @@
 require "fileutils"
 
 # path to your application root.
-APP_ROOT = File.expand_path("..", __dir__)
+APP_ROOT = File.expand_path("../..", __dir__)
 
 def system!(*args)
   system(*args) || abort("\n== Command #{args} failed ==")
 end
 
-FileUtils.chdir APP_ROOT do
+FileUtils.chdir(APP_ROOT) do
   puts "📡 Proxying database from Fly.io 📡"
   proxy_command = "flyctl proxy 15432:5432 -a true-harbor-db"
   puts proxy_command

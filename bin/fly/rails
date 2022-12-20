@@ -4,7 +4,7 @@
 require "fileutils"
 
 # path to your application root.
-APP_ROOT = File.expand_path("..", __dir__)
+APP_ROOT = File.expand_path("../..", __dir__)
 
 def system!(*args)
   system(*args) || abort("\n== Command #{args} failed ==")
@@ -12,7 +12,7 @@ end
 
 raise "You must specify a command to run" if ARGV.empty?
 
-FileUtils.chdir APP_ROOT do
+FileUtils.chdir(APP_ROOT) do
   puts "🚨 Running production rails command on Fly.io 🚨"
   console_command = "fly ssh console -C \"app/bin/rails #{ARGV.join(" ")}\""
   puts console_command
