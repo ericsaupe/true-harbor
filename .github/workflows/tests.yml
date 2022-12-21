@@ -21,7 +21,6 @@ jobs:
           rubocop_version: gemfile
           rubocop_extensions: rubocop-rails:gemfile rubocop-rspec:gemfile rubocop-shopify:gemfile
           github_token: ${{ github.token }}
-          reporter: github-check
           fail_on_error: true
 
   rspec:
@@ -32,9 +31,9 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
+          TRUE_HARBOR_DATABASE_USER: postgres
+          TRUE_HARBOR_DATABASE_PASSWORD: postgres
+          TRUE_HARBOR_DATABASE_DB: true_harbor_test
         ports:
           - 5432:5432
         options: >-
@@ -61,16 +60,16 @@ jobs:
       - name: Setup Database
         env:
           RAILS_ENV: test
-          POSTGRES_HOST: localhost
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          TRUE_HARBOR_DATABASE_HOST: localhost
+          TRUE_HARBOR_DATABASE_USER: postgres
+          TRUE_HARBOR_DATABASE_PASSWORD: postgres
         run: bin/rails db:create db:schema:load
       - name: Build and test with rspec
         env:
           RAILS_ENV: test
-          POSTGRES_HOST: localhost
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          TRUE_HARBOR_DATABASE_HOST: localhost
+          TRUE_HARBOR_DATABASE_USER: postgres
+          TRUE_HARBOR_DATABASE_PASSWORD: postgres
         run: bundle exec rspec
 
       - name: Archive failure screenshots
