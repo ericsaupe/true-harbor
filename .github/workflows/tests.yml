@@ -67,7 +67,9 @@ jobs:
       - name: Generate assets
         env:
           RAILS_ENV: test
-        run: bin/rails tailwindcss:build
+        run: |
+          bin/rails tailwindcss:build
+          bin/rails assets:precompile
       - name: Build and test with rspec
         env:
           RAILS_ENV: test
