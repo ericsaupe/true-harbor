@@ -70,6 +70,7 @@ jobs:
           TRUE_HARBOR_DATABASE_HOST: localhost
           TRUE_HARBOR_DATABASE_USER: postgres
           TRUE_HARBOR_DATABASE_PASSWORD: postgres
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: bundle exec rspec
 
       - name: Archive failure screenshots
