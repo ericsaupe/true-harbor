@@ -31,9 +31,9 @@ jobs:
       postgres:
         image: postgres
         env:
-          TRUE_HARBOR_DATABASE_USER: postgres
-          TRUE_HARBOR_DATABASE_PASSWORD: postgres
-          TRUE_HARBOR_DATABASE_DB: true_harbor_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
         ports:
           - 5432:5432
         options: >-
