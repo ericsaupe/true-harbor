@@ -64,6 +64,10 @@ jobs:
           TRUE_HARBOR_DATABASE_USER: postgres
           TRUE_HARBOR_DATABASE_PASSWORD: postgres
         run: bin/rails db:create db:schema:load
+      - name: Generate assets
+        env:
+          RAILS_ENV: test
+        run: bin/rails tailwindcss:build
       - name: Build and test with rspec
         env:
           RAILS_ENV: test
