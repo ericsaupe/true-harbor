@@ -22,8 +22,9 @@ module Admin
 
     def display_errors
       yield
-    rescue => e
-      flash[:error] = e.message
+    rescue => exception
+      Sentry.capture_exception(exception)
+      flash[:error] = exception.message
       redirect_back(fallback_location: admin_root_path)
     end
 
