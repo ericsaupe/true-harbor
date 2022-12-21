@@ -6,6 +6,7 @@ RSpec.describe(CsvImporter::Idaho) do
   describe "#self.import" do
     it "imports a CSV file" do
       organization = create(:organization)
+      expect(organization.families.count).to(eq(0))
       file = file_fixture("idaho.csv")
       expect do
         described_class.import(organization, file)
@@ -36,6 +37,7 @@ RSpec.describe(CsvImporter::Idaho) do
 
     it "imports handles weird hidden characters in headers" do
       organization = create(:organization)
+      expect(organization.families.count).to(eq(0))
       file = file_fixture("bad.csv")
       expect do
         described_class.import(organization, file)
