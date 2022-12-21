@@ -11,6 +11,17 @@ RSpec.describe("Admin") do
     sign_in(admin)
   end
 
+  it "renders the admin" do
+    visit "/admin"
+    expect(page).to(have_text("Back to app"))
+  end
+
+  it "renders the admin in production mode" do
+    allow(Rails).to(receive(:env).and_return("production".inquiry)) # rubocop:disable Rails/Inquiry
+    visit "/admin"
+    expect(page).to(have_text("Back to app"))
+  end
+
   it "queues up import jobs" do
     visit "/admin/imports/new"
     attach_file("File", Rails.root.join("spec/fixtures/files/idaho.csv"))

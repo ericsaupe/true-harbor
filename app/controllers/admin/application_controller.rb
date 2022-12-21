@@ -9,7 +9,10 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     before_action :authenticate_admin
-    around_action :display_errors, if: Rails.env.production?
+
+    if Rails.env.production?
+      around_action :display_errors
+    end
 
     def authenticate_admin
       return true if current_user.admin?
