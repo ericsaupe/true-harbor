@@ -15,7 +15,7 @@ class SearchesController < AuthenticatedController
 
   def show
     @results = if @search.completed? || params[:include_exclusions] == "true"
-      @search.results.includes(:family)
+      @search.results
     else
       @search.results_without_exclusions
     end.order(score: :desc, created_at: :desc)
