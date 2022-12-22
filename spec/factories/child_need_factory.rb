@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :child_need do
     organization
-    name { Faker::Lorem.word.capitalize }
+    name { Faker::Lorem.unique.word.capitalize }
   end
 end
