@@ -8,6 +8,7 @@ class Search < ApplicationRecord
   has_many :children, dependent: :destroy
   has_many :experiences, as: :experienceable, dependent: :destroy
   has_many :child_needs, through: :experiences
+  has_many :exclusions, through: :organization
 
   accepts_nested_attributes_for :children, allow_destroy: true, reject_if: :all_blank
 
@@ -55,16 +56,16 @@ class Search < ApplicationRecord
   end
 
   def results_without_exclusions
-    results = self.results.includes(family: :exclusions)
+    results = self.results.includes(family: :region)
     children.find_each do |child|
       # TODO: Genders here seem to be pulling from the wrong place and pluralizing seems to help. The genders filtered
       # here are for the child and not the exclusion. It may have something to do with changing the enum values but
       # the tests seem to confirm this to work as is.
-      results = results.where.not(families: { id: organization.exclusions.where(
+      results = results.where.not(families: { id: exclusions.where(
         family: families, gender: [:any, child.gender], comparator: :less_than,
         age: child.age..18
       ).pluck(:family_id) })
-      results = results.where.not(families: { id: organization.exclusions.where(
+      results = results.where.not(families: { id: exclusions.where(
         family: families, gender: [:any, child.gender], comparator: :greater_than,
         age: 0..child.age
       ).pluck(:family_id) })
