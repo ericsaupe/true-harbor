@@ -12,7 +12,7 @@ end
 
 FileUtils.chdir(APP_ROOT) do
   puts "💻 Opening production console on Fly.io 💻"
-  console_command = "fly ssh console -C \"app/bin/rails console -- --noautocomplete\""
+  console_command = "fly ssh console -a true-harbor -C \"app/bin/rails console -- --noautocomplete\""
   puts console_command
   system! console_command
 end
