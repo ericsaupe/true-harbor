@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   end
   get "/", to: "searches#index"
 
+  get "/analytics", to: "analytics#index"
+
   resources :families do
     member do
       put :contacted
