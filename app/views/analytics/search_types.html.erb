@@ -1,3 +1,8 @@
-<turbo-frame id="search-types" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-  <%= render(PieChartComponent.new(data: @data, title: "Types of searches")) %>
-</turbo-frame>
+<%= render(
+  partial: "graph_container",
+  locals: {
+    id: "search-types",
+    component: PieChartComponent.new(data: @data, title: "Types of searches"),
+    size: "col-span-2"
+  }
+)%>
