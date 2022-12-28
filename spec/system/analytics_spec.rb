@@ -29,5 +29,12 @@ RSpec.describe("Admin") do
       visit("/")
       expect(page).to(have_content("Analytics"))
     end
+
+    it "renders the charts" do
+      visit("/analytics")
+      expect(page).to(have_selector("[data-controller=\"charts--pie-chart\"]"))
+      expect(page).to(have_selector("[data-controller=\"charts--stacked-bar-chart\"]"))
+      expect(page).to(have_content("Average Completed Search Times"))
+    end
   end
 end
