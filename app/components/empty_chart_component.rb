@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class EmptyGraphComponent < ViewComponent::Base
+class EmptyChartComponent < ViewComponent::Base
   def initialize(id:, path:, size: nil)
     @id = id
     @path = path
