@@ -36,5 +36,16 @@ RSpec.describe("Admin") do
       expect(page).to(have_selector("[data-controller=\"charts--stacked-bar-chart\"]"))
       expect(page).to(have_content("Average Completed Search Times"))
     end
+
+    it "renders the average time to complete table" do
+      Timecop.freeze do
+        create(:search, organization: organization, created_at: 1.day.ago, completed_at: 1.day.ago + 10.minutes)
+        create(:search, organization: organization, created_at: 1.day.ago, completed_at: 1.day.ago + 20.minutes)
+      end
+
+      visit("/analytics")
+      expect(page).to(have_content("Average Completed Search Times"))
+      expect(page).to(have_content("15 minutes"))
+    end
   end
 end

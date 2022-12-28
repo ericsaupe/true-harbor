@@ -8,7 +8,7 @@ class AnalyticsController < AuthenticatedController
   def average_search_time
     @data = @organization.searches.completed.group(:category)
       .average("completed_at - created_at").map do |type, average|
-      { type: type.titleize, average: ActiveSupport::Duration.build(average).inspect.gsub!(/, and.+/, "") }
+      { type: type.titleize, average: ActiveSupport::Duration.build(average).inspect.gsub(/, and.+/, "") }
     end
   end
 
