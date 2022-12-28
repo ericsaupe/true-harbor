@@ -13,7 +13,9 @@ class AnalyticsController < AuthenticatedController
   end
 
   def search_types
-    @data = @organization.searches.group(:category).count.map { |type, count| { type: type.titleize, count: } }.to_json
+    grouped_search_types = @organization.searches.group(:category).count
+    grouped_search_types = Search.categories.map { |type, _| [type, 0] }.to_h if grouped_search_types.empty?
+    @data = grouped_search_types.map { |type, count| { type: type.titleize, count: } }.to_json
   end
 
   def searches_by_created_at
