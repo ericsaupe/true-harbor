@@ -15,7 +15,6 @@ class Search < ApplicationRecord
   serialize :query, JSON
 
   after_validation :geocode
-  after_save :calculate_results, unless: :completed?
   after_save :remove_filtered_results, unless: :completed?
   after_update_commit { broadcast_replace_later_to :searches_table, partial: "searches/search_table_row" }
 
@@ -45,7 +44,12 @@ class Search < ApplicationRecord
 
   def calculate_results
     find_families.find_each do |family|
-      Result.find_or_create_by!(search: self, family: family)
+      result = results.find_by(family: family)
+      if result.present?
+        result.save! # save to recalculate score
+      else
+        results.create!(family: family)
+      end
     end
   end
 

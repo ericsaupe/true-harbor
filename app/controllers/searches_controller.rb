@@ -32,6 +32,7 @@ class SearchesController < AuthenticatedController
     @search = @organization.searches.new(search_params)
     if @search.save
       save_experiences
+      @search.calculate_results
       redirect_to(@search, flash: { success: "Successfully created search." }, status: :see_other)
     else
       flash[:error] = @search.errors.full_messages.to_sentence
@@ -42,6 +43,7 @@ class SearchesController < AuthenticatedController
   def update
     if @search.update(search_params)
       save_experiences
+      @search.calculate_results
       respond_to do |format|
         format.html do
           redirect_to(search_path(@search), flash: { success: "Successfully updated search." }, status: :see_other)
