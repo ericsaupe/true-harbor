@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   end
   get "/", to: "searches#index"
 
-  get "/analytics", to: "analytics#index"
+  resources :analytics, only: [:index] do
+    collection do
+      get :search_types
+    end
+  end
 
   resources :families do
     member do
