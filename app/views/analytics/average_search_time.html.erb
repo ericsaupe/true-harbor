@@ -1,0 +1,24 @@
+<turbo-frame
+  id="average-search-time"
+  class="h-auto overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6"
+>
+  <div class="w-full h-full px-4">
+    <h2 class="text-xs text-center font-bold text-gray-600">Average completed search times</h2>
+    <%= render(TableComponent.new()) do %>
+      <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="sticky top-0 z-10 border-b border-pink-300 bg-pink-50 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-xs font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">Search Type</th>
+            <th scope="col" class="sticky top-0 z-10 border-b border-pink-300 bg-pink-50 bg-opacity-75 px-3 py-3.5 text-left text-xs font-semibold text-gray-900 backdrop-blur backdrop-filter">Average Time to Complete</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white text-sm">
+          <% @data.each do |row| %>
+            <tr>
+              <td><%= row[:type] %></td>
+              <td><%= row[:average] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+    <% end %>
+  </div>
+</turbo-frame>

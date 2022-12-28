@@ -2,7 +2,7 @@
   <%= render(PageHeaderComponent.new(page_title: "Analytics")) %>
 
   <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
-  <%= render(
+    <%= render(
       EmptyChartComponent.new(
         id: "search-types",
         path: search_types_analytics_path
@@ -13,6 +13,12 @@
         id: "search-created-at-bar-chart",
         path: searches_by_created_at_analytics_path,
         size: "col-span-2"
+      )
+    ) %>
+    <%= render(
+      EmptyChartComponent.new(
+        id: "average-search-time",
+        path: average_search_time_analytics_path
       )
     ) %>
   </div>
