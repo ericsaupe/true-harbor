@@ -4,33 +4,35 @@
   <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
   <dt class="text-sm font-medium text-gray-500"><%= @label %></dt>
   <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-    <ul role="list" class="divide-y divide-gray-200 rounded-md border border-gray-200">
-      <% @attribute.each do |attribute_hash| %>
-        <% if @family.send(attribute_hash[:attribute]) %>
-          <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
-            <div class="flex w-0 flex-1 items-center">
-              <% if search_has_attribute?(attribute_hash[:attribute]) %>
-                <% if same_attribute?(attribute_hash[:attribute]) %>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-emerald-500">
+    <% if @attribute.any? { |attribute_hash| @family.send(attribute_hash[:attribute]) } %>
+      <ul role="list" class="divide-y divide-gray-200 rounded-md border border-gray-200">
+        <% @attribute.each do |attribute_hash| %>
+          <% if @family.send(attribute_hash[:attribute]) %>
+            <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+              <div class="flex w-0 flex-1 items-center">
+                <% if search_has_attribute?(attribute_hash[:attribute]) %>
+                  <% if same_attribute?(attribute_hash[:attribute]) %>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-emerald-500">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                    </svg>
+                  <% else %>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-red-500">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+                    </svg>
+                  <% end %>
+                  <span class="ml-2 w-0 flex-1 truncate font-bold"><%= attribute_hash[:label] %></span>
+                <% else %>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-pink-300">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
                   </svg>
-                <% else %>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-red-500">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
-                  </svg>
+                  <span class="ml-2 w-0 flex-1 truncate"><%= attribute_hash[:label] %></span>
                 <% end %>
-                <span class="ml-2 w-0 flex-1 truncate font-bold"><%= attribute_hash[:label] %></span>
-              <% else %>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-pink-300">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-                </svg>
-                <span class="ml-2 w-0 flex-1 truncate"><%= attribute_hash[:label] %></span>
-              <% end %>
-            </div>
-          </li>
+              </div>
+            </li>
+          <% end %>
         <% end %>
-      <% end %>
-    </ul>
+      </ul>
+    <% end %>
   </dd>
 </div>
 <% else %>
@@ -38,41 +40,43 @@
     <dt class="text-sm font-medium text-gray-500"><%= display_attribute %></dt>
     <% if array_of_values? %>
       <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-        <ul role="list" class="divide-y divide-gray-200 rounded-md border border-gray-200">
-          <% @family.send(@attribute).sort_by { |i| i.respond_to?(:name) ? i.name : i }.each do |item| %>
-            <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
-              <div class="flex w-0 flex-1 items-center">
-                <% if item_in_array?(item) %>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-emerald-500">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+        <% if @family.send(@attribute).any? %>
+          <ul role="list" class="divide-y divide-gray-200 rounded-md border border-gray-200">
+            <% @family.send(@attribute).sort_by { |i| i.respond_to?(:name) ? i.name : i }.each do |item| %>
+              <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+                <div class="flex w-0 flex-1 items-center">
+                  <% if item_in_array?(item) %>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-emerald-500">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="ml-2 w-0 flex-1 truncate font-bold"><%= item %></span>
+                  <% else %>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-pink-300">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="ml-2 w-0 flex-1 truncate"><%= item %></span>
+                  <% end %>
+                </div>
+              </li>
+            <% end %>
+
+            <% search_items_missing_from_family.sort_by { |i| i.respond_to?(:name) ? i.name : i }.each do |item| %>
+              <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+                <div class="flex w-0 flex-1 items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-red-500">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
                   </svg>
                   <span class="ml-2 w-0 flex-1 truncate font-bold"><%= item %></span>
-                <% else %>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-pink-300">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-                  </svg>
-                  <span class="ml-2 w-0 flex-1 truncate"><%= item %></span>
-                <% end %>
-              </div>
-            </li>
-          <% end %>
-
-          <% search_items_missing_from_family.sort_by { |i| i.respond_to?(:name) ? i.name : i }.each do |item| %>
-            <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
-              <div class="flex w-0 flex-1 items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-red-500">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
-                </svg>
-                <span class="ml-2 w-0 flex-1 truncate font-bold"><%= item %></span>
-              </div>
-            </li>
-          <% end %>
-        </ul>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
       </dd>
     <% else %>
       <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
         <% if search_has_attribute? %>
-          <div class="flex items-center justify-between py-3 pl-3 pr-4 text-sm font-bold">
+          <div class="flex items-center justify-between text-sm font-bold">
             <div class="flex w-0 flex-1 items-center">
               <% if same_attribute? %>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-emerald-500">
