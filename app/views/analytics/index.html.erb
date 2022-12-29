@@ -1,5 +1,12 @@
-<div class="px-4 sm:px-6 lg:px-8">
-  <%= render(PageHeaderComponent.new(page_title: "Analytics")) %>
+<div class="px-4 sm:px-6 lg:px-8" data-controller="analytics">
+  <%= render(PageHeaderComponent.new(page_title: "Analytics")) do %>
+    <%= select_tag(
+      "timeframe",
+      options_for_select({"All Time": "", "Last 7 Days": 7, "Last 14 Days": 14, "Last 30 Days": 30, "Last 90 Days": 90, "Year to Date": "YTD"}, "All Time"),
+      class: "flex-auto block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:max-w-xs sm:text-sm",
+      data: { action: "analytics#changeTimeframe" }
+      ) %>
+  <% end %>
 
   <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
     <div class="grid grid-cols-1 gap-5">
