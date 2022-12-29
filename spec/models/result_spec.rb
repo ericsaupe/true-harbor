@@ -27,5 +27,12 @@ RSpec.describe(Result) do
       result.calculate_score
       expect(result.score).to(eq(50))
     end
+
+    it "skips ICWA if ICWA is false" do
+      family.update(icwa: true)
+      search.update(query: { icwa: "false" })
+      result.calculate_score
+      expect(result.score).to(eq(100))
+    end
   end
 end
