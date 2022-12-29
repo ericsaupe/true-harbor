@@ -2,24 +2,50 @@
   <%= render(PageHeaderComponent.new(page_title: "Analytics")) %>
 
   <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
-    <%= render(
-      EmptyChartComponent.new(
-        id: "search-types",
-        path: search_types_analytics_path
-      )
-    ) %>
-    <%= render(
-      EmptyChartComponent.new(
-        id: "search-created-at-bar-chart",
-        path: searches_by_created_at_analytics_path,
-        size: "sm:col-span-2"
-      )
-    ) %>
-    <%= render(
-      EmptyChartComponent.new(
-        id: "average-search-time",
-        path: average_search_time_analytics_path
-      )
-    ) %>
+    <div class="grid grid-cols-1 gap-5">
+      <%= render(
+        EmptyChartComponent.new(
+          id: "search-types",
+          path: search_types_analytics_path
+        )
+      ) %>
+      <%= render(
+        EmptyChartComponent.new(
+          id: "average-search-time",
+          path: average_search_time_analytics_path
+        )
+      ) %>
+    </div>
+
+    <div class="sm:col-span-2 grid grid-cols-1 gap-5 place-content-start">
+      <div>
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
+          <%= render(
+            EmptySimpleStatsComponent.new(
+              id: "average-yes-per-search",
+              path: average_yes_per_search_analytics_path
+            )
+          ) %>
+          <%= render(
+            EmptySimpleStatsComponent.new(
+              id: "average-no-per-search",
+              path: average_no_per_search_analytics_path
+            )
+          ) %>
+          <%= render(
+            EmptySimpleStatsComponent.new(
+              id: "average-time-per-search",
+              path: average_time_per_search_analytics_path
+            )
+          ) %>
+        </div>
+      </div>
+      <%= render(
+        EmptyChartComponent.new(
+          id: "search-created-at-bar-chart",
+          path: searches_by_created_at_analytics_path
+        )
+      ) %>
+    </div>
   </div>
 </div>

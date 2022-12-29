@@ -12,6 +12,28 @@ class AnalyticsController < AuthenticatedController
     end
   end
 
+  def average_no_per_search
+    no_results_count = @organization.results.includes(:search)
+      .where(state: "declined").where.not(searches: { completed_at: nil }).size
+    completed_searches_count = @organization.searches.completed.size
+    @data = (no_results_count / completed_searches_count.to_f).round(2)
+    @title = "Average No's per Search"
+  end
+
+  def average_time_per_search
+    average = @organization.searches.completed.average("completed_at - created_at")
+    @data = average ? ActiveSupport::Duration.build(average).inspect.gsub(/, and.+/, "") : average
+    @title = "Average Time to Complete a Search"
+  end
+
+  def average_yes_per_search
+    yes_results_count = @organization.results.includes(:search)
+      .where(state: "selected").where.not(searches: { completed_at: nil }).size
+    completed_searches_count = @organization.searches.completed.size
+    @data = (yes_results_count / completed_searches_count.to_f).round(2)
+    @title = "Average Yes's per Search"
+  end
+
   def search_types
     grouped_search_types = @organization.searches.group(:category).count
     grouped_search_types = Search.categories.map { |type, _| [type, 0] }.to_h if grouped_search_types.empty?
@@ -26,7 +48,6 @@ class AnalyticsController < AuthenticatedController
       @data[day] ||= Array.new(24, 0)
       @data[day][hour] += count
     end
-    # @data = @data.map { |label, count| { label:, count: } }.to_json
 
     labels = []
     start_day = :sunday

@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :analytics, only: [:index] do
     collection do
       get :average_search_time
+      get :average_no_per_search
+      get :average_time_per_search
+      get :average_yes_per_search
       get :search_types
       get :searches_by_created_at
     end
