@@ -27,7 +27,8 @@ class FamilySearchAttributeComponent < ViewComponent::Base
 
   def search_has_attribute?(attribute = nil)
     attribute ||= @attribute
-    @search&.query&.dig(attribute).present?
+    (attribute == "icwa" && ActiveModel::Type::Boolean.new.cast(@search&.query&.dig(attribute))) ||
+      (attribute != "icwa" && @search&.query&.dig(attribute).present?)
   end
 
   def item_in_array?(item)
