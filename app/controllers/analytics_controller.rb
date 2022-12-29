@@ -23,7 +23,7 @@ class AnalyticsController < AuthenticatedController
   def average_time_per_search
     average = @organization.searches.completed.where(created_at: timeframe..).average("completed_at - created_at")
     @data = average ? ActiveSupport::Duration.build(average).inspect.gsub(/,? and.+/, "") : average
-    @title = "Average Time to Complete a Search"
+    @title = "Average Complete Time"
   end
 
   def average_yes_per_search
