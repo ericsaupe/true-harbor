@@ -20,7 +20,7 @@
           <div class="text-sm font-medium text-gray-900">
             <%= note.user&.display_name %>
           </div>
-          <p class="mt-0.5 text-sm text-gray-500">Commented at <%= note.created_at.strftime("%-m/%-d/%y %-l:%M %p") %></p>
+          <p class="mt-0.5 text-sm text-gray-500">Commented <%= note.created_at.strftime("%-m/%-d/%y %-l:%M %p") %></p>
         </div>
         <div class="mt-2 text-sm text-gray-700">
           <p><%= note.content %></p>
