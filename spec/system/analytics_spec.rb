@@ -92,14 +92,15 @@ RSpec.describe("Admin") do
     end
 
     describe "timeframe" do
-      before do
-        Timecop.freeze do
+      around do |example|
+        Timecop.freeze(Time.zone.local(2022, 9, 1, 12, 0, 0)) do
           create(:search, organization: organization, created_at: 1.year.ago, completed_at: 1.year.ago + 30.minutes)
           create(:search, organization: organization, created_at: 1.year.ago, completed_at: 1.year.ago + 30.minutes)
           create(:search, organization: organization, created_at: 8.days.ago, completed_at: 8.days.ago + 20.minutes)
           create(:search, organization: organization, created_at: 8.days.ago, completed_at: 8.days.ago + 20.minutes)
           create(:search, organization: organization, created_at: 1.day.ago, completed_at: 1.day.ago + 10.minutes)
           create(:search, organization: organization, created_at: 1.day.ago, completed_at: 1.day.ago + 10.minutes)
+          example.run
         end
       end
 
