@@ -25,7 +25,7 @@ export default class extends Controller {
       position: search,
       map: map,
       icon: {
-        url: "http://maps.google.com/mapfiles/kml/pal4/icon47.png"
+        url: "https://maps.google.com/mapfiles/kml/pal4/icon47.png"
       }
     })
 
