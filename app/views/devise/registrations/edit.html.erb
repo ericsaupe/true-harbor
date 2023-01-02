@@ -1,8 +1,4 @@
-<div>
-  <h1 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-    Settings
-  </h1>
-</div>
+<%= render PageHeaderComponent.new(page_title: "Settings") %>
 
 <div class="mt-5 md:mt-0">
   <%= render "devise/shared/error_messages", resource: resource %>
