@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :search do
     organization
     name { Faker::Name.name }
+    due_date { 1.week.from_now }
     query do
       {
         "city" => "Coeur d'Alene",

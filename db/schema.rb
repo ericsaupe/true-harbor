@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_233828) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_02_232149) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -159,6 +159,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_233828) do
     t.integer "category", default: 0
     t.decimal "latitude"
     t.decimal "longitude"
+    t.datetime "due_date"
     t.index ["organization_id"], name: "index_searches_on_organization_id"
   end
 

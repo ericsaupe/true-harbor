@@ -1,10 +1,18 @@
 import { Controller } from "@hotwired/stimulus"
+import flatpickr from "flatpickr"
 
 export default class extends Controller {
   static values = { with: String }
 
   connect() {
     this.element.dataset["action"] = "submit->form#disableForm"
+    flatpickr(".flatpickr", {
+      enableTime: true,
+      minDate: "today",
+      dateFormat: "Y-m-d H:i",
+      altInput: true,
+      altFormat: "F j, Y h:i K"
+    })
   }
 
   disableForm() {

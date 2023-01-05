@@ -23,6 +23,8 @@ class Search < ApplicationRecord
 
   enum :category, { imminent: 0, disruption: 1, step_down: 2, planned_move: 3, respite: 4 }
 
+  validates :due_date, comparison: { greater_than_or_equal_to: proc { Time.zone.now } }, allow_blank: true
+
   geocoded_by :address
 
   def completed?
