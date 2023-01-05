@@ -17,6 +17,7 @@ class SearchDashboard < Administrate::BaseDashboard
                                                                           ).keys
                                                                         }),
     children: Field::HasMany,
+    due_date: Field::DateTime,
     completed_at: Field::DateTime,
     families: Field::HasMany,
     name: Field::String,
@@ -41,6 +42,7 @@ class SearchDashboard < Administrate::BaseDashboard
     :id,
     :category,
     :children,
+    :due_date,
     :completed_at,
     :families,
     :name,
@@ -55,7 +57,7 @@ class SearchDashboard < Administrate::BaseDashboard
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [:category, :completed_at, :name].freeze
+  FORM_ATTRIBUTES = [:category, :due_date, :completed_at, :name].freeze
 
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search

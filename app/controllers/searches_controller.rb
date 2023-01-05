@@ -111,6 +111,7 @@ class SearchesController < AuthenticatedController
     allowed_params = params.require(:search).permit(
       :name,
       :category,
+      :due_date,
       query: {},
       children_attributes: [:id, :gender, :age, :_destroy],
     )

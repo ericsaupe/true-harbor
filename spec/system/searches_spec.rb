@@ -83,6 +83,17 @@ RSpec.describe("Search") do
       search = Search.last
       expect(search.reload.experiences.pluck(:child_need_id)).to(eq([child_needs.first.id]))
     end
+
+    it "saves due date" do
+      visit new_search_path
+      fill_in("Search name", with: "Test")
+      find("input.flatpickr[placeholder]").click
+      find(".flatpickr-day.today").click
+      click_on("Create Search")
+      expect(page).to(have_text("Successfully created search."))
+      search = Search.last
+      expect(search.reload.due_date).not_to(be_nil)
+    end
   end
 
   describe "edit" do
