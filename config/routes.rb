@@ -28,8 +28,9 @@ Rails.application.routes.draw do
   resources :searches do
     member do
       put :complete
-      put :reopen
       get :download_results
+      put :reopen
+      get :results_table
       get :search_families
     end
 

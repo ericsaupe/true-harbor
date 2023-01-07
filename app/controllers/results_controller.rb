@@ -7,8 +7,11 @@ class ResultsController < AuthenticatedController
     if @result.save
       respond_to do |format|
         format.html do
-          redirect_to(search_path(@result.search), flash: { success: "Successfully created result." },
-            status: :see_other)
+          redirect_to(
+            search_path(@result.search),
+            flash: { success: "Successfully created result." },
+            status: :see_other,
+          )
         end
         format.json { render(json: @result) }
       end
@@ -21,14 +24,20 @@ class ResultsController < AuthenticatedController
     if result.update(update_params)
       respond_to do |format|
         format.html do
-          redirect_to(search_path(result.search), flash: { success: "Successfully updated result." },
-            status: :see_other)
+          redirect_to(
+            search_path(result.search),
+            flash: { success: "Successfully updated result." },
+            status: :see_other,
+          )
         end
         format.json { render(json: result) }
       end
     else
-      redirect_to(search_path(result.search), flash: { error: result.errors.full_messages.to_sentence },
-        status: :see_other)
+      redirect_to(
+        search_path(result.search),
+        flash: { error: result.errors.full_messages.to_sentence },
+        status: :see_other,
+      )
     end
   end
 
@@ -37,8 +46,11 @@ class ResultsController < AuthenticatedController
     @result&.destroy
     respond_to do |format|
       format.html do
-        redirect_to(search_path(@result.search), flash: { success: "Successfully destroyed result." },
-          status: :see_other)
+        redirect_to(
+          search_path(@result.search),
+          flash: { success: "Successfully destroyed result." },
+          status: :see_other,
+        )
       end
       format.json { render(json: @result) }
     end
@@ -48,14 +60,20 @@ class ResultsController < AuthenticatedController
     if result.contacted
       respond_to do |format|
         format.html do
-          redirect_to(search_path(result.search), flash: { success: "Successfully marked result as contacted." },
-            status: :see_other)
+          redirect_to(
+            search_path(result.search),
+            flash: { success: "Successfully marked result as contacted." },
+            status: :see_other,
+          )
         end
         format.json { render(json: result) }
       end
     else
-      redirect_to(search_path(result.search), flash: { error: result.errors.full_messages.to_sentence },
-        status: :see_other)
+      redirect_to(
+        search_path(result.search),
+        flash: { error: result.errors.full_messages.to_sentence },
+        status: :see_other,
+      )
     end
   end
 

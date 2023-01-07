@@ -8,8 +8,12 @@ class Note < ApplicationRecord
     table_key = [noteable.class.name.downcase, noteable.id, "notes_feed"].join("_")
     # If this is the first note we need to replace the feed entirely to get rid of the empty state
     if noteable.notes.count == 1
-      broadcast_replace_later_to(table_key, target: "notes_container", partial: "notes/feed",
-        locals: { noteable: noteable })
+      broadcast_replace_later_to(
+        table_key,
+        target: "notes_container",
+        partial: "notes/feed",
+        locals: { noteable: noteable },
+      )
     else
       broadcast_prepend_later_to(table_key, partial: "notes/feed_item")
     end

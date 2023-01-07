@@ -30,8 +30,11 @@ RSpec.describe("Search") do
   describe "create" do
     it "hard filters by availability" do
       respite_family = create(:family, organization: organization, availability: ["Respite"])
-      respite_and_short_term_family = create(:family, organization: organization,
-        availability: ["Respite", "Short Term"])
+      respite_and_short_term_family = create(
+        :family,
+        organization: organization,
+        availability: ["Respite", "Short Term"],
+      )
       adoption_family = create(:family, organization: organization, availability: ["Adoption"])
       visit "/searches/new"
       fill_in("Search name", with: "Test")

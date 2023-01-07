@@ -14,13 +14,21 @@ namespace :true_harbor do
     progress_bar.increment
     # Create users
     if organization.users.find_by(email: "admin@example.com").nil?
-      admin = FactoryBot.create(:user, email: "admin@example.com", organization: organization,
-        confirmed_at: Time.current)
+      admin = FactoryBot.create(
+        :user,
+        email: "admin@example.com",
+        organization: organization,
+        confirmed_at: Time.current,
+      )
       admin.add_role(:admin)
     end
     if organization.users.find_by(email: "superadmin@example.com").nil? && !Rails.env.production?
-      admin = FactoryBot.create(:user, email: "superadmin@example.com", organization: organization,
-        confirmed_at: Time.current)
+      admin = FactoryBot.create(
+        :user,
+        email: "superadmin@example.com",
+        organization: organization,
+        confirmed_at: Time.current,
+      )
       admin.add_role(:super_admin)
     end
     10.times do |i|
@@ -37,10 +45,14 @@ namespace :true_harbor do
     FactoryBot.create_list(:school_district, 10, organization: organization)
     progress_bar.increment
     # Create families
-    FactoryBot.create_list(:family, 100, :with_exclusions,
+    FactoryBot.create_list(
+      :family,
+      100,
+      :with_exclusions,
       region: organization.regions.order("RANDOM()").first,
       school_district: organization.school_districts.order("RANDOM()").first,
-      organization: organization)
+      organization: organization,
+    )
     progress_bar.increment
     # Randomize regions
     organization.families.find_each do |family|

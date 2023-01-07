@@ -18,9 +18,13 @@ module Admin
           notice: translate_with_resource("create.success"),
         )
       else
-        render(:new, locals: {
-          page: Administrate::Page::Form.new(dashboard, resource),
-        }, status: :unprocessable_entity)
+        render(
+          :new,
+          locals: {
+            page: Administrate::Page::Form.new(dashboard, resource),
+          },
+          status: :unprocessable_entity,
+        )
       end
     end
 
