@@ -25,7 +25,6 @@ export default class extends Controller {
   }
 
   disconnect() {
-    console.log(date, "Disconnecting from controller...")
     clearInterval(this.timerValue)
   }
 }
