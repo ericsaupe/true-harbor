@@ -4,9 +4,15 @@ class User < ApplicationRecord
   rolify
   include Organizable
 
-  devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :validatable,
-    :confirmable, :lockable, :timeoutable, :trackable,
+  devise :database_authenticatable,
+    :registerable,
+    :recoverable,
+    :rememberable,
+    :validatable,
+    :confirmable,
+    :lockable,
+    :timeoutable,
+    :trackable,
     :omniauthable
 
   encrypts :first_name, :last_name, deterministic: true

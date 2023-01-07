@@ -10,8 +10,11 @@ class NotesController < AuthenticatedController
     if @note.save
       respond_to do |format|
         format.html do
-          redirect_to(polymorphic_path(@note.noteable), flash: { success: "Successfully created note." },
-            status: :see_other)
+          redirect_to(
+            polymorphic_path(@note.noteable),
+            flash: { success: "Successfully created note." },
+            status: :see_other,
+          )
         end
         format.turbo_stream do
           @note = Note.new(noteable: @note.noteable)

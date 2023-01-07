@@ -39,8 +39,11 @@ class Family < ApplicationRecord
   geocoded_by :address
 
   scope :not_on_break, -> {
-                         where("(on_break_start_date IS NULL OR on_break_start_date > :today) AND
-                                (on_break_end_date IS NULL OR on_break_end_date < :today)", today: Date.current)
+                         where(
+                           "(on_break_start_date IS NULL OR on_break_start_date > :today) AND
+                                (on_break_end_date IS NULL OR on_break_end_date < :today)",
+                           today: Date.current,
+                         )
                        }
   scope :including_any_availabilities, ->(availabilities) { where(matching_availability_query(availabilities, "OR")) }
 

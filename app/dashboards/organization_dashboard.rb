@@ -30,8 +30,17 @@ class OrganizationDashboard < Administrate::BaseDashboard
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [:id, :families, :name, :results, :searches, :subdomain, :users, :created_at,
-                          :updated_at,].freeze
+  SHOW_PAGE_ATTRIBUTES = [
+    :id,
+    :families,
+    :name,
+    :results,
+    :searches,
+    :subdomain,
+    :users,
+    :created_at,
+    :updated_at,
+  ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed

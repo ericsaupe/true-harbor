@@ -26,11 +26,14 @@ module ApplicationHelper
       render(association.to_s.singularize + "_fields", form: builder)
     end
 
-    button_tag(name, type: "button",
+    button_tag(
+      name,
+      type: "button",
       class: "inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium
         leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500
         focus:ring-offset-2",
-      data: { id: id, fields: fields.gsub("\n", ""), action: "nested-fields#add" })
+      data: { id: id, fields: fields.gsub("\n", ""), action: "nested-fields#add" },
+    )
   end
 
   def google_maps_api_key

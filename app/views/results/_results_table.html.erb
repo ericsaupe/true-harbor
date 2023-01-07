@@ -1,4 +1,10 @@
-<div data-controller="slide-over" data-slide-over-search-id-value="<%= @search.id %>">
+<div
+  id="<%= dom_id(@search, ["results-table", *params.permit(:include_exclusions, :page).values].join("-")) %>"
+  data-controller="slide-over polling"
+  data-slide-over-search-id-value="<%= @search.id %>"
+  data-polling-url-value="<%= results_table_search_path(@search, params.permit(:include_exclusions, :page)) %>"
+  data-polling-timer-value="0"
+>
   <%= render(TableComponent.new()) do %>
     <%= turbo_stream_from @search %>
     <thead class="bg-gray-50">
@@ -21,7 +27,7 @@
       <% end %>
     </tbody>
   <% end %>
-  <%= render(PaginationComponent.new(records: results, page: params[:page])) %>
+  <%= render(PaginationComponent.new(records: results, page: params[:page], params: {controller: 'searches', action: 'show'})) %>
 
   <%= render(SlideOverComponent.new()) %>
 </div>

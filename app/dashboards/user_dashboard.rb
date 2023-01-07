@@ -47,11 +47,29 @@ class UserDashboard < Administrate::BaseDashboard
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [:id, :confirmation_sent_at, :confirmed_at, :current_sign_in_at,
-                          :current_sign_in_ip, :email, :failed_attempts, :first_name, :last_name,
-                          :last_sign_in_at, :last_sign_in_ip, :locked_at, :notes, :organization, :phone,
-                          :reset_password_sent_at, :roles, :sign_in_count, :unconfirmed_email, :created_at,
-                          :updated_at,].freeze
+  SHOW_PAGE_ATTRIBUTES = [
+    :id,
+    :confirmation_sent_at,
+    :confirmed_at,
+    :current_sign_in_at,
+    :current_sign_in_ip,
+    :email,
+    :failed_attempts,
+    :first_name,
+    :last_name,
+    :last_sign_in_at,
+    :last_sign_in_ip,
+    :locked_at,
+    :notes,
+    :organization,
+    :phone,
+    :reset_password_sent_at,
+    :roles,
+    :sign_in_count,
+    :unconfirmed_email,
+    :created_at,
+    :updated_at,
+  ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed

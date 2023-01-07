@@ -43,8 +43,10 @@ class AnalyticsController < AuthenticatedController
 
   def searches_by_created_at
     @data = {}
-    @organization.searches.where(created_at: timeframe..).group_by_day_of_week(:created_at,
-      format: "%A").group_by_hour_of_day(:created_at).count.each do |day_and_hour, count|
+    @organization.searches.where(created_at: timeframe..).group_by_day_of_week(
+      :created_at,
+      format: "%A",
+    ).group_by_hour_of_day(:created_at).count.each do |day_and_hour, count|
       day, hour = day_and_hour
       @data[day] ||= Array.new(24, 0)
       @data[day][hour] += count

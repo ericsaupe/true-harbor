@@ -10,17 +10,19 @@ module MenuHelper
   end
 
   def inactive_desktop_menu_classes
-    ["text-gray-600",
-     "hover:bg-white",
-     "hover:text-gray-900",
-     "group",
-     "flex",
-     "items-center",
-     "px-2",
-     "py-2",
-     "text-sm",
-     "font-medium",
-     "rounded-md",].join(" ")
+    [
+      "text-gray-600",
+      "hover:bg-white",
+      "hover:text-gray-900",
+      "group",
+      "flex",
+      "items-center",
+      "px-2",
+      "py-2",
+      "text-sm",
+      "font-medium",
+      "rounded-md",
+    ].join(" ")
   end
 
   def mobile_menu_classes(controller:)
@@ -32,16 +34,18 @@ module MenuHelper
   end
 
   def inactive_mobile_menu_classes
-    ["text-gray-600",
-     "hover:bg-white",
-     "hover:text-gray-900",
-     "group",
-     "flex",
-     "items-center",
-     "px-2",
-     "py-2",
-     "text-base",
-     "font-medium",
-     "rounded-md",].join(" ")
+    [
+      "text-gray-600",
+      "hover:bg-white",
+      "hover:text-gray-900",
+      "group",
+      "flex",
+      "items-center",
+      "px-2",
+      "py-2",
+      "text-base",
+      "font-medium",
+      "rounded-md",
+    ].join(" ")
   end
 end

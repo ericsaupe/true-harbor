@@ -11,23 +11,35 @@ class Result < ApplicationRecord
   }
   after_create_commit -> {
     broadcast_prepend_to(search, partial: "results/result_table_row", target: "results")
-    broadcast_replace_to(search,
+    broadcast_replace_to(
+      search,
       partial: "searches/family_search_result",
       target: family,
-      locals: { search: search, family: family })
+      locals: { search: search, family: family },
+    )
   }
   after_destroy_commit -> {
     broadcast_remove_to(search)
-    broadcast_replace_to(search,
+    broadcast_replace_to(
+      search,
       partial: "searches/family_search_result",
       target: family,
-      locals: { search: search, family: family, selected: false })
+      locals: { search: search, family: family, selected: false },
+    )
   }
 
   scope :default, -> { where(state: "default") }
 
-  EXCLUDED_CALCULATION_FIELDS = ["address_1", "address_2", "city", "state", "zip", "distance", "region_id",
-                                 "experience_with_care",].freeze
+  EXCLUDED_CALCULATION_FIELDS = [
+    "address_1",
+    "address_2",
+    "city",
+    "state",
+    "zip",
+    "distance",
+    "region_id",
+    "experience_with_care",
+  ].freeze
 
   def broadcast_changes
     broadcast_replace_later_to(search, partial: "results/result_table_row")
