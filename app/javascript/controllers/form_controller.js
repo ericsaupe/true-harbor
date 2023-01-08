@@ -11,9 +11,6 @@ export default class extends Controller {
       dateFormat: "Y-m-d",
       altInput: true,
       altFormat: "F j, Y",
-      onReady: (_selectedDates, _dateStr, instance) => {
-        instance.altInput.classList.remove("text-white")
-      }
     })
   }
 
