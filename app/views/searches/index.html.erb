@@ -10,48 +10,64 @@
             <h2 class="text-xl font-semibold text-gray-900">Active Searches</h2>
           </div>
         </div>
-        <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <% @searches_not_completed.each do |search| %>
-            <li class="col-span-1 divide-y divide-pink-200 rounded-lg bg-pink-50 bg-opacity-75 shadow">
-              <div class="flex w-full items-center justify-between space-x-6 p-6">
-                <div class="flex-1 truncate">
-                  <div class="flex items-center space-x-3">
-                    <h3 class="truncate text-sm font-medium text-gray-900"><%= search.name %></h3>
-                    <span class="inline-block flex-shrink-0 rounded-full bg-pink-100 px-2 py-0.5 text-xs font-medium text-pink-800"><%= search.category.titleize %></span>
+        <div class="overflow-hidden bg-pink-50 shadow sm:rounded-md">
+          <ul role="list" class="divide-y divide-pink-200">
+            <% @searches_not_completed.each do |search| %>
+              <li>
+                <%= link_to(search_path(search), class: "block hover:bg-white") do %>
+                  <div class="px-4 py-4 sm:px-6">
+                    <div class="flex items-center justify-between">
+                      <p class="truncate text-sm font-medium text-gray-600"><%= search.name %></p>
+                      <div class="ml-2 flex flex-shrink-0">
+                        <p class="inline-flex rounded-full bg-pink-100 px-2 text-xs font-semibold leading-5 text-pink-800"><%= search.category.titleize %></p>
+                      </div>
+                    </div>
+                    <div class="mt-2 sm:flex justify-between">
+                      <div class="flex space-x-6">
+                        <p class="flex items-center text-sm text-gray-500">
+                          <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path d="M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z" />
+                          </svg>
+                          <%= search.results_without_exclusions.size %>
+                        </p>
+                        <% if search.query.dig("city").present? %>
+                          <p class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
+                            <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                              <path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" />
+                            </svg>
+                            <%= search.query.dig("city") %>
+                          </p>
+                        <% end %>
+                      </div>
+                      <div class="flex space-x-6">
+                        <% if search.due_date.present? %>
+                          <div class="mt-2 flex items-center text-sm <%= search.due_date < Time.zone.now ? "text-red-500" : "text-gray-500" %> sm:mt-0">
+                            <svg class="mr-1.5 h-5 w-5 flex-shrink-0 <%= search.due_date < Time.zone.now ? "text-red-400" : "text-gray-400" %>" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <p>
+                              Due on
+                              <time datetime="<%= search.due_date.strftime("%Y-%M-%d") %>"><%= search.due_date.strftime("%B %e, %Y") %></time>
+                            </p>
+                          </div>
+                        <% end %>
+                        <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                          <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                          </svg>
+
+                          <p>
+                            <time datetime="<%= search.created_at.strftime("%Y-%M-%d") %>"><%= search.created_at.strftime("%B %e, %Y") %></time>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <p class="mt-1 truncate text-sm text-gray-500"><%= search.query.dig("city") %></p>
-                </div>
-                <div class="w-10 h-10 border-2 rounded-full bg-white grid place-items-center">
-                  <svg class="w-7 h-7 bg-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                  </svg>
-                </div>
-              </div>
-              <div>
-                <div class="-mt-px flex divide-x divide-pink-200">
-                  <div class="flex w-0 flex-1 bg-pink-100">
-                    <%= link_to edit_search_path(search), data: { test: "edit-button" }, class: "hover:bg-white relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-500 hover:text-gray-900" do %>
-                      <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M5.433 13.917l1.262-3.155A4 4 0 017.58 9.42l6.92-6.918a2.121 2.121 0 013 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 01-.65-.65z" />
-                        <path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0010 3H4.75A2.75 2.75 0 002 5.75v9.5A2.75 2.75 0 004.75 18h9.5A2.75 2.75 0 0017 15.25V10a.75.75 0 00-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5z" />
-                      </svg>
-                      <span class="ml-3">Edit</span>
-                    <% end %>
-                  </div>
-                  <div class="-ml-px flex w-0 flex-1 bg-pink-100">
-                    <%= link_to search_path(search), data: { test: "view-button" }, class: "hover:bg-white relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500 hover:text-gray-900" do %>
-                      <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
-                        <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
-                      </svg>
-                      <span class="ml-3">View</span>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            </li>
-          <% end %>
-        </ul>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
       </div>
     </div>
   <% end %>
