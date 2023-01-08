@@ -23,8 +23,6 @@ class Search < ApplicationRecord
 
   enum :category, { imminent: 0, disruption: 1, step_down: 2, planned_move: 3, respite: 4 }
 
-  validates :due_date, comparison: { greater_than_or_equal_to: proc { Time.zone.now } }, allow_blank: true
-
   geocoded_by :address
 
   def completed?
@@ -99,5 +97,17 @@ class Search < ApplicationRecord
       query.dig("state"),
       query.dig("zip"),
     ].compact.join(", ")
+  end
+
+  ##
+  # This method is used to parse the date string and convert it to a date object set to end of day
+  # @param date [String] The date string to parse
+  def due_date=(date)
+    if date.present? && date.is_a?(String)
+      date = Timeliness.parse(date).end_of_day
+    end
+    super(date)
+  rescue ArgumentError => e
+    errors.add(:due_date, e.message)
   end
 end

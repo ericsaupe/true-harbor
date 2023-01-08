@@ -32,6 +32,7 @@ gem "sidekiq", "< 7"
 gem "sprockets-rails"
 gem "stimulus-rails"
 gem "tailwindcss-rails"
+gem "timeliness"
 gem "turbo-rails", "~> 1.1.1"
 gem "view_component"
 

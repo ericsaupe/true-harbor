@@ -322,6 +322,7 @@ GEM
       railties (>= 6.0.0)
     thor (1.2.1)
     timecop (0.9.6)
+    timeliness (0.4.4)
     timeout (0.3.1)
     turbo-rails (1.1.1)
       actionpack (>= 6.0.0)
@@ -397,6 +398,7 @@ DEPENDENCIES
   stimulus-rails
   tailwindcss-rails
   timecop
+  timeliness
   turbo-rails (~> 1.1.1)
   view_component
   web-console

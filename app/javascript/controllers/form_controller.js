@@ -7,11 +7,10 @@ export default class extends Controller {
   connect() {
     this.element.dataset["action"] = "submit->form#disableForm"
     flatpickr(".flatpickr", {
-      enableTime: true,
-      minDate: "today",
-      dateFormat: "Y-m-d H:i",
+      minDate: Date.now(),
+      dateFormat: "Y-m-d",
       altInput: true,
-      altFormat: "F j, Y h:i K"
+      altFormat: "F j, Y",
     })
   }
 
