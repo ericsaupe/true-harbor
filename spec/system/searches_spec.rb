@@ -85,14 +85,17 @@ RSpec.describe("Search") do
     end
 
     it "saves due date" do
-      visit new_search_path
-      fill_in("Search name", with: "Test")
-      find("input.flatpickr[placeholder]").click
-      find(".flatpickr-day.today").click
-      click_on("Create Search")
-      expect(page).to(have_text("Successfully created search."))
-      search = Search.last
-      expect(search.reload.due_date).not_to(be_nil)
+      Timecop.freeze do
+        visit new_search_path
+        fill_in("Search name", with: "Test")
+        find("input.flatpickr[placeholder]").click
+        find(".flatpickr-day.today").click
+        click_on("Create Search")
+        expect(page).to(have_text("Successfully created search."))
+        search = Search.last
+        expect(search.reload.due_date).not_to(be_nil)
+        expect(search.due_date.to_i).to(eq(Time.zone.now.end_of_day.to_i))
+      end
     end
   end
 
