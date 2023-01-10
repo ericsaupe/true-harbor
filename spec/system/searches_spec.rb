@@ -90,8 +90,8 @@ RSpec.describe("Search") do
       expect(search.reload.experiences.pluck(:child_need_id)).to(eq([child_needs.first.id]))
     end
 
-    it "saves due date" do
-      Timecop.freeze do
+    it "saves due date and sets it to midnight" do
+      Timecop.freeze(Time.zone.now.beginning_of_day) do
         visit new_search_path
         fill_in("Search name", with: "Test")
         find("input.flatpickr[placeholder]").click
@@ -100,7 +100,7 @@ RSpec.describe("Search") do
         expect(page).to(have_text("Successfully created search."))
         search = Search.last
         expect(search.reload.due_date).not_to(be_nil)
-        expect(search.due_date.to_i).to(eq(Time.zone.now.end_of_day.to_i))
+        expect(search.due_date.strftime("%Y-%m-%d %H:%M:%S")).to(include("23:59:59"))
       end
     end
   end
