@@ -20,6 +20,12 @@ RSpec.describe("Search") do
       end
     end
 
+    it "renders the due date if the search has one" do
+      create(:search, organization: organization, due_date: 1.day.from_now)
+      visit "/searches"
+      expect(page).to(have_text(1.day.from_now.strftime("%B %e, %Y")))
+    end
+
     it "does not render the edit button if the search is completed" do
       create(:search, organization: organization, completed_at: Time.current)
       visit "/searches"
