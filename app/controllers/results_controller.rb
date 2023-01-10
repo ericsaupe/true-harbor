@@ -14,6 +14,13 @@ class ResultsController < AuthenticatedController
           )
         end
         format.json { render(json: @result) }
+        format.turbo_stream do
+          render(turbo_stream: turbo_stream.prepend(
+            "results",
+            partial: "results/result_table_row",
+            locals: { result: @result },
+          ))
+        end
       end
     else
       redirect_to(search_path(@search), flash: { error: @result.errors.full_messages.to_sentence }, status: :see_other)
@@ -53,6 +60,9 @@ class ResultsController < AuthenticatedController
         )
       end
       format.json { render(json: @result) }
+      format.turbo_stream do
+        render(turbo_stream: turbo_stream.remove(result))
+      end
     end
   end
 

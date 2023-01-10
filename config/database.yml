@@ -18,7 +18,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: <%= ENV.fetch("TRUE_HARBOR_DATABASE", "true_harbor_test") %>
+  database: <%= ENV.fetch("TRUE_HARBOR_TEST_DATABASE", "true_harbor_test") %>
 
 production:
   <<: *default

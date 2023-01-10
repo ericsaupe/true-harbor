@@ -73,7 +73,7 @@ class SearchesController < AuthenticatedController
       format.turbo_stream do
         current_table_dom_id = dom_id(
           @search,
-          ["results-table", *params.permit(:include_exclusions, :page).values].join("-"),
+          ["results-table", *params.permit(:include_exclusions, :page).values.compact_blank!].join("-"),
         )
         render(turbo_stream: turbo_stream.replace(
           current_table_dom_id,

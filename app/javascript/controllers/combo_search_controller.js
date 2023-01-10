@@ -52,35 +52,33 @@ export default class extends Controller {
     // Grab the CSRF token from the meta tag if it exists. It doesn't exist in test.
     const csrfToken = document.querySelector("meta[name='csrf-token']") && document.querySelector("meta[name='csrf-token']").content
     if (selected !== "true") {
+      const queryString = window.location.search
+      const urlParams = new URLSearchParams(queryString)
       fetch(`/searches/${this.idValue}/results`, {
         method: "POST",
         headers: {
-          "Accept": "application/json",
+          "Accept": "text/vnd.turbo-stream.html",
           "Content-Type": "application/json",
           "X-CSRF-Token": csrfToken
         },
         body: JSON.stringify({
           family_id: familyId,
-          selected: selected === "true"
+          selected: selected === "true",
+          include_exclusions: urlParams.get("include_exclusions"),
+          page: urlParams.get("page")
         })
-      }).then(response => {
-        response.json().then(json => {
-          console.log(json)
-        })
-      })
+      }).then(r => r.text())
+      .then(html => Turbo.renderStreamMessage(html))
     } else {
       fetch(`/searches/${this.idValue}/results/destroy_by_family/${familyId}`, {
         method: "DELETE",
         headers: {
-          "Accept": "application/json",
+          "Accept": "text/vnd.turbo-stream.html",
           "Content-Type": "application/json",
           "X-CSRF-Token": csrfToken
         }
-      }).then(response => {
-        response.json().then(json => {
-          console.log(json)
-        })
-      })
+      }).then(r => r.text())
+        .then(html => Turbo.renderStreamMessage(html))
     }
   }
 }
