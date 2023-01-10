@@ -10,7 +10,7 @@ class SearchesController < AuthenticatedController
 
   def index
     all_searches = @organization.searches.all.order(created_at: :desc)
-    @searches_not_completed = all_searches.not_completed.reorder(due_date: :asc, created_at: :asc)
+    @searches_not_completed = all_searches.not_completed.reorder(due_date: :asc, created_at: :desc)
     @searches = all_searches.page(params[:page])
   end
 
