@@ -10,7 +10,7 @@ export default class extends Controller {
     const url = this.urlValue
     const element = this.element
     const protocol = (location.protocol === "https:") ? "wss:" : "ws:"
-    let socket = new WebSocket(`${protocol}//${window.location.host}/cable`)
+    const socket = new WebSocket(`${protocol}//${window.location.host}/cable`)
     socket.onclose = function(_event) {
       const timerId = setInterval(() => {
         fetch(url, {
